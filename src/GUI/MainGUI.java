@@ -10,8 +10,10 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -125,7 +127,7 @@ public class MainGUI extends javax.swing.JFrame {
         subMenuArchivoGuardarComo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //guardarArchivoComo();
+                guardarArchivoComo();
             }
         });
         
@@ -216,6 +218,51 @@ public class MainGUI extends javax.swing.JFrame {
         agregarBotonCierre(jTabbedPaneCodigo.indexOfTab("Sin nombre (" + nuevoNumero + ")"), "Sin nombre (" + nuevoNumero + ")");
 
     }
+  
+    private void guardarArchivoComo() {
+        JTabbedPane jTabbedPaneCodigo = JPaneEditor;
+
+        int indexPestanaActual = jTabbedPaneCodigo.getSelectedIndex();
+        if (indexPestanaActual == -1) {
+            // No hay pestaña seleccionada
+            JOptionPane.showMessageDialog(this, "No hay pestaña seleccionada para guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JTextArea textArea = (JTextArea) ((JScrollPane) jTabbedPaneCodigo.getComponentAt(indexPestanaActual)).getViewport().getView();
+        String contenido = textArea.getText();
+
+        JFileChooser fileChooser = new JFileChooser();
+        int resultado = fileChooser.showSaveDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoGuardar = fileChooser.getSelectedFile();
+            
+            // Verificar si el archivo ya existe en la ubicación seleccionada
+            if (archivoGuardar.exists()) {
+                int respuesta = JOptionPane.showConfirmDialog(this,
+                        "El archivo ya existe. ¿Deseas sobrescribirlo?",
+                        "Archivo Existente",
+                        JOptionPane.YES_NO_OPTION);
+                
+                if (respuesta != JOptionPane.YES_OPTION) {
+                    return; // El usuario no quiere sobrescribir el archivo
+                }
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivoGuardar))) {
+                String nuevoNombre = archivoGuardar.getName();
+                writer.write(contenido);
+                jTabbedPaneCodigo.setTitleAt(indexPestanaActual, nuevoNombre);
+                JOptionPane.showMessageDialog(this, "Archivo guardado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+
     
     //FUN FUNCIONES MANEJO DE ARCHIVOS
     
