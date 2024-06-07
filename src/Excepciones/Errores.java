@@ -2,38 +2,59 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Excepciones;
+package excepciones;
 
 /**
  *
- * @author msWas
+ * @author fabian
  */
 public class Errores {
-    private String descripcion;
     private String tipo;
+    private String desc;
     private int linea;
     private int columna;
 
-    public Errores(String descripcion, String tipo, int linea, int columna) {
-        this.descripcion = descripcion;
+    public Errores(String tipo, String desc, int linea, int columna) {
         this.tipo = tipo;
+        this.desc = desc;
         this.linea = linea;
         this.columna = columna;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
     }
 
     public String getTipo() {
         return tipo;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public int getLinea() {
         return linea;
     }
 
+    public void setLinea(int linea) {
+        this.linea = linea;
+    }
+
     public int getColumna() {
         return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    @Override
+    public String toString() {
+        return "Errores{" + "tipo=" + tipo + ", desc=" + desc + ", linea=" + linea + ", columna=" + columna + '}';
     }
 }

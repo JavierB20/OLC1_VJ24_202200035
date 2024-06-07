@@ -4,9 +4,8 @@
  */
 package RptHTML;
 
-import Excepciones.Errores;
+import excepciones.Errores;
 import java.util.List;
-import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -44,7 +43,7 @@ public class RptErrores {
                 writer.write("<tr>");
                 writer.write("<td>" + contadorT + "</td>");
                 writer.write("<td>" + token.getTipo() + "</td>");
-                writer.write("<td>" + token.getDescripcion() + "</td>");
+                writer.write("<td>" + token.getDesc() + "</td>");
                 writer.write("<td>" + token.getLinea() + "</td>");
                 writer.write("<td>" + token.getColumna() + "</td>");
                 writer.write("</tr>");
