@@ -6,6 +6,9 @@
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/PatronInterprete/patroninterprete.java</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/sintactico.cup</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/lexico.jflex</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/parser.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Abstracto/Instruccion.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/Generador.java</file>
         </group>
     </open-files>
 </project-private>

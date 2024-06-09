@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package abstracto;
 
 import simbolo.Arbol;
 import simbolo.Tipo;
-import simbolo.TablaSimbolo;
+import simbolo.tablaSimbolos;
 
-/**
- *
- * @author fabian
- */
 public abstract class Instruccion {
 
     public Tipo tipo;
@@ -24,6 +17,6 @@ public abstract class Instruccion {
         this.col = col;
     }
 
-    public abstract Object interpretar(Arbol arbol, TablaSimbolo tabla);
+    public abstract Object interpretar(Arbol arbol, tablaSimbolos tabla);
 
 }

@@ -17,12 +17,12 @@ public class Print extends Instruccion {
     private Instruccion expresion;
 
     public Print(Instruccion expresion, int linea, int col) {
-        super(new Tipo(TipoDato.VOID), linea, col);
+        super(new Tipo(tipoDato.VOID), linea, col);
         this.expresion = expresion;
     }
 
     @Override
-    public Object interpretar(Arbol arbol, TablaSimbolo tabla) {
+    public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         var resultado = this.expresion.interpretar(arbol, tabla);
         if (resultado instanceof Errores) {
             return resultado;

@@ -1,25 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package simbolo;
 
 /**
  *
- * @author fabian
+ * @author msWas
  */
 public class Tipo {
-    private TipoDato tipo;
+    private tipoDato tipo;
 
-    public Tipo(TipoDato tipo) {
+    public Tipo(tipoDato tipo) {
         this.tipo = tipo;
     }
 
-    public TipoDato getTipo() {
+    public tipoDato getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoDato tipo) {
+    public void setTipo(tipoDato tipo) {
         this.tipo = tipo;
     }
     

@@ -4,10 +4,7 @@
  */
 package simbolo;
 
-/**
- *
- * @author fabian
- */
+
 public class Simbolo {
     private Tipo tipo;
     private String id;

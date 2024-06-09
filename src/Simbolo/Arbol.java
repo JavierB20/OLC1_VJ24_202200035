@@ -8,21 +8,17 @@ import abstracto.Instruccion;
 import excepciones.Errores;
 import java.util.LinkedList;
 
-/**
- *
- * @author fabian
- */
 public class Arbol {
 
     private LinkedList<Instruccion> instrucciones;
     private String consola;
-    private TablaSimbolo tablaGlobal;
+    private tablaSimbolos tablaGlobal;
     private LinkedList<Errores> errores;
 
     public Arbol(LinkedList<Instruccion> instrucciones) {
         this.instrucciones = instrucciones;
         this.consola = "";
-        this.tablaGlobal = new TablaSimbolo();
+        this.tablaGlobal = new tablaSimbolos();
         this.errores = new LinkedList<>();
     }
 
@@ -42,11 +38,11 @@ public class Arbol {
         this.consola = consola;
     }
 
-    public TablaSimbolo getTablaGlobal() {
+    public tablaSimbolos getTablaGlobal() {
         return tablaGlobal;
     }
 
-    public void setTablaGlobal(TablaSimbolo tablaGlobal) {
+    public void setTablaGlobal(tablaSimbolos tablaGlobal) {
         this.tablaGlobal = tablaGlobal;
     }
 

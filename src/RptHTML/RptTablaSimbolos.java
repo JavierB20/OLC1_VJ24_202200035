@@ -4,7 +4,6 @@
  */
 package RptHTML;
 
-import Simbolo.TablaSimbolo;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,12 +11,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import simbolo.tablaSimbolos;
 
 /**
  *
  * @author msWas
  */
-public class TablaSimbolos {
+public class RptTablaSimbolos {
     //Creacion de nombre del reportes
     int contadorT = 1;
 
@@ -27,7 +27,7 @@ public class TablaSimbolos {
     String filename = "TablaSimbolos" + fechaFormateada + ".html";            
     String rutaArchivo = "src/RptSalida/TablaSimbolo/" + filename; 
 
-    public void generarReporte(List<TablaSimbolo> tokenList) {
+    public void generarReporte(List<tablaSimbolos> tokenList) {
         // Creacion del archivo
         File file = new File(rutaArchivo);
 
@@ -39,16 +39,16 @@ public class TablaSimbolos {
             writer.write("<h1>Tabla de Simbolos</h1>");
             writer.write("<table border='1'><tr><th>#</th><th>Id</th><th>Tipo</th><th>Tipo Dato</th><th>Entorno</th><th>Valor</th><th>Línea</th><th>Columna</th></tr>");
             
-            for (TablaSimbolo token : tokenList) {
+            for (tablaSimbolos token : tokenList) {
                 writer.write("<tr>");
                 writer.write("<td>" + contadorT + "</td>");
-                writer.write("<td>" + token.getId() + "</td>");
-                writer.write("<td>" + token.getTipo() + "</td>");
-                writer.write("<td>" + token.getTipoDato() + "</td>");
-                writer.write("<td>" + token.getEntorno() + "</td>");
-                writer.write("<td>" + token.getValor() + "</td>");
-                writer.write("<td>" + token.getLinea() + "</td>");
-                writer.write("<td>" + token.getColumna() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getNombre() + "</td>");
                 writer.write("</tr>");
                 contadorT++;
             }

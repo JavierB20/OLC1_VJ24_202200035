@@ -6,32 +6,29 @@ package simbolo;
 
 import java.util.HashMap;
 
-/**
- *
- * @author fabian
- */
-public class TablaSimbolo {
 
-    private TablaSimbolo tablaAnterior;
+public class tablaSimbolos {
+
+    private tablaSimbolos tablaAnterior;
     private HashMap<String, Object> tablaActual;
     private String nombre;
 
-    public TablaSimbolo() {
+    public tablaSimbolos() {
         this.tablaActual = new HashMap<>();
         this.nombre = "";
     }
 
-    public TablaSimbolo(TablaSimbolo tablaAnterior) {
+    public tablaSimbolos(tablaSimbolos tablaAnterior) {
         this.tablaAnterior = tablaAnterior;
         this.tablaActual = new HashMap<>();
         this.nombre = "";
     }
 
-    public TablaSimbolo getTablaAnterior() {
+    public tablaSimbolos getTablaAnterior() {
         return tablaAnterior;
     }
 
-    public void setTablaAnterior(TablaSimbolo tablaAnterior) {
+    public void setTablaAnterior(tablaSimbolos tablaAnterior) {
         this.tablaAnterior = tablaAnterior;
     }
 
