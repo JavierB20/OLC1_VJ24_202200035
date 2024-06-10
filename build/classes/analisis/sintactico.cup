@@ -3,17 +3,19 @@ package analisis;
 //importaciones
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
-import Abstracto.Instruccion;
-import Simbolo.Tipo;
-import Simbolo.TipoDato;
+import abstracto.Instruccion;
+import simbolo.Tipo;
+import simbolo.tipoDato;
 
 //instrucciones
 import Instrucciones.Print;
 
 //expresiones
-import Expresiones.Nativo;
-import Expresiones.Aritmeticas;
-import Expresiones.OperadoresAritmeticos;
+import expresiones.Nativo;
+import expresiones.Aritmeticas;
+import expresiones.OperadoresAritmeticos;
+
+
 
 // parser
 parser code
@@ -40,16 +42,20 @@ action code
 :}
 
 //terminales
-terminal String CADENA, ENTERO, DECIMAL;
-terminal FINCADENA, IMPRIMIR;
-terminal PAR1, PAR2, MAS, MENOS, UMENOS;
+terminal String CADENA, ENTERO, DECIMAL, CARACTER;
+terminal FINCADENA, PRINTLN;
+terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS;
+terminal VERDAD, FALSO;
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
 nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion EXPRESION;
 
-precedence left MAS;
+precedence left POTENCIA;
+precedence left MULT, DIV;
+precedence left MAS, MENOS;
+precedence left MOD;
 precedence left UMENOS;
 
 start with INICIO;
@@ -61,12 +67,21 @@ INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b)
                 | INSTRUCCION:a                   {: RESULT = new LinkedList<>(); RESULT.add(a); :}
 ;
 
-INSTRUCCION ::= IMPRIMIR PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
+INSTRUCCION ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
 ;
 
-EXPRESION ::= MENOS EXPRESION:a             {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
-            | EXPRESION:a MAS EXPRESION:b   {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
+EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
+            | EXPRESION:a MAS EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
+            | EXPRESION:a MENOS EXPRESION:b     {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
+            | EXPRESION:a POTENCIA EXPRESION:b  {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.POTENCIA, aleft, aright);   :}
+            | EXPRESION:a MULT EXPRESION:b      {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
+            | EXPRESION:a DIV EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.DIVISION, aleft, aright);   :}
+            | EXPRESION:a MOD EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MODULO, aleft, aright);   :}
+            | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :} 
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
             | CADENA:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.CADENA), aleft, aright );   :}
+            | CARACTER:a    {:   RESULT = new Nativo(a, new Tipo(tipoDato.CARACTER), aleft, aright );   :}
+            | VERDAD:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
+            | FALSO:a       {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
 ;
