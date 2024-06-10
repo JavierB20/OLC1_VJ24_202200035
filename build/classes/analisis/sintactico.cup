@@ -14,6 +14,8 @@ import Instrucciones.Print;
 import expresiones.Nativo;
 import expresiones.Aritmeticas;
 import expresiones.OperadoresAritmeticos;
+import Expresiones.OperadoresRelacionales;
+import Expresiones.Relacionales;
 
 
 
@@ -58,6 +60,7 @@ precedence left POTENCIA;
 precedence left MULT, DIV;
 precedence left MAS, MENOS;
 precedence left MOD;
+precedence left IGUALACION, DIFERENCIA, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL;
 precedence left UMENOS;
 
 start with INICIO;
@@ -79,6 +82,14 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | EXPRESION:a MULT EXPRESION:b      {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
             | EXPRESION:a DIV EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.DIVISION, aleft, aright);   :}
             | EXPRESION:a MOD EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MODULO, aleft, aright);   :}
+            
+            | EXPRESION:a IGUALACION EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.IGUALACION, aleft, aright);   :}
+            | EXPRESION:a DIFERENCIA EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.DIFERENCIA, aleft, aright);   :}
+            | EXPRESION:a MENORIGUAL EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENOROIGUAL, aleft, aright);   :}
+            | EXPRESION:a MENOR EXPRESION:b            {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORQUE, aleft, aright);   :}
+            | EXPRESION:a MAYORIGUAL EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYOROIGUAL, aleft, aright);   :}
+            | EXPRESION:a MAYOR EXPRESION:b            {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORQUE, aleft, aright);   :}
+            
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :} 
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}

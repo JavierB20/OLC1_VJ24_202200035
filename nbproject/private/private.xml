@@ -4,11 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/PatronInterprete/patroninterprete.java</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/sintactico.cup</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/lexico.jflex</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/parser.java</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Abstracto/Instruccion.java</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Analizador/Generador.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Expresiones/OperadoresRelacionales.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Expresiones/Relacionales.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/analisis/lexico.jflex</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/analisis/sintactico.cup</file>
         </group>
     </open-files>
 </project-private>
