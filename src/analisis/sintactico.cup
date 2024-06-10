@@ -16,6 +16,9 @@ import expresiones.Aritmeticas;
 import expresiones.OperadoresAritmeticos;
 import Expresiones.OperadoresRelacionales;
 import Expresiones.Relacionales;
+import Expresiones.Logicos;
+import Expresiones.OperadoresLogicos;
+
 
 
 
@@ -56,12 +59,14 @@ nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
 nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion EXPRESION;
 
+precedence left UMENOS;
 precedence left POTENCIA;
 precedence left MULT, DIV;
 precedence left MAS, MENOS;
 precedence left MOD;
 precedence left IGUALACION, DIFERENCIA, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL;
-precedence left UMENOS;
+precedence left TKNOT;
+precedence right TKXOR, TKAND, TKOR; 
 
 start with INICIO;
 
@@ -76,6 +81,8 @@ INSTRUCCION ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new P
 ;
 
 EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
+            | TKNOT EXPRESION:a                 {:   RESULT = new Logicos(a, OperadoresLogicos.OPNOT, aleft, aright);   :}
+            
             | EXPRESION:a MAS EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
             | EXPRESION:a MENOS EXPRESION:b     {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
             | EXPRESION:a POTENCIA EXPRESION:b  {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.POTENCIA, aleft, aright);   :}
@@ -90,6 +97,10 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | EXPRESION:a MAYORIGUAL EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYOROIGUAL, aleft, aright);   :}
             | EXPRESION:a MAYOR EXPRESION:b            {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORQUE, aleft, aright);   :}
             
+            | EXPRESION:a TKAND EXPRESION:b            {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPAND, aleft, aright);   :}
+            | EXPRESION:a TKXOR EXPRESION:b            {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPXOR, aleft, aright);   :}
+            | EXPRESION:a TKOR EXPRESION:b             {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPOR, aleft, aright);   :}
+
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :} 
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}

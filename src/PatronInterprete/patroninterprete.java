@@ -27,7 +27,7 @@ public class patroninterprete {
         try {
             String texto = "PRINTLN(\"Mi cadena\"+1);"
 //                    + "println(2+2+2+2); println(-1.33+3.33);"
-                    + "println(\"pene\" >= \"pene\");";
+                    + "println((true) && (5 > 10));";
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
