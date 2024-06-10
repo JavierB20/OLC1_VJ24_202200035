@@ -43,9 +43,11 @@ action code
 
 //terminales
 terminal String CADENA, ENTERO, DECIMAL, CARACTER;
-terminal FINCADENA, PRINTLN;
+terminal IGUAL, FINCADENA, PRINTLN;
 terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS;
 terminal VERDAD, FALSO;
+terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
+terminal TKNOT, TKOR, TKAND, TKXOR;
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
