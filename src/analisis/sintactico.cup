@@ -60,7 +60,7 @@ nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion EXPRESION;
 
 precedence left UMENOS;
-precedence left POTENCIA;
+precedence nonassoc POTENCIA;
 precedence left MULT, DIV;
 precedence left MAS, MENOS;
 precedence left MOD;

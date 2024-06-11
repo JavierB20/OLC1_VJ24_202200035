@@ -59,9 +59,12 @@ ENTERO=[0-9]+
 DECIMAL=[0-9]+"."[0-9]+
 CADENA = [\"]([^\"])*[\"]
 CARACTER = [']([^\"])['']
+COMENTARIO = [/][/][^\n]*
+COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 
 
 %%
+
 //Simbolos
 <YYINITIAL> {FINCADENA}     {return new Symbol(sym.FINCADENA, yyline, yycolumn,yytext());}
 <YYINITIAL> {PAR1}          {return new Symbol(sym.PAR1, yyline, yycolumn,yytext());}
@@ -86,8 +89,13 @@ CARACTER = [']([^\"])['']
 <YYINITIAL> {TKAND}         {return new Symbol(sym.TKAND, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKXOR}         {return new Symbol(sym.TKXOR, yyline, yycolumn,yytext());}
 
-
 <YYINITIAL> {BLANCOS} {}
+
+//comentarios
+//Una linea
+<YYINITIAL> {COMENTARIO} {}
+//multiLinea
+<YYINITIAL> {COMENTARIOMULTI} {}
 
 //Palabras reservadas
 <YYINITIAL> {PRINTLN}   {return new Symbol(sym.PRINTLN, yyline, yycolumn,yytext());}

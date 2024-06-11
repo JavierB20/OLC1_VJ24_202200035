@@ -26,8 +26,11 @@ public class patroninterprete {
     public static void main(String[] args) {
         try {
             String texto = "PRINTLN(\"Mi cadena\"+1);"
-//                    + "println(2+2+2+2); println(-1.33+3.33);"
-                    + "println((true) && (5 > 10));";
+                    + "println((true) && (5 > 10));"
+                    + "//Comentario \n" 
+                    + "/*Mi nombre es"
+                    + "HOla mundo */"
+                    + "println(5+2*(8));";
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
