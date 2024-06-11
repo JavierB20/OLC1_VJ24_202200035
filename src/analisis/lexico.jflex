@@ -52,6 +52,10 @@ TKXOR = "^"
 PRINTLN = "println"
 VERDAD = "TRUE"
 FALSO = "false"
+TKINT = "INT"
+TKDOUBLE = "DOUBLE"
+TKCHAR = "CHAR"
+
 
 //Expresiones regulares
 BLANCOS=[\ \r\t\f\n]+
@@ -98,9 +102,13 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {COMENTARIOMULTI} {}
 
 //Palabras reservadas
-<YYINITIAL> {PRINTLN}   {return new Symbol(sym.PRINTLN, yyline, yycolumn,yytext());}
-<YYINITIAL> {VERDAD}    {return new Symbol(sym.VERDAD, yyline, yycolumn,yytext());}
-<YYINITIAL> {FALSO}     {return new Symbol(sym.FALSO, yyline, yycolumn,yytext());}
+<YYINITIAL> {PRINTLN}       {return new Symbol(sym.PRINTLN, yyline, yycolumn,yytext());}
+<YYINITIAL> {VERDAD}        {return new Symbol(sym.VERDAD, yyline, yycolumn,yytext());}
+<YYINITIAL> {FALSO}         {return new Symbol(sym.FALSO, yyline, yycolumn,yytext());}
+<YYINITIAL> {TKINT}         {return new Symbol(sym.TKINT, yyline, yycolumn,yytext());}
+<YYINITIAL> {TKDOUBLE}      {return new Symbol(sym.TKDOUBLE, yyline, yycolumn,yytext());}
+<YYINITIAL> {TKCHAR}        {return new Symbol(sym.TKCHAR, yyline, yycolumn,yytext());}
+
 
 //Expresiones regulares
 <YYINITIAL> {DECIMAL}   {return new Symbol(sym.DECIMAL, yyline, yycolumn,yytext());}

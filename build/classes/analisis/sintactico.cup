@@ -18,6 +18,9 @@ import Expresiones.OperadoresRelacionales;
 import Expresiones.Relacionales;
 import Expresiones.Logicos;
 import Expresiones.OperadoresLogicos;
+import Expresiones.Casteos;
+import Expresiones.TiposCasteos;
+
 
 
 
@@ -53,11 +56,13 @@ terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS;
 terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
+terminal TKDOUBLE, TKINT, TKCHAR;
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
 nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion EXPRESION;
+nonterminal TIPO;
 
 precedence left UMENOS;
 precedence nonassoc POTENCIA;
@@ -101,6 +106,8 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | EXPRESION:a TKXOR EXPRESION:b            {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPXOR, aleft, aright);   :}
             | EXPRESION:a TKOR EXPRESION:b             {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPOR, aleft, aright);   :}
 
+            | PAR1 TIPO:a PAR2 EXPRESION:b             {:   RESULT = new Casteos((String) a, b, aleft, aright);   :}
+
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :} 
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
@@ -108,4 +115,9 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | CARACTER:a    {:   RESULT = new Nativo(a, new Tipo(tipoDato.CARACTER), aleft, aright );   :}
             | VERDAD:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
             | FALSO:a       {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
+;
+
+TIPO ::=  TKINT:a      {:   RESULT = a;   :}
+        | TKDOUBLE:a   {:   RESULT = a;   :}
+        | TKCHAR:a     {:   RESULT = a;   :}
 ;

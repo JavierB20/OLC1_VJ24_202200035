@@ -9,11 +9,13 @@ package analisis;
 public class sym {
   /* terminals */
   public static final int MOD = 16;
+  public static final int TKDOUBLE = 30;
   public static final int TKAND = 28;
   public static final int MENOS = 12;
   public static final int MENOR = 23;
   public static final int DIFERENCIA = 21;
   public static final int CADENA = 2;
+  public static final int TKINT = 31;
   public static final int TKOR = 27;
   public static final int MENORIGUAL = 22;
   public static final int IGUAL = 6;
@@ -29,6 +31,7 @@ public class sym {
   public static final int EOF = 0;
   public static final int MULT = 14;
   public static final int PRINTLN = 8;
+  public static final int TKCHAR = 32;
   public static final int IGUALACION = 20;
   public static final int DIV = 15;
   public static final int MAYORIGUAL = 24;
@@ -68,7 +71,10 @@ public class sym {
   "TKNOT",
   "TKOR",
   "TKAND",
-  "TKXOR"
+  "TKXOR",
+  "TKDOUBLE",
+  "TKINT",
+  "TKCHAR"
   };
 }
 

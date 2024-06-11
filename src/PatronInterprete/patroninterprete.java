@@ -31,11 +31,11 @@ public class patroninterprete {
     public static void main(String[] args) {
         try {
             String texto = "println(\"\\tMi terner \\nmienbro\" );"
-                    + "println((true) && (5 > 10));"
                     + "//Comentario \n" 
                     + "/*Mi nombre es"
                     + "HOla mundo */"
-                    + "println(5+2*(8));";
+                    + "println(5+2*(8));"
+                    + "println(((int) 'a') + 25.6);";
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
