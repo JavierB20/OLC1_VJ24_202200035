@@ -1,6 +1,7 @@
 package patroninterprete;
 
 
+import VariablesGlobales.Variables;
 import abstracto.Instruccion;
 import analisis.parser;
 import analisis.scanner;
@@ -9,6 +10,10 @@ import java.io.StringReader;
 import java.util.LinkedList;
 import simbolo.Arbol;
 import simbolo.tablaSimbolos;
+import excepciones.Errores;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,7 +30,7 @@ public class patroninterprete {
      */
     public static void main(String[] args) {
         try {
-            String texto = "PRINTLN(\"Mi cadena\"+1);"
+            String texto = "println(\"\\tMi terner \\nmienbro\" );"
                     + "println((true) && (5 > 10));"
                     + "//Comentario \n" 
                     + "/*Mi nombre es"
@@ -44,9 +49,13 @@ public class patroninterprete {
             }
             System.out.println(ast.getConsola());
         } catch (Exception ex) {
-            System.out.println("Algo salio mal");
+            Variables vars = new Variables();
+            List<Errores> listaErrores = vars.listaErrores;
+            for (var token : listaErrores) {
+                System.out.println(token.getTipo() + " : " + token.getDesc() + " en la linea " + token.getLinea() + " y columna " + token.getColumna());
+            }
+            //Temporal
             System.out.println(ex);
         }
     }
-
 }

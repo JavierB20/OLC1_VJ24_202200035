@@ -4,6 +4,7 @@ package expresiones;
 import abstracto.Instruccion;
 import excepciones.Errores;
 import simbolo.*;
+import VariablesGlobales.Variables;
 
 
 public class Aritmeticas extends Instruccion {
@@ -12,6 +13,7 @@ public class Aritmeticas extends Instruccion {
     private Instruccion operando2;
     private OperadoresAritmeticos operacion;
     private Instruccion operandoUnico;
+    Variables vars = new Variables();
 
     //negacion 
     public Aritmeticas(Instruccion operandoUnico, OperadoresAritmeticos operacion, int linea, int col) {
@@ -62,9 +64,10 @@ public class Aritmeticas extends Instruccion {
                 this.modulo(opIzq, opDer);
             case NEGACION ->
                 this.negacion(Unico);
-            
-            default ->
-                new Errores("SEMANTICO", "Operador invalido", this.linea, this.col);
+            default -> {
+               vars.listaErrores.add(new Errores("SEMANTICO", "Operador invalido", this.linea, this.col));
+               yield null; // O un valor por defecto adecuado, si null no es apropiado
+            }
         };
     }
 

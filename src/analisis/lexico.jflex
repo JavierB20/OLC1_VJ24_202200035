@@ -58,7 +58,7 @@ BLANCOS=[\ \r\t\f\n]+
 ENTERO=[0-9]+
 DECIMAL=[0-9]+"."[0-9]+
 CADENA = [\"]([^\"])*[\"]
-CARACTER = [']([^\"])['']
+CARACTER = ['](([\\][rtfn])|([\\][u]([0-9a-fA-F]{4}))|([^\"]))[']
 COMENTARIO = [/][/][^\n]*
 COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 
@@ -108,10 +108,45 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {CADENA}    {
                             String cadena = yytext();
                             cadena = cadena.substring(1, cadena.length()-1);
+                            int find = -1;
+                            
+                            find = cadena.indexOf("\\n"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\n", "\n");
+                            }
+
+                            find = cadena.indexOf("\\t"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\t", "\t");
+                            }
+
+                            find = cadena.indexOf("\\r"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\r", "\r");
+                            }
+
+                            find = cadena.indexOf("\\f"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\f", "\f");
+                            }
+                            
                             return new Symbol(sym.CADENA, yyline, yycolumn,cadena);
                         }
 <YYINITIAL> {CARACTER} {
                             String caracter = yytext();
                             caracter = caracter.substring(1, caracter.length()-1);
-                            return new Symbol(sym.CARACTER, yyline, yycolumn,caracter);
+                            if (caracter.equals("\\n")) {
+                                caracter = "\n";
+                            }
+                            if (caracter.equals("\\r")) {
+                                caracter = "\r";
+                            }
+                            if (caracter.equals("\\t")) {
+                                caracter = "\t";
+                            }
+                            if (caracter.equals("\\f")) {
+                                caracter = "\f";
+                            }
+                            return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
                         }
+

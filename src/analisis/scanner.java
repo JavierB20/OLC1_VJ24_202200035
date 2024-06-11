@@ -38,10 +38,10 @@ public class scanner implements java_cup.runtime.Scanner {
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      1,  3,  4,  0,  0,  5,  6,  7,  8,  9, 10, 11,  0, 12, 13, 14, 
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  0, 16, 17, 18, 19,  0, 
-     0, 20,  0,  0,  0, 21, 22,  0,  0, 23,  0,  0, 24,  0, 25,  0, 
-    26,  0, 27, 28, 29, 30,  0,  0,  0,  0,  0,  0,  0,  0, 31,  0, 
-     0, 20,  0,  0,  0, 21, 22,  0,  0, 23,  0,  0, 24,  0, 25,  0, 
-    26,  0, 27, 28, 29, 30,  0,  0,  0,  0,  0,  0, 32,  0,  0,  0, 
+     0, 20, 21, 21, 21, 22, 23,  0,  0, 24,  0,  0, 25,  0, 26,  0, 
+    27,  0, 28, 29, 30, 31,  0,  0,  0,  0,  0,  0, 32,  0, 33,  0, 
+     0, 20, 21, 21, 21, 22, 34,  0,  0, 24,  0,  0, 25,  0, 35,  0, 
+    27,  0, 36, 29, 37, 38,  0,  0,  0,  0,  0,  0, 39,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
@@ -60,13 +60,13 @@ public class scanner implements java_cup.runtime.Scanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\0\1\3\2\0\1\4\1\5"+
     "\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
-    "\1\16\3\0\1\17\1\0\1\20\1\21\1\22\1\0"+
+    "\1\16\3\0\1\17\1\0\1\20\1\21\1\22\2\0"+
     "\1\23\1\0\1\1\1\0\1\24\1\25\1\26\3\0"+
-    "\1\27\1\30\1\0\1\31\3\0\1\1\2\0\1\32"+
-    "\1\33\2\0\1\34";
+    "\1\27\1\30\2\0\1\31\4\0\1\1\2\0\1\32"+
+    "\1\0\1\33\3\0\1\34";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[52];
+    int [] result = new int[57];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -91,16 +91,17 @@ public class scanner implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\41\0\102\0\143\0\204\0\245\0\306\0\204"+
-    "\0\204\0\347\0\204\0\204\0\u0108\0\u0129\0\204\0\u014a"+
-    "\0\u016b\0\u018c\0\u01ad\0\u01ce\0\u01ef\0\204\0\u0210\0\204"+
-    "\0\204\0\204\0\u0231\0\204\0\u0252\0\u0273\0\u0294\0\204"+
-    "\0\204\0\204\0\u02b5\0\u02d6\0\u02f7\0\204\0\204\0\u0318"+
-    "\0\u0294\0\u0339\0\u035a\0\u037b\0\204\0\u039c\0\u03bd\0\204"+
-    "\0\204\0\u03de\0\u03ff\0\204";
+    "\0\0\0\50\0\120\0\170\0\240\0\310\0\360\0\240"+
+    "\0\240\0\u0118\0\240\0\240\0\u0140\0\u0168\0\240\0\u0190"+
+    "\0\u01b8\0\u01e0\0\u0208\0\u0230\0\u0258\0\240\0\u0280\0\240"+
+    "\0\240\0\240\0\u02a8\0\u02d0\0\240\0\u02f8\0\u0320\0\u0348"+
+    "\0\240\0\240\0\240\0\u0370\0\u0398\0\u03c0\0\240\0\240"+
+    "\0\u03e8\0\u0410\0\u0348\0\u0438\0\u0460\0\u0488\0\u04b0\0\240"+
+    "\0\u04d8\0\u0500\0\240\0\u0528\0\240\0\u0550\0\u0578\0\u05a0"+
+    "\0\240";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[52];
+    int [] result = new int[57];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -125,20 +126,26 @@ public class scanner implements java_cup.runtime.Scanner {
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\0\2\2\1\3\1\4\1\5\1\6\1\7\1\10"+
     "\1\11\1\12\1\13\1\14\1\0\1\15\1\16\1\17"+
-    "\1\20\1\21\1\22\2\0\1\23\3\0\1\24\2\0"+
-    "\1\25\1\0\1\26\1\27\1\0\2\2\60\0\1\30"+
-    "\16\0\4\4\1\31\34\4\47\0\1\32\32\0\4\33"+
-    "\1\0\34\33\12\0\1\34\40\0\1\35\3\0\1\36"+
-    "\37\0\1\37\1\0\1\16\43\0\1\40\40\0\1\41"+
-    "\40\0\1\42\42\0\1\43\47\0\1\44\40\0\1\45"+
-    "\45\0\1\46\7\0\1\47\31\0\12\35\1\50\26\35"+
-    "\2\36\1\0\36\36\17\0\1\51\51\0\1\52\37\0"+
-    "\1\53\47\0\1\54\2\0\12\35\1\50\3\35\1\55"+
-    "\22\35\34\0\1\56\35\0\1\57\34\0\1\60\40\0"+
-    "\1\61\50\0\1\62\33\0\1\63\41\0\1\64\7\0";
+    "\1\20\1\21\1\22\3\0\1\23\3\0\1\24\2\0"+
+    "\1\25\2\0\1\26\1\23\2\0\1\25\1\0\1\27"+
+    "\1\0\2\2\67\0\1\30\25\0\4\4\1\31\43\4"+
+    "\56\0\1\32\41\0\4\33\1\0\33\33\1\34\7\33"+
+    "\12\0\1\35\47\0\1\36\3\0\1\37\46\0\1\40"+
+    "\1\0\1\16\52\0\1\41\47\0\1\42\47\0\1\43"+
+    "\51\0\1\44\57\0\1\45\7\0\1\45\37\0\1\46"+
+    "\7\0\1\46\52\0\1\47\7\0\1\50\47\0\1\50"+
+    "\32\0\4\33\1\51\1\0\12\36\1\52\35\36\2\37"+
+    "\1\0\45\37\17\0\1\53\61\0\1\54\46\0\1\55"+
+    "\56\0\1\56\6\0\1\56\20\0\1\57\4\0\4\57"+
+    "\12\0\1\57\5\0\12\36\1\52\3\36\1\60\31\36"+
+    "\35\0\1\61\44\0\1\62\10\0\1\62\32\0\1\63"+
+    "\40\0\1\64\4\0\4\64\12\0\1\64\33\0\1\65"+
+    "\57\0\1\66\6\0\1\66\21\0\1\67\4\0\4\67"+
+    "\12\0\1\67\36\0\1\70\35\0\1\33\4\0\4\33"+
+    "\12\0\1\33\37\0\1\71\10\0\1\71\4\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[1056];
+    int [] result = new int[1480];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -182,12 +189,13 @@ public class scanner implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\2\1\1\0\1\11\2\0\2\11\1\1\2\11"+
-    "\2\1\1\11\3\1\3\0\1\11\1\0\3\11\1\0"+
-    "\1\11\1\0\1\1\1\0\3\11\3\0\2\11\1\0"+
-    "\1\1\3\0\1\11\2\0\2\11\2\0\1\11";
+    "\2\1\1\11\3\1\3\0\1\11\1\0\3\11\2\0"+
+    "\1\11\1\0\1\1\1\0\3\11\3\0\2\11\2\0"+
+    "\1\1\4\0\1\11\2\0\1\11\1\0\1\11\3\0"+
+    "\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[52];
+    int [] result = new int[57];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -775,6 +783,28 @@ public class scanner implements java_cup.runtime.Scanner {
           case 17:
             { String cadena = yytext();
                             cadena = cadena.substring(1, cadena.length()-1);
+                            int find = -1;
+                            
+                            find = cadena.indexOf("\\n"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\n", "\n");
+                            }
+
+                            find = cadena.indexOf("\\t"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\t", "\t");
+                            }
+
+                            find = cadena.indexOf("\\r"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\r", "\r");
+                            }
+
+                            find = cadena.indexOf("\\f"); 
+                            if (find != -1) {
+                                cadena = cadena.replace("\\f", "\f");
+                            }
+                            
                             return new Symbol(sym.CADENA, yyline, yycolumn,cadena);
             }
           // fall through
@@ -812,7 +842,19 @@ public class scanner implements java_cup.runtime.Scanner {
           case 24:
             { String caracter = yytext();
                             caracter = caracter.substring(1, caracter.length()-1);
-                            return new Symbol(sym.CARACTER, yyline, yycolumn,caracter);
+                            if (caracter.equals("\\n")) {
+                                caracter = "\n";
+                            }
+                            if (caracter.equals("\\r")) {
+                                caracter = "\r";
+                            }
+                            if (caracter.equals("\\t")) {
+                                caracter = "\t";
+                            }
+                            if (caracter.equals("\\f")) {
+                                caracter = "\f";
+                            }
+                            return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
             }
           // fall through
           case 52: break;
