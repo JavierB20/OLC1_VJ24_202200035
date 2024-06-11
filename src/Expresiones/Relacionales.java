@@ -19,7 +19,7 @@ public class Relacionales extends Instruccion {
     private OperadoresRelacionales operacion;
 
     public Relacionales(Instruccion operando1, Instruccion operando2, OperadoresRelacionales operacion, int linea, int col) {
-        super(new Tipo(tipoDato.ENTERO), linea, col);
+        super(new Tipo(tipoDato.BOOLEANO), linea, col);
         this.operando1 = operando1;
         this.operando2 = operando2;
         this.operacion = operacion;
@@ -65,15 +65,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 == (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (int) op1 == (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1 == (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -84,15 +81,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (double) op1 == (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 == (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (double) op1 == (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -103,7 +97,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         return Boolean.parseBoolean(op1.toString()) == Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
@@ -114,15 +107,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1.toString().charAt(0) == (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) == (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1.toString().charAt(0) == (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -133,7 +123,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
@@ -155,15 +144,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 != (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (int) op1 != (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1 != (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -174,15 +160,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (double) op1 != (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 != (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (double) op1 != (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -193,7 +176,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         return Boolean.parseBoolean(op1.toString()) != Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
@@ -204,15 +186,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1.toString().charAt(0) != (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) != (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1.toString().charAt(0) != (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -223,7 +202,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
@@ -245,15 +223,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 < (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (int) op1 < (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1 < (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -264,15 +239,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (double) op1 < (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 < (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (double) op1 < (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -283,7 +255,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         int aux1 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         int aux2 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         return aux1 < aux2;
@@ -296,15 +267,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1.toString().charAt(0) < (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) < (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1.toString().charAt(0) < (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -315,7 +283,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
@@ -337,15 +304,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 <= (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (int) op1 <= (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1 <= (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -356,15 +320,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (double) op1 <= (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 <= (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (double) op1 <= (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -375,7 +336,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         int aux1 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         int aux2 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         return aux1 <=  aux2;
@@ -388,15 +348,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1.toString().charAt(0) <= (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) <= (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1.toString().charAt(0) <= (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -407,7 +364,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
@@ -429,15 +385,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 > (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (int) op1 > (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1 > (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -448,15 +401,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (double) op1 > (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 > (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (double) op1 > (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -467,7 +417,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         int aux1 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         int aux2 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         return aux1 >  aux2;
@@ -480,15 +429,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1.toString().charAt(0) > (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) > (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1.toString().charAt(0) > (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -499,7 +445,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
@@ -521,15 +466,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 >= (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (int) op1 >= (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1 >= (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -540,15 +482,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (double) op1 >= (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 >= (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (double) op1 >= (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -559,7 +498,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         int aux1 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         int aux2 = Boolean.parseBoolean(op1.toString()) ? 1 : 0;
                         return aux1 >=  aux2;
@@ -572,15 +510,12 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1.toString().charAt(0) >= (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) >= (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
                         return (int) op1.toString().charAt(0) >= (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -591,7 +526,6 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {

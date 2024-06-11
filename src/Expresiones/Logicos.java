@@ -24,13 +24,13 @@ public class Logicos extends Instruccion{
 
         //negacion 
     public Logicos(Instruccion operandoUnico, OperadoresLogicos operacion, int linea, int col) {
-        super(new Tipo(tipoDato.ENTERO), linea, col);
+        super(new Tipo(tipoDato.BOOLEANO), linea, col);
         this.operacion = operacion;
         this.operandoUnico = operandoUnico;
     }
     
     public Logicos(Instruccion operando1, Instruccion operando2, OperadoresLogicos operacion, int linea, int col) {
-        super(new Tipo(tipoDato.ENTERO), linea, col);
+        super(new Tipo(tipoDato.BOOLEANO), linea, col);
         this.operando1 = operando1;
         this.operando2 = operando2;
         this.operacion = operacion;
@@ -77,7 +77,6 @@ public class Logicos extends Instruccion{
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         return Boolean.parseBoolean(op1.toString()) || Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
@@ -99,7 +98,6 @@ public class Logicos extends Instruccion{
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         return Boolean.parseBoolean(op1.toString()) && Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
@@ -121,7 +119,6 @@ public class Logicos extends Instruccion{
             case tipoDato.BOOLEANO -> {
                 switch (tipo2) {
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
                         return Boolean.parseBoolean(op1.toString()) ^ Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
@@ -139,7 +136,6 @@ public class Logicos extends Instruccion{
         var opU = this.operandoUnico.tipo.getTipo();
         switch (opU) {
             case tipoDato.BOOLEANO -> {
-                this.tipo.setTipo(tipoDato.BOOLEANO);
                 return !Boolean.parseBoolean(op1.toString());
             }
             default -> {
