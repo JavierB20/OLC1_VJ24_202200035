@@ -1,6 +1,7 @@
 package patroninterprete;
 
 
+import RptHTML.RptErrores;
 import VariablesGlobales.Variables;
 import abstracto.Instruccion;
 import analisis.parser;
@@ -11,8 +12,6 @@ import java.util.LinkedList;
 import simbolo.Arbol;
 import simbolo.tablaSimbolos;
 import excepciones.Errores;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /*
@@ -28,14 +27,16 @@ public class patroninterprete {
     /**
      * @param args the command line arguments
      */
+    static Variables vars = new Variables();
+
     public static void main(String[] args) {
         try {
-            String texto = "println(\"\\tMi terner \\nmienbro\" );"
+            String texto = "println(\"\\tMe tengo que ir \\nmienbro\" );"
                     + "//Comentario \n" 
                     + "/*Mi nombre es"
                     + "HOla mundo */"
-                    + "println(5+2*(8));"
-                    + "println(((int) 'a') + 25.6);";
+                    + "println(5+2*(8)/0);"
+                    + "println((5>4) && (\"PENE\" == \"PENE\")); &";
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
@@ -44,17 +45,36 @@ public class patroninterprete {
             var tabla = new tablaSimbolos();
             tabla.setNombre("GLOBAL");
             ast.setConsola("");
+            LinkedList<Errores> lista = new LinkedList<>();
+            lista.addAll(s.listaErrores);
+            lista.addAll(p.listaErrores);
             for (var a : ast.getInstrucciones()) {
+                if (a == null) {
+                    continue;
+                }
+
                 var res = a.interpretar(ast, tabla);
+                if (res instanceof Errores) {
+                    lista.add((Errores) res);
+                    
+                }
             }
+            
             System.out.println(ast.getConsola());
-        } catch (Exception ex) {
-            Variables vars = new Variables();
-            List<Errores> listaErrores = vars.listaErrores;
-            for (var token : listaErrores) {
-                System.out.println(token.getTipo() + " : " + token.getDesc() + " en la linea " + token.getLinea() + " y columna " + token.getColumna());
+            RptErrores rptErrores = new RptErrores();
+
+             for (var i : lista) {
+                System.out.println("\t>> Error de Tipo: "+ i.getTipo() + 
+                        " Descripcion: " +i.getDesc() +
+                        " Linea: " + i.getLinea() + 
+                        " Columna: " + i.getColumna());
+                vars.listaErrores.add(new Errores(i.getTipo(), i.getDesc(), i.getLinea(), i.getColumna()));
             }
+            //rptErrores.generarReporte(vars.listaErrores);
+
+        } catch (Exception ex) {
             //Temporal
+            System.out.println("LLamen a Dios y pregunten porque me abandono");
             System.out.println(ex);
         }
     }

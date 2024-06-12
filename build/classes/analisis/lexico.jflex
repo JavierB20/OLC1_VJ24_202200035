@@ -2,17 +2,20 @@ package analisis;
 
 //importaciones
 import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+import excepciones.Errores;
 
 %%
 
 //codigo de usuario
-%{
-
+%{    
+    public LinkedList<Errores> listaErrores = new LinkedList<>();
 %}
 
 %init{
     yyline = 1;
     yycolumn = 1;
+    listaErrores = new LinkedList<>();
 %init}
 
 //caracteristicas de jflex
@@ -158,3 +161,7 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
                             return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
                         }
 
+<YYINITIAL> . {
+                listaErrores.add(new Errores("LEXICO","El caracter "+
+                yytext()+" NO pertenece al lenguaje", yyline, yycolumn));
+}

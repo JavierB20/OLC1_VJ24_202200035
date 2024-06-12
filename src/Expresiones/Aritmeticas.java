@@ -95,6 +95,7 @@ public class Aritmeticas extends Instruccion {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Suma erronea de entero, se esperaba que el sumando fuera un entero, decimal, caracter o cadena", this.linea, this.col));
                         return new Errores("SEMANTICO", "Suma erronea", this.linea, this.col);
                     }
                 }
@@ -118,6 +119,7 @@ public class Aritmeticas extends Instruccion {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Suma erronea de decimal, se esperaba que el sumando fuera un entero, decimal, caracter o cadena", this.linea, this.col));
                         return new Errores("SEMANTICO", "Suma erronea", this.linea, this.col);
                     }
                 }
@@ -129,6 +131,7 @@ public class Aritmeticas extends Instruccion {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Suma erronea de booleano, se esperaba que el sumando fuera una cadena", this.linea, this.col));
                         return new Errores("SEMANTICO", "Suma erronea", this.linea, this.col);
                     }
                 }
@@ -152,6 +155,7 @@ public class Aritmeticas extends Instruccion {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Suma erronea de caracter, se esperaba que el sumando fuera un entero, decimal, caracter o cadena", this.linea, this.col));
                         return new Errores("SEMANTICO", "Suma erronea", this.linea, this.col);
                     }
                 }
@@ -179,11 +183,13 @@ public class Aritmeticas extends Instruccion {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Suma erronea de caracter, se esperaba que el sumando fuera un entero, decimal, caracter, cadena o booleano", this.linea, this.col));
                         return new Errores("SEMANTICO", "Suma erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Suma erronea, se esperaba que el sumando fuera un entero, decimal, caracter, cadena o booleano", this.linea, this.col));
                 return new Errores("SEMANTICO", "Suma erronea", this.linea, this.col);
             }
         }
@@ -209,6 +215,7 @@ public class Aritmeticas extends Instruccion {
                         return (int) op1 - (int) op2.toString().charAt(0);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Resta erronea de entero, se esperaba que el sustrayendo fuera un entero, decimal o caracter", this.linea, this.col));
                         return new Errores("SEMANTICO", "Resta erronea", this.linea, this.col);
                     }
                 }
@@ -228,6 +235,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 - (double) op2.toString().charAt(0);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Resta erronea de decimal, se esperaba que el sustrayendo fuera un entero, decimal o caracter", this.linea, this.col));
                         return new Errores("SEMANTICO", "Resta erronea", this.linea, this.col);
                     }
                 }
@@ -243,11 +251,13 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1.toString().charAt(0) - (double) op2;
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Resta erronea de caracter, se esperaba que el sustrayendo fuera un entero o decimal", this.linea, this.col));
                         return new Errores("SEMANTICO", "Resta erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Resta erronea, se esperaba que el minuendo fuera un entero, decimal o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "Resta erronea", this.linea, this.col);
             }
         }
@@ -273,6 +283,7 @@ public class Aritmeticas extends Instruccion {
                         return (int) op1 * (int) op2.toString().charAt(0);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Multiplicacion erronea de entero, se esperaba que el multiplicador fuera un entero, decimal o caracter", this.linea, this.col));
                         return new Errores("SEMANTICO", "Multiplicacion erronea", this.linea, this.col);
                     }
                 }
@@ -292,6 +303,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 * (double) op2.toString().charAt(0);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Multiplicacion erronea de decimal, se esperaba que el multiplicador fuera un entero, decimal o caracter", this.linea, this.col));
                         return new Errores("SEMANTICO", "Multiplicacion erronea", this.linea, this.col);
                     }
                 }
@@ -307,11 +319,13 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1.toString().charAt(0) * (double) op2;
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Multiplicacion erronea de caracter, se esperaba que el multiplicador fuera un entero o decimal", this.linea, this.col));
                         return new Errores("SEMANTICO", "Multiplicacion erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Multiplicacion erronea, se esperaba que el multiplicando fuera un entero, decimal o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "Multiplicacion erronea", this.linea, this.col);
             }
         }
@@ -323,14 +337,17 @@ public class Aritmeticas extends Instruccion {
         
         if (op2 instanceof Integer) {
             if((int) op2 == 0) {
+                vars.listaErrores.add(new Errores("SEMANTICO", "No es valida la division dentro de 0", this.linea, this.col));
                 return new Errores("SEMANTICO", "No es valida la division dentro de 0", this.linea, this.col);
             }
         } else if (op2 instanceof Double) {
             if((double) op2 == 0.0) {
+                vars.listaErrores.add(new Errores("SEMANTICO", "No es valida la division dentro de 0", this.linea, this.col));
                 return new Errores("SEMANTICO", "No es valida la division dentro de 0", this.linea, this.col);
             }
         } else if (op2 instanceof Character) {
             if((int) op2.toString().charAt(0) == 0) {
+                vars.listaErrores.add(new Errores("SEMANTICO", "No es valida la division dentro de 0", this.linea, this.col));
                 return new Errores("SEMANTICO", "No es valida la division dentro de 0", this.linea, this.col);
             }
         } 
@@ -357,6 +374,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) intVal1 / (double) op2.toString().charAt(0);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Division erronea de caracter, se esperaba que el divisor fuera un entero, decimal o caracter", this.linea, this.col));
                         return new Errores("SEMANTICO", "Division erronea", this.linea, this.col);
                     }
                 }
@@ -376,6 +394,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 / (double) op2.toString().charAt(0);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Division erronea de caracter, se esperaba que el divisor fuera un entero, decimal o caracter", this.linea, this.col));
                         return new Errores("SEMANTICO", "Division erronea", this.linea, this.col);
                     }
                 }
@@ -391,11 +410,13 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1.toString().charAt(0) / (double) op2;
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Division erronea de caracter, se esperaba que el divisor fuera un entero o decimal", this.linea, this.col));
                         return new Errores("SEMANTICO", "Division erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Division erronea, se esperaba que el dividendo fuera entero, decimal o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "Division erronea", this.linea, this.col);
             }
         }
@@ -417,7 +438,8 @@ public class Aritmeticas extends Instruccion {
                         return Math.pow((int) op1,(double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Division erronea", this.linea, this.col);
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Potencia erronea de entero, se esperaba que el exponente fuera un entero o decimal", this.linea, this.col));
+                        return new Errores("SEMANTICO", "Potencia erronea", this.linea, this.col);
                     }
                 }
             }
@@ -432,11 +454,13 @@ public class Aritmeticas extends Instruccion {
                         return Math.pow((double) op1,(double) op2);
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Potencia erronea de decimal, se esperaba que el exponente fuera un entero o decimal", this.linea, this.col));
                         return new Errores("SEMANTICO", "Potencia erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Potencia erronea, se esperaba que la base fuera entero o decimal", this.linea, this.col));
                 return new Errores("SEMANTICO", "Potencia erronea", this.linea, this.col);
             }
         }
@@ -460,6 +484,7 @@ public class Aritmeticas extends Instruccion {
                         return (int) op1 % (double) op2;
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Modulo erronea de entero, se esperaba que el divisor fuera un entero o decimal", this.linea, this.col));
                         return new Errores("SEMANTICO", "Modulo erronea", this.linea, this.col);
                     }
                 }
@@ -475,11 +500,13 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 % (double) op2;
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Modulo erronea de decimal, se esperaba que el divisor fuera un entero o decimal", this.linea, this.col));
                         return new Errores("SEMANTICO", "Modulo erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Modulo erronea, se esperaba que el dividendo fuera un entero o decimal", this.linea, this.col));
                 return new Errores("SEMANTICO", "Modulo erronea", this.linea, this.col);
             }
         }
@@ -497,6 +524,7 @@ public class Aritmeticas extends Instruccion {
                 return (double) op1 * -1;
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Negacion erronea, se esperaba que el dato fuera un entero o decimal", this.linea, this.col));
                 return new Errores("SEMANTICO", "Negacion erronea", this.linea, this.col);
             }
         }

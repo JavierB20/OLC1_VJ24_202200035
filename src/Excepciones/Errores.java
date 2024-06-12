@@ -6,7 +6,6 @@ package excepciones;
 
 /**
  *
- * @author fabian
  */
 public class Errores {
     private String tipo;

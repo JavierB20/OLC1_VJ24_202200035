@@ -4,6 +4,7 @@
  */
 package Expresiones;
 
+import VariablesGlobales.Variables;
 import abstracto.Instruccion;
 import excepciones.Errores;
 import simbolo.Arbol;
@@ -21,6 +22,8 @@ public class Logicos extends Instruccion{
     private Instruccion operando2;
     private OperadoresLogicos operacion;
     private Instruccion operandoUnico;
+    Variables vars = new Variables();
+
 
         //negacion 
     public Logicos(Instruccion operandoUnico, OperadoresLogicos operacion, int linea, int col) {
@@ -64,8 +67,10 @@ public class Logicos extends Instruccion{
                 this.opXor(opIzq, opDer);
             case OPNOT ->
                 this.opNot(Unico);
-            default ->
-                new Errores("SEMANTICO", "Operador invalido", this.linea, this.col);
+            default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Operador Invalido", this.linea, this.col));
+                yield null;
+            }
         };
     }
 
@@ -80,11 +85,13 @@ public class Logicos extends Instruccion{
                         return Boolean.parseBoolean(op1.toString()) || Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Operacion OR erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Or erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Operacion OR erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Or erronea", this.linea, this.col);
             }
         }
@@ -101,11 +108,13 @@ public class Logicos extends Instruccion{
                         return Boolean.parseBoolean(op1.toString()) && Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Operacion AND erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "And erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Operacion AND erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "And erronea", this.linea, this.col);
             }
         }
@@ -122,11 +131,13 @@ public class Logicos extends Instruccion{
                         return Boolean.parseBoolean(op1.toString()) ^ Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
+                        vars.listaErrores.add(new Errores("SEMANTICO", "Operacion XOR erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Xor erronea", this.linea, this.col);
                     }
                 }
             }
            default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Operacion XOR erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Xor erronea", this.linea, this.col);
             }
         }
@@ -139,6 +150,7 @@ public class Logicos extends Instruccion{
                 return !Boolean.parseBoolean(op1.toString());
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Operacion NOT erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Negacion erronea", this.linea, this.col);
             }
         }

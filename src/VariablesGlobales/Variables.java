@@ -2,8 +2,7 @@ package VariablesGlobales;
 
 
 import excepciones.Errores;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,5 +14,5 @@ import java.util.List;
  * @author msWas
  */
 public class Variables {
-    public List<Errores> listaErrores = new ArrayList<>();
+    public LinkedList<Errores> listaErrores = new LinkedList<>();
 }

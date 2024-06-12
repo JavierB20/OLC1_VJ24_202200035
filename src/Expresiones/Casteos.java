@@ -8,6 +8,7 @@ import static Expresiones.OperadoresLogicos.OPAND;
 import static Expresiones.OperadoresLogicos.OPNOT;
 import static Expresiones.OperadoresLogicos.OPOR;
 import static Expresiones.OperadoresLogicos.OPXOR;
+import VariablesGlobales.Variables;
 import abstracto.Instruccion;
 import excepciones.Errores;
 import simbolo.Arbol;
@@ -23,6 +24,7 @@ public class Casteos extends Instruccion {
     
     private Instruccion operando1;
     private String tipoCasteo;
+    Variables vars = new Variables();
     
     public Casteos(String tipoCasteo, Instruccion operando1, int linea, int col) {
         super(new Tipo(tipoDato.ENTERO), linea, col);
@@ -46,8 +48,10 @@ public class Casteos extends Instruccion {
                 this.castDouble(operador);
             case "CHAR" ->
                 this.castChar(operador);
-            default ->
-                new Errores("SEMANTICO", "Casteo invalido", this.linea, this.col);
+            default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Casteo incorrecto", this.linea, this.col));
+                yield null;
+            }
         };
     }
     
@@ -66,6 +70,7 @@ public class Casteos extends Instruccion {
                 return (int) op1.toString().charAt(0);
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "Casteo a int erroneo", this.linea, this.col);
             }
         }
@@ -85,6 +90,7 @@ public class Casteos extends Instruccion {
                 return (double) op1.toString().charAt(0);
             }
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a decimal solo puedo ser de entero o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "Casteo a double erroneo", this.linea, this.col);
             }
         }
@@ -95,6 +101,7 @@ public class Casteos extends Instruccion {
 
         if (op1 instanceof Integer) {
             if((int) op1 < 0 && (int) op1 > 255) {
+                vars.listaErrores.add(new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col));
                 return new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col);
             }
         }
@@ -104,8 +111,8 @@ public class Casteos extends Instruccion {
                 this.tipo.setTipo(tipoDato.CARACTER);
                 return (char) ((Integer) op1).intValue();
             }
-
             default -> {
+                vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a char solo puedo ser de entero", this.linea, this.col));
                 return new Errores("SEMANTICO", "Casteo a double erroneo", this.linea, this.col);
             }
         }

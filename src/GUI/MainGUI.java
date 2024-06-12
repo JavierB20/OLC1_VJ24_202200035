@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import RptHTML.RptErrores;
+import VariablesGlobales.Variables;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
@@ -15,6 +17,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -130,6 +134,19 @@ public class MainGUI extends javax.swing.JFrame {
                 guardarArchivoComo();
             }
         });
+        
+        // Agregar ActionListener para manejar EL RPT tokens
+        subMenuRptErrores.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    generarReporteTokens();
+                } catch (Exception ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+       
         
         //FIN    FUNCIONES MENUS
         
@@ -264,7 +281,25 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     
-    //FUN FUNCIONES MANEJO DE ARCHIVOS
+    //FIN FUNCIONES MANEJO DE ARCHIVOS
+    
+    
+    //INICIO FUNCIONES REPORTES
+    private void generarReporteTokens() throws Exception{
+        Variables vars = new Variables();
+        RptErrores rptErrores = new RptErrores();
+        
+        if(vars.listaErrores.size() > 0) {
+            rptErrores.generarReporte(vars.listaErrores);
+            JOptionPane.showMessageDialog(this, "Se ha generado el reporte de errores", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "No se ha analizado ningun archivo/ No se tienen errores", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+    //FIN FUNCIONES REPORTES
     
     /**
      * This method is called from within the constructor to initialize the form.
