@@ -31,12 +31,11 @@ public class patroninterprete {
 
     public static void main(String[] args) {
         try {
-            String texto = "println(\"\\tMe tengo que ir \\nmienbro\" );"
-                    + "//Comentario \n" 
-                    + "/*Mi nombre es"
-                    + "HOla mundo */"
-                    + "println(5+2*(8)/0);"
-                    + "println((5>4) && (\"PENE\" == \"PENE\")); &";
+            String texto = """
+                           println("\tPrueba de secuencias de escape" );
+                           println(5+2*(8));
+                           println(((int) 18.6) == 18);
+                           """;
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);

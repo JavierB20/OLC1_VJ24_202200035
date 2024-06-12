@@ -56,19 +56,20 @@ action code
 :}
 
 //terminales
-terminal String CADENA, ENTERO, DECIMAL, CARACTER;
+terminal String CADENA, ENTERO, DECIMAL, CARACTER, ID;
 terminal IGUAL, FINCADENA, PRINTLN;
 terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS;
 terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
-terminal TKDOUBLE, TKINT, TKCHAR;
+terminal TKDOUBLE, TKINT, TKCHAR, TKSTRING, TKBOOL;
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
 nonterminal Instruccion INSTRUCCION;
+nonterminal Instruccion INSPRINTLN;
+nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
-nonterminal TIPO;
 
 precedence left UMENOS;
 precedence nonassoc POTENCIA;
@@ -88,9 +89,12 @@ INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b)
                 | INSTRUCCION:a                   {: RESULT = new LinkedList<>(); RESULT.add(a); :}
 ;
 
-INSTRUCCION ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
+INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | error FINCADENA
                 | error 
+;
+
+INSPRINTLN ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
 ;
 
 EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
@@ -114,7 +118,7 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | EXPRESION:a TKXOR EXPRESION:b            {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPXOR, aleft, aright);   :}
             | EXPRESION:a TKOR EXPRESION:b             {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPOR, aleft, aright);   :}
 
-            | PAR1 TIPO:a PAR2 EXPRESION:b             {:   RESULT = new Casteos((String) a, b, aleft, aright);   :}
+            | PAR1 TIPOS:a PAR2 EXPRESION:b             {:   RESULT = new Casteos(a, b, aleft, aright);   :}
 
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :} 
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
@@ -125,7 +129,9 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | FALSO:a       {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
 ;
 
-TIPO ::=  TKINT:a      {:   RESULT = a;   :}
-        | TKDOUBLE:a   {:   RESULT = a;   :}
-        | TKCHAR:a     {:   RESULT = a;   :}
+TIPOS ::= TKINT:a      {:   RESULT=new Tipo(tipoDato.ENTERO);   :}
+        | TKDOUBLE:a   {:   RESULT=new Tipo(tipoDato.DECIMAL);   :}
+        | TKCHAR:a     {:   RESULT=new Tipo(tipoDato.CARACTER);   :}
+        | TKSTRING:a   {:   RESULT=new Tipo(tipoDato.CADENA);   :}
+        | TKBOOL:a     {:   RESULT=new Tipo(tipoDato.BOOLEANO);   :}
 ;

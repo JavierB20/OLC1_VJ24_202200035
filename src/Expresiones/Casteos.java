@@ -23,13 +23,11 @@ import simbolo.tipoDato;
 public class Casteos extends Instruccion {
     
     private Instruccion operando1;
-    private String tipoCasteo;
     Variables vars = new Variables();
     
-    public Casteos(String tipoCasteo, Instruccion operando1, int linea, int col) {
-        super(new Tipo(tipoDato.ENTERO), linea, col);
+    public Casteos(Tipo tipoCasteo, Instruccion operando1, int linea, int col) {
+        super(tipoCasteo, linea, col);
         this.operando1 = operando1;
-        this.tipoCasteo = tipoCasteo;
     }
     
     @Override
@@ -41,12 +39,12 @@ public class Casteos extends Instruccion {
             return operador;
         }
 
-        return switch (tipoCasteo.toUpperCase()) {
-            case "INT" ->
+        return switch (this.tipo.getTipo()) {
+            case ENTERO ->
                 this.castInt(operador);
-            case "DOUBLE" ->
+            case DECIMAL ->
                 this.castDouble(operador);
-            case "CHAR" ->
+            case CARACTER ->
                 this.castChar(operador);
             default -> {
                 vars.listaErrores.add(new Errores("SEMANTICO", "Casteo incorrecto", this.linea, this.col));
@@ -61,7 +59,7 @@ public class Casteos extends Instruccion {
         switch (tipo1) {
             case tipoDato.DECIMAL -> {
                 this.tipo.setTipo(tipoDato.ENTERO);
-                Double doubleVar = (Double) op1;
+                Double doubleVar = Math.floor((Double) op1);
                 Integer integerValue = doubleVar.intValue(); 
                 return integerValue;
             }
@@ -71,7 +69,7 @@ public class Casteos extends Instruccion {
             }
             default -> {
                 vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.linea, this.col));
-                return new Errores("SEMANTICO", "Casteo a int erroneo", this.linea, this.col);
+                return new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.linea, this.col);
             }
         }
     }

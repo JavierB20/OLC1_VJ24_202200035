@@ -58,7 +58,8 @@ FALSO = "false"
 TKINT = "INT"
 TKDOUBLE = "DOUBLE"
 TKCHAR = "CHAR"
-
+TKSTRING = "STRING"
+TKBOOL = "BOOL"
 
 //Expresiones regulares
 BLANCOS=[\ \r\t\f\n]+
@@ -68,7 +69,7 @@ CADENA = [\"]([^\"])*[\"]
 CARACTER = ['](([\\][rtfn])|([\\][u]([0-9a-fA-F]{4}))|([^\"]))[']
 COMENTARIO = [/][/][^\n]*
 COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
-
+ID=[a-zA-z][a-zA-Z0-9_]*
 
 %%
 
@@ -86,12 +87,12 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {IGUAL}         {return new Symbol(sym.IGUAL, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {TKNOT}         {return new Symbol(sym.TKNOT, yyline, yycolumn,yytext());}
-<YYINITIAL> {IGUALACION}  {return new Symbol(sym.IGUALACION, yyline, yycolumn,yytext());}
-<YYINITIAL> {DIFERENCIA}  {return new Symbol(sym.DIFERENCIA, yyline, yycolumn,yytext());}
-<YYINITIAL> {MENORIGUAL}  {return new Symbol(sym.MENORIGUAL, yyline, yycolumn,yytext());}
-<YYINITIAL> {MENOR}       {return new Symbol(sym.MENOR, yyline, yycolumn,yytext());}
-<YYINITIAL> {MAYORIGUAL}  {return new Symbol(sym.MAYORIGUAL, yyline, yycolumn,yytext());}
-<YYINITIAL> {MAYOR}       {return new Symbol(sym.MAYOR, yyline, yycolumn,yytext());}
+<YYINITIAL> {IGUALACION}    {return new Symbol(sym.IGUALACION, yyline, yycolumn,yytext());}
+<YYINITIAL> {DIFERENCIA}    {return new Symbol(sym.DIFERENCIA, yyline, yycolumn,yytext());}
+<YYINITIAL> {MENORIGUAL}    {return new Symbol(sym.MENORIGUAL, yyline, yycolumn,yytext());}
+<YYINITIAL> {MENOR}         {return new Symbol(sym.MENOR, yyline, yycolumn,yytext());}
+<YYINITIAL> {MAYORIGUAL}    {return new Symbol(sym.MAYORIGUAL, yyline, yycolumn,yytext());}
+<YYINITIAL> {MAYOR}         {return new Symbol(sym.MAYOR, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKOR}          {return new Symbol(sym.TKOR, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKAND}         {return new Symbol(sym.TKAND, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKXOR}         {return new Symbol(sym.TKXOR, yyline, yycolumn,yytext());}
@@ -111,7 +112,10 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {TKINT}         {return new Symbol(sym.TKINT, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKDOUBLE}      {return new Symbol(sym.TKDOUBLE, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKCHAR}        {return new Symbol(sym.TKCHAR, yyline, yycolumn,yytext());}
+<YYINITIAL> {TKSTRING}      {return new Symbol(sym.TKSTRING, yyline, yycolumn,yytext());}
+<YYINITIAL> {TKBOOL}        {return new Symbol(sym.TKBOOL, yyline, yycolumn,yytext());}
 
+<YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 
 //Expresiones regulares
 <YYINITIAL> {DECIMAL}   {return new Symbol(sym.DECIMAL, yyline, yycolumn,yytext());}

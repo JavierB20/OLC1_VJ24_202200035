@@ -9,7 +9,7 @@ package Expresiones;
  * @author msWas
  */
 public enum TiposCasteos {
-    INT,
-    DOUBLE,
-    CHAR
+    ENTERO,
+    DECIMAL,
+    CARACTER
 }
