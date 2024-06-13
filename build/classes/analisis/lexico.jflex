@@ -60,8 +60,11 @@ TKDOUBLE = "DOUBLE"
 TKCHAR = "CHAR"
 TKSTRING = "STRING"
 TKBOOL = "BOOL"
+CONST = "CONST"
+VAR = "VAR"
 
 //Expresiones regulares
+ID=[a-zA-z][a-zA-Z0-9_]*
 BLANCOS=[\ \r\t\f\n]+
 ENTERO=[0-9]+
 DECIMAL=[0-9]+"."[0-9]+
@@ -69,7 +72,6 @@ CADENA = [\"]([^\"])*[\"]
 CARACTER = ['](([\\][rtfn])|([\\][u]([0-9a-fA-F]{4}))|([^\"]))[']
 COMENTARIO = [/][/][^\n]*
 COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
-ID=[a-zA-z][a-zA-Z0-9_]*
 
 %%
 
@@ -97,13 +99,6 @@ ID=[a-zA-z][a-zA-Z0-9_]*
 <YYINITIAL> {TKAND}         {return new Symbol(sym.TKAND, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKXOR}         {return new Symbol(sym.TKXOR, yyline, yycolumn,yytext());}
 
-<YYINITIAL> {BLANCOS} {}
-
-//comentarios
-//Una linea
-<YYINITIAL> {COMENTARIO} {}
-//multiLinea
-<YYINITIAL> {COMENTARIOMULTI} {}
 
 //Palabras reservadas
 <YYINITIAL> {PRINTLN}       {return new Symbol(sym.PRINTLN, yyline, yycolumn,yytext());}
@@ -114,6 +109,8 @@ ID=[a-zA-z][a-zA-Z0-9_]*
 <YYINITIAL> {TKCHAR}        {return new Symbol(sym.TKCHAR, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKSTRING}      {return new Symbol(sym.TKSTRING, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKBOOL}        {return new Symbol(sym.TKBOOL, yyline, yycolumn,yytext());}
+<YYINITIAL> {CONST}         {return new Symbol(sym.CONST, yyline, yycolumn,yytext());}
+<YYINITIAL> {VAR}           {return new Symbol(sym.VAR, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 
@@ -164,6 +161,16 @@ ID=[a-zA-z][a-zA-Z0-9_]*
                             }
                             return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
                         }
+
+
+<YYINITIAL> {BLANCOS} {}
+
+//comentarios
+//Una linea
+<YYINITIAL> {COMENTARIO} {}
+//multiLinea
+<YYINITIAL> {COMENTARIOMULTI} {}
+
 
 <YYINITIAL> . {
                 listaErrores.add(new Errores("LEXICO","El caracter "+

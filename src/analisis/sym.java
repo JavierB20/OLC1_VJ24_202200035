@@ -13,6 +13,7 @@ public class sym {
   public static final int PAR1 = 10;
   public static final int DIFERENCIA = 22;
   public static final int MULT = 15;
+  public static final int CONST = 36;
   public static final int IGUALACION = 21;
   public static final int TKNOT = 27;
   public static final int TKAND = 29;
@@ -41,6 +42,7 @@ public class sym {
   public static final int POTENCIA = 14;
   public static final int FALSO = 20;
   public static final int TKCHAR = 33;
+  public static final int VAR = 37;
   public static final int TKXOR = 30;
   public static final int TKDOUBLE = 31;
   public static final int MAS = 12;
@@ -80,7 +82,9 @@ public class sym {
   "TKINT",
   "TKCHAR",
   "TKSTRING",
-  "TKBOOL"
+  "TKBOOL",
+  "CONST",
+  "VAR"
   };
 }
 

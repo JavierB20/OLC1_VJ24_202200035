@@ -35,6 +35,13 @@ public class patroninterprete {
                            println("\tPrueba de secuencias de escape" );
                            println(5+2*(8));
                            println(((int) 18.6) == 18);
+                           println(((int) 18.6) + 18);
+                           println("------");
+                           INT numero = 10;
+                           println(numero);
+                           println("------");
+                           double numDoble = (double) numero;
+                           println(numDoble);
                            """;
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));

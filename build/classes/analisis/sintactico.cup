@@ -11,6 +11,8 @@ import excepciones.Errores;
 
 //instrucciones
 import Instrucciones.Print;
+import Instrucciones.AsignacionVar;
+import Instrucciones.Declaracion;
 
 //expresiones
 import expresiones.Nativo;
@@ -21,8 +23,7 @@ import Expresiones.Relacionales;
 import Expresiones.Logicos;
 import Expresiones.OperadoresLogicos;
 import Expresiones.Casteos;
-import Expresiones.TiposCasteos;
-
+import Expresiones.AccesoVar;
 
 
 
@@ -63,11 +64,12 @@ terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
 terminal TKDOUBLE, TKINT, TKCHAR, TKSTRING, TKBOOL;
+terminal CONST, VAR;
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
 nonterminal Instruccion INSTRUCCION;
-nonterminal Instruccion INSPRINTLN;
+nonterminal Instruccion INSPRINTLN, DECLARACION, ASIGNACION;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
 
@@ -90,12 +92,21 @@ INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b)
 ;
 
 INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
+                | DECLARACION:a       {:   RESULT=a;   :}
+                | ASIGNACION:a        {:   RESULT=a;   :}
                 | error FINCADENA
                 | error 
 ;
 
 INSPRINTLN ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
 ;
+
+DECLARACION ::= TIPOS:a ID:b IGUAL EXPRESION:c FINCADENA    {:   RESULT = new Declaracion(b, c, a, aleft, aright);   :}
+;
+
+ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
+;
+
 
 EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
             | TKNOT EXPRESION:a                 {:   RESULT = new Logicos(a, OperadoresLogicos.OPNOT, aleft, aright);   :}
@@ -127,6 +138,8 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | CARACTER:a    {:   RESULT = new Nativo(a, new Tipo(tipoDato.CARACTER), aleft, aright );   :}
             | VERDAD:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
             | FALSO:a       {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
+            | ID:a          {:   RESULT = new AccesoVar(a, aleft, aright);   :}
+
 ;
 
 TIPOS ::= TKINT:a      {:   RESULT=new Tipo(tipoDato.ENTERO);   :}
