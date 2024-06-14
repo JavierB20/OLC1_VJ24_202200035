@@ -58,7 +58,7 @@ action code
 
 //terminales
 terminal String CADENA, ENTERO, DECIMAL, CARACTER, ID;
-terminal IGUAL, FINCADENA, PRINTLN;
+terminal IGUAL, FINCADENA, PRINTLN, DOSPUNTOS;
 terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS;
 terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
@@ -72,6 +72,7 @@ nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion INSPRINTLN, DECLARACION, ASIGNACION;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
+nonterminal String MUTABILIDAD;
 
 precedence left UMENOS;
 precedence nonassoc POTENCIA;
@@ -101,7 +102,8 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
 INSPRINTLN ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
 ;
 
-DECLARACION ::= TIPOS:a ID:b IGUAL EXPRESION:c FINCADENA    {:   RESULT = new Declaracion(b, c, a, aleft, aright);   :}
+DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                      {:   RESULT = new Declaracion(b, d, a, aleft, aright);   :}
+                | MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a IGUAL EXPRESION:c FINCADENA    {:   RESULT = new Declaracion(b, c, d, a, aleft, aright);   :}
 ;
 
 ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
@@ -147,4 +149,8 @@ TIPOS ::= TKINT:a      {:   RESULT=new Tipo(tipoDato.ENTERO);   :}
         | TKCHAR:a     {:   RESULT=new Tipo(tipoDato.CARACTER);   :}
         | TKSTRING:a   {:   RESULT=new Tipo(tipoDato.CADENA);   :}
         | TKBOOL:a     {:   RESULT=new Tipo(tipoDato.BOOLEANO);   :}
+;
+
+MUTABILIDAD ::=   VAR:a   {:   RESULT=(String)a;   :}
+                | CONST:a {:   RESULT=(String)a;   :}
 ;

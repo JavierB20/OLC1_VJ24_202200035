@@ -37,12 +37,14 @@ public class patroninterprete {
                            println(((int) 18.6) == 18);
                            println(((int) 18.6) + 18);
                            println("------");
-                           INT numero = 10;
+                           var numero : bool;
                            println(numero);
-                           println("------");
-                           double numDoble = (double) numero;
-                           println(numDoble);
                            """;
+//                           numero = 10;
+//                           println(numero);
+//                           println("------");
+//                           double numDoble = ((double) numero) + 22.56;
+//                           println(numDoble);
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);

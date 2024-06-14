@@ -4,6 +4,7 @@
  */
 package Instrucciones;
 
+import Expresiones.VarValorDefecto;
 import VariablesGlobales.Variables;
 import abstracto.Instruccion;
 import excepciones.Errores;
@@ -11,6 +12,7 @@ import simbolo.Arbol;
 import simbolo.Simbolo;
 import simbolo.Tipo;
 import simbolo.tablaSimbolos;
+import simbolo.tipoDato;
 
 /**
  *
@@ -20,16 +22,47 @@ public class Declaracion extends Instruccion {
  
     public String identificador;
     public Instruccion valor;
+    public String strMutabilidad;
+    public boolean boolMutabilidad;
     Variables vars = new Variables();
     
-    public Declaracion(String identificador, Instruccion valor, Tipo tipo, int linea, int col) {
+    public Declaracion(String identificador, String strMutabilidad, Tipo tipo, int linea, int col) {
+        super(tipo, linea, col);
+        this.identificador = identificador;
+        this.strMutabilidad = strMutabilidad;
+        this.valor = null;
+    }
+    
+    public Declaracion(String identificador, Instruccion valor, String strMutabilidad, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
         this.identificador = identificador;
         this.valor = valor;
+        this.strMutabilidad = strMutabilidad;
     }
 
     @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
+        //Validamos si es una declaracion sin datos
+        if(this.valor == null) {
+            switch (this.tipo.getTipo()) {
+                case tipoDato.ENTERO ->
+                    this.valor =  new VarValorDefecto(0, tipoDato.ENTERO,this.linea, this.col);
+                case tipoDato.DECIMAL ->
+                    this.valor =  new VarValorDefecto(0.0, tipoDato.DECIMAL,this.linea, this.col);
+                case tipoDato.CARACTER ->
+                    this.valor =  new VarValorDefecto(' ', tipoDato.CARACTER,this.linea, this.col);
+                case tipoDato.CADENA ->
+                    this.valor =  new VarValorDefecto(" ", tipoDato.CADENA,this.linea, this.col);
+                case tipoDato.BOOLEANO ->
+                    this.valor =  new VarValorDefecto(true, tipoDato.BOOLEANO,this.linea, this.col);
+                default -> {
+                    vars.listaErrores.add(new Errores("SEMANTICO", "Error al crear variable", this.linea, this.col));
+                }
+            }
+            
+            
+        }
+
         // interpretado la expresion
         var valorInterpretado = this.valor.interpretar(arbol, tabla);
 
@@ -37,7 +70,7 @@ public class Declaracion extends Instruccion {
         if (valorInterpretado instanceof Errores) {
             return valorInterpretado;
         }
-
+        
         //validamos los tipo
         if (this.valor.tipo.getTipo() != this.tipo.getTipo()) {
             vars.listaErrores.add(new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col));
