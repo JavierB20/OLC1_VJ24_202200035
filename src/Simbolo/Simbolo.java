@@ -9,6 +9,7 @@ public class Simbolo {
     private Tipo tipo;
     private String id;
     private Object valor;
+    private boolean mutabilidad;
 
     public Simbolo(Tipo tipo, String id) {
         this.tipo = tipo;
@@ -21,6 +22,13 @@ public class Simbolo {
         this.valor = valor;
     }
 
+    public Simbolo(Tipo tipo, String id, Object valor, boolean mutabilidad) {
+        this.tipo = tipo;
+        this.id = id;
+        this.valor = valor;
+        this.mutabilidad = mutabilidad;
+    }
+    
     public Tipo getTipo() {
         return tipo;
     }
@@ -41,8 +49,17 @@ public class Simbolo {
         return valor;
     }
 
-    public void setValor(Object valor) {
-        this.valor = valor;
+    public boolean setValor(Object valor) {
+        if (!mutabilidad) {
+            this.valor = valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean esConstante() {
+        return mutabilidad;
     }
     
     

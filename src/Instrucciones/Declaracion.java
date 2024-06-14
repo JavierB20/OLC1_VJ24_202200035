@@ -77,7 +77,8 @@ public class Declaracion extends Instruccion {
             return new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col);
         }
 
-        Simbolo s = new Simbolo(this.tipo, this.identificador, valorInterpretado);
+        this.boolMutabilidad = this.strMutabilidad.equalsIgnoreCase("const");
+        Simbolo s = new Simbolo(this.tipo, this.identificador, valorInterpretado, this.boolMutabilidad);
 
         boolean creacion = tabla.setVariable(s);
         if (!creacion) {

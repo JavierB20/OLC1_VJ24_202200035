@@ -51,7 +51,11 @@ public class AsignacionVar extends Instruccion{
                     this.linea, this.col);
         }
         //this.tipo.setTipo(variable.getTipo().getTipo());
-        variable.setValor(newValor);
+        boolean asignacion = (boolean)variable.setValor(newValor);
+        if (!asignacion) {
+            vars.listaErrores.add(new Errores("SEMANTICO", "No se puede cambiar el valor de una variable constante", this.linea, this.col));
+            return new Errores("SEMANTICO", "No se puede cambiar el valor de una variable constante", this.linea, this.col);
+        }
         return null;
     }
 }

@@ -37,7 +37,10 @@ public class patroninterprete {
                            println(((int) 18.6) == 18);
                            println(((int) 18.6) + 18);
                            println("------");
-                           var numero : bool;
+                           var num1 : int = 50;
+                           println(num1);
+                           const numero : int = 20;
+                           numero = 10;
                            println(numero);
                            """;
 //                           numero = 10;
