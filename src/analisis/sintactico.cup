@@ -168,8 +168,8 @@ SFOR ::= FOR PAR1 ASIGNACION:a EXPRESION:b FINCADENA ACTUALIZA_FOR:c PAR2 LLAVE1
 ;
 
 //Colocar incremento y decremento
-ACTUALIZA_FOR ::= INCREMENTO:a           {:   RESULT=new AsignacionVar(a, aleft, aright);  :}
-                | DECREMENTO:a           {:   RESULT=new AsignacionVar(a, aleft, aright);  :}
+ACTUALIZA_FOR ::= INCREMENTO:a           {:   RESULT=a;  :}
+                | DECREMENTO:a           {:   RESULT=a;  :}
                 | ID:a IGUAL EXPRESION:b {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
 ;
 
