@@ -21,6 +21,7 @@ public class If extends Instruccion{
     private Instruccion condicion;
     private LinkedList<Instruccion> instrucciones;
     private LinkedList<Instruccion> instruccionesELSE;
+    private Instruccion instruccionesELSEIF;
     Variables vars = new Variables();
     private boolean erroresEncontrados;
     private Errores error;
@@ -32,13 +33,22 @@ public class If extends Instruccion{
         this.instrucciones = instrucciones;
     }
     
+    public If(Instruccion condicion, LinkedList<Instruccion> instrucciones, Instruccion instruccionesELSEIF, int linea, int col) {
+        super(new Tipo(tipoDato.VOID), linea, col);
+        this.condicion = condicion;
+        this.instrucciones = instrucciones;
+        this.instruccionesELSEIF = instruccionesELSEIF;
+    }
+    
     public If(Instruccion condicion, LinkedList<Instruccion> instrucciones, LinkedList<Instruccion> instruccionesELSE, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.condicion = condicion;
         this.instrucciones = instrucciones;
         this.instruccionesELSE = instruccionesELSE;
-
     }
+    
+
+    
     @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         var cond = this.condicion.interpretar(arbol, tabla);
@@ -51,6 +61,9 @@ public class If extends Instruccion{
             vars.listaErrores.add(new Errores("SEMANTICO", "Expresion invalida", this.linea, this.col));
             return new Errores("SEMANTICO", "Expresion invalida",
                     this.linea, this.col);
+        }
+        if(cond instanceof String){
+            cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
         }
 
         var newTabla = new tablaSimbolos(tabla);
@@ -83,30 +96,32 @@ public class If extends Instruccion{
             }
         }
         else {
-            if(this.instruccionesELSE.size() > 0){
-                for (var i : this.instruccionesELSE) {
-                
-                    if(i == null){
-                        vars.listaErrores.add(new Errores("SINTACTICO", "Error dentro de else no reconocible (Falta o hay un caracter de mas)", this.linea, this.col));
-                        return new Errores("SINTACTICO", "Error dentro de else no reconocible (Falta o hay un caracter de mas)", this.linea, this.col);
-                    }
+            if(this.instruccionesELSE != null) {
+                if(!this.instruccionesELSE.isEmpty()){
+                    for (var i : this.instruccionesELSE) {
 
-                    if (i instanceof Break) {
-                        return i;
-                    }
+                        if(i == null){
+                            vars.listaErrores.add(new Errores("SINTACTICO", "Error dentro de else no reconocible (Falta o hay un caracter de mas)", this.linea, this.col));
+                            return new Errores("SINTACTICO", "Error dentro de else no reconocible (Falta o hay un caracter de mas)", this.linea, this.col);
+                        }
 
-                    var resultado = i.interpretar(arbol, newTabla);
+                        if (i instanceof Break) {
+                            return i;
+                        }
 
-                    if (resultado instanceof Break) {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
-                        return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
-                    }
-                    //Manejo de errores en else
+                        var resultado = i.interpretar(arbol, newTabla);
 
-                    if (resultado instanceof Errores){
-                        erroresEncontrados = true;
-                        error = (Errores) resultado;
-                        break;
+                        if (resultado instanceof Break) {
+                            vars.listaErrores.add(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
+                            return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
+                        }
+                        //Manejo de errores en else
+
+                        if (resultado instanceof Errores){
+                            erroresEncontrados = true;
+                            error = (Errores) resultado;
+                            break;
+                        }
                     }
                 }
             }

@@ -40,11 +40,13 @@ public class patroninterprete {
                            var num1 : int = (int) 50.58;
                            println(num1 + 20);
                            if(num1 == 50) {
-                             println("PENE");
+                                println("PENE1");
+                                if(false) {
+                                    println("PENE2");
+                                }
+                           println("PENE3");
                            }
-                           else {
-                             println("PEENELSE");
-                           }
+                           
                            """;
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));

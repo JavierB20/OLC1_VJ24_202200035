@@ -38,7 +38,7 @@ parser code
     parser(scanner s){this.s = s;}
 
     public LinkedList<Errores> listaErrores = new LinkedList<>();
-    
+
     public void syntax_error(Symbol s){
         listaErrores.add(new Errores("SINTACTICO RECUPERABLE",
                         "No se esperaba el componente "+s.value,
@@ -73,13 +73,13 @@ terminal String BREAK;
 
 
 //no terminales
-nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
+nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES, SELSEIF;
 nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion INSPRINTLN, DECLARACION, ASIGNACION;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
 nonterminal String MUTABILIDAD;
-nonterminal Instruccion SIF, SELSEIF;
+nonterminal Instruccion SIF;
 nonterminal Instruccion SBREAK;
 
 
@@ -90,7 +90,7 @@ precedence left MAS, MENOS;
 precedence left MOD;
 precedence left IGUALACION, DIFERENCIA, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL;
 precedence left TKNOT;
-precedence right TKXOR, TKAND, TKOR; 
+precedence right TKXOR, TKAND, TKOR;
 
 start with INICIO;
 
@@ -98,7 +98,7 @@ INICIO ::= INSTRUCCIONES:a      {:   RESULT = a;   :}
 ;
 
 INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b); :}
-                | INSTRUCCION:a                   {: RESULT = new LinkedList<>(); RESULT.add(a); :}
+                | INSTRUCCION:a                     {: RESULT = new LinkedList<>(); RESULT.add(a); :}
 ;
 
 INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
@@ -107,7 +107,7 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | SBREAK:a            {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | error FINCADENA
-                | error 
+                | error
 ;
 
 INSPRINTLN ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
@@ -117,9 +117,13 @@ SBREAK ::= BREAK:a FINCADENA      {:    RESULT = new Break(aleft, aright);     :
 ;
 
 //INICIO SENTENCIAS DE CONTROL
-SIF ::=   IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 ELSE LLAVE1 INSTRUCCIONES:c LLAVE2 {:   RESULT = new If(a, b, c, aleft, aright);   :}
-        | IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2  {:   RESULT = new If(a, b, aleft, aright);   :}
+SIF ::=   IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 ELSE ELSE SIF:c                       {:   RESULT = new If(a, b, c, aleft, aright);   :}
+        | IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 ELSE LLAVE1 INSTRUCCIONES:c LLAVE2   {:   RESULT = new If(a, b, c, aleft, aright);   :}
+        | IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2                                      {:   RESULT = new If(a, b, aleft, aright);   :}
 ;
+
+// SELSEIF ::= ELSEIF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2  {:   RESULT = new LinkedList<>(); RESULT.add(a);   :}
+// ;
 
 //FIN SENTENCIAS DE CONTROL
 
@@ -137,28 +141,28 @@ ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a
 
 EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
             | TKNOT EXPRESION:a                 {:   RESULT = new Logicos(a, OperadoresLogicos.OPNOT, aleft, aright);   :}
-            
+
             | EXPRESION:a MAS EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
             | EXPRESION:a MENOS EXPRESION:b     {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
             | EXPRESION:a POTENCIA EXPRESION:b  {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.POTENCIA, aleft, aright);   :}
             | EXPRESION:a MULT EXPRESION:b      {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
             | EXPRESION:a DIV EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.DIVISION, aleft, aright);   :}
             | EXPRESION:a MOD EXPRESION:b       {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MODULO, aleft, aright);   :}
-            
+
             | EXPRESION:a IGUALACION EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.IGUALACION, aleft, aright);   :}
             | EXPRESION:a DIFERENCIA EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.DIFERENCIA, aleft, aright);   :}
             | EXPRESION:a MENORIGUAL EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENOROIGUAL, aleft, aright);   :}
             | EXPRESION:a MENOR EXPRESION:b            {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORQUE, aleft, aright);   :}
             | EXPRESION:a MAYORIGUAL EXPRESION:b       {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYOROIGUAL, aleft, aright);   :}
             | EXPRESION:a MAYOR EXPRESION:b            {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORQUE, aleft, aright);   :}
-            
+
             | EXPRESION:a TKAND EXPRESION:b            {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPAND, aleft, aright);   :}
             | EXPRESION:a TKXOR EXPRESION:b            {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPXOR, aleft, aright);   :}
             | EXPRESION:a TKOR EXPRESION:b             {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPOR, aleft, aright);   :}
 
             | PAR1 TIPOS:a PAR2 EXPRESION:b             {:   RESULT = new Casteos(a, b, aleft, aright);   :}
 
-            | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :} 
+            | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :}
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
             | CADENA:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.CADENA), aleft, aright );   :}
