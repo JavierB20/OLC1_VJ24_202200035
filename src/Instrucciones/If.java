@@ -27,12 +27,14 @@ public class If extends Instruccion{
     private Errores error;
 
 
+    //Para IF normal
     public If(Instruccion condicion, LinkedList<Instruccion> instrucciones, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.condicion = condicion;
         this.instrucciones = instrucciones;
     }
     
+    //Para ELSE IF
     public If(Instruccion condicion, LinkedList<Instruccion> instrucciones, Instruccion instruccionesELSEIF, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.condicion = condicion;
@@ -40,6 +42,7 @@ public class If extends Instruccion{
         this.instruccionesELSEIF = instruccionesELSEIF;
     }
     
+    //Para ELSE
     public If(Instruccion condicion, LinkedList<Instruccion> instrucciones, LinkedList<Instruccion> instruccionesELSE, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.condicion = condicion;
@@ -123,6 +126,13 @@ public class If extends Instruccion{
                             break;
                         }
                     }
+                }
+            }
+            if(this.instruccionesELSEIF != null){
+                var resultado = this.instruccionesELSEIF.interpretar(arbol, tabla);
+                if(resultado instanceof Errores){
+                    vars.listaErrores.add(new Errores("SEMANTICO", "Error dentro de if no reconocible", this.linea, this.col));
+                    return new Errores("SEMANTICO", "Error dentro de if no reconocible", this.linea, this.col);
                 }
             }
         }

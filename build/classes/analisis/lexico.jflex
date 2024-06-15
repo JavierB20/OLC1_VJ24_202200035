@@ -67,7 +67,6 @@ CONST = "CONST"
 VAR = "VAR"
 IF = "IF"
 ELSE = "ELSE"
-ELSEIF = "ELSE IF"
 BREAK = "BREAK"
 
 //Expresiones regulares
@@ -121,7 +120,6 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {TKBOOL}        {return new Symbol(sym.TKBOOL, yyline, yycolumn,yytext());}
 <YYINITIAL> {CONST}         {return new Symbol(sym.CONST, yyline, yycolumn,yytext());}
 <YYINITIAL> {VAR}           {return new Symbol(sym.VAR, yyline, yycolumn,yytext());}
-<YYINITIAL> {ELSEIF}        {return new Symbol(sym.ELSEIF, yyline, yycolumn,yytext());}
 <YYINITIAL> {IF}            {return new Symbol(sym.IF, yyline, yycolumn,yytext());}
 <YYINITIAL> {ELSE}          {return new Symbol(sym.ELSE, yyline, yycolumn,yytext());}
 <YYINITIAL> {BREAK}         {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}

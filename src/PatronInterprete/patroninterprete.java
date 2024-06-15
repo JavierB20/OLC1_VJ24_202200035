@@ -32,21 +32,30 @@ public class patroninterprete {
     public static void main(String[] args) {
         try {
             String texto = """
-                           println("\tPrueba de secuencias de escape" );
-                           println(5+2*(8));
-                           println(((int) 18.6) == 18);
-                           println(((int) 18.6) + 18);
-                           println("------");
-                           var num1 : int = (int) 50.58;
-                           println(num1 + 20);
-                           if(num1 == 50) {
+                            println("\tPrueba de secuencias de escape" );
+                            println(5+2*(8));
+                            println(((int) 18.6) == 18);
+                            println(((int) 18.6) + 18);
+                            println("------");
+                            var num1 : int = (int) 50.58;
+                            println(num1 + 20);
+                            if(num1 == 51) {
                                 println("PENE1");
-                                if(false) {
+                                if(!!!false) {
                                     println("PENE2");
                                 }
-                           println("PENE3");
+                                println("PENE3");
+                            }
+                            else if (true) {
+                                println("PENEELSEIF1");
+                                if(true){
+                                    println("PREPUCIO");
+                                }
+                            }
+                           else {
+                                println("ELSE");
                            }
-                           
+                           println("SALIDA");
                            """;
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
