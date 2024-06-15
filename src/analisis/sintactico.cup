@@ -13,6 +13,9 @@ import excepciones.Errores;
 import Instrucciones.Print;
 import Instrucciones.AsignacionVar;
 import Instrucciones.Declaracion;
+import Instrucciones.If;
+import Instrucciones.Break;
+
 
 //expresiones
 import expresiones.Nativo;
@@ -58,13 +61,16 @@ action code
 
 //terminales
 terminal String CADENA, ENTERO, DECIMAL, CARACTER, ID;
-terminal IGUAL, FINCADENA, PRINTLN, DOSPUNTOS;
+terminal IGUAL, FINCADENA, PRINTLN, DOSPUNTOS, LLAVE1, LLAVE2;
 terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS;
 terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
 terminal TKDOUBLE, TKINT, TKCHAR, TKSTRING, TKBOOL;
 terminal CONST, VAR;
+terminal IF, ELSE, ELSEIF;
+terminal String BREAK;
+
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
@@ -73,6 +79,9 @@ nonterminal Instruccion INSPRINTLN, DECLARACION, ASIGNACION;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
 nonterminal String MUTABILIDAD;
+nonterminal Instruccion SIF, SELSEIF;
+nonterminal Instruccion SBREAK;
+
 
 precedence left UMENOS;
 precedence nonassoc POTENCIA;
@@ -94,6 +103,8 @@ INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b)
 
 INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | DECLARACION:a       {:   RESULT=a;   :}
+                | SIF:a               {:   RESULT=a;   :}
+                | SBREAK:a            {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | error FINCADENA
                 | error 
@@ -101,6 +112,20 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
 
 INSPRINTLN ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Print(a, aleft, aright);   :}
 ;
+
+SBREAK ::= BREAK:a FINCADENA      {:    RESULT = new Break(aleft, aright);     :}
+;
+
+//INICIO SENTENCIAS DE CONTROL
+SIF ::=   IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 ELSE LLAVE1 INSTRUCCIONES:c LLAVE2 {:   RESULT = new If(a, b, c, aleft, aright);   :}
+        | IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2  {:   RESULT = new If(a, b, aleft, aright);   :}
+;
+
+//FIN SENTENCIAS DE CONTROL
+
+
+//INICIO SENTENCIAS CICLICAS
+//FIN    SENTENCIAS CICLICAS
 
 DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                      {:   RESULT = new Declaracion(b, d, a, aleft, aright);   :}
                 | MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a IGUAL EXPRESION:c FINCADENA    {:   RESULT = new Declaracion(b, c, d, a, aleft, aright);   :}

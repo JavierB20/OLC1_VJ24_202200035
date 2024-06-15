@@ -37,17 +37,15 @@ public class patroninterprete {
                            println(((int) 18.6) == 18);
                            println(((int) 18.6) + 18);
                            println("------");
-                           var num1 : int = 50;
-                           println(num1);
-                           const numero : int = 20;
-                           numero = 10;
-                           println(numero);
+                           var num1 : int = (int) 50.58;
+                           println(num1 + 20);
+                           if(num1 == 50) {
+                             println("PENE");
+                           }
+                           else {
+                             println("PEENELSE");
+                           }
                            """;
-//                           numero = 10;
-//                           println(numero);
-//                           println("------");
-//                           double numDoble = ((double) numero) + 22.56;
-//                           println(numDoble);
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);

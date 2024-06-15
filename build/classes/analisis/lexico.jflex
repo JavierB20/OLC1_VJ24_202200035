@@ -51,6 +51,8 @@ TKOR = "||"
 TKAND = "&&"
 TKXOR = "^"
 DOSPUNTOS = ":"
+LLAVE1 = "{"
+LLAVE2 = "}"
 
 //palabras reservadas
 PRINTLN = "println"
@@ -63,6 +65,10 @@ TKSTRING = "STRING"
 TKBOOL = "BOOL"
 CONST = "CONST"
 VAR = "VAR"
+IF = "IF"
+ELSE = "ELSE"
+ELSEIF = "ELSE IF"
+BREAK = "BREAK"
 
 //Expresiones regulares
 ID=[a-zA-z][a-zA-Z0-9_]*
@@ -81,6 +87,8 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {PAR1}          {return new Symbol(sym.PAR1, yyline, yycolumn,yytext());}
 <YYINITIAL> {PAR2}          {return new Symbol(sym.PAR2, yyline, yycolumn,yytext());}
 <YYINITIAL> {DOSPUNTOS}     {return new Symbol(sym.DOSPUNTOS, yyline, yycolumn,yytext());}
+<YYINITIAL> {LLAVE1}        {return new Symbol(sym.LLAVE1, yyline, yycolumn,yytext());}
+<YYINITIAL> {LLAVE2}        {return new Symbol(sym.LLAVE2, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {MAS}           {return new Symbol(sym.MAS, yyline, yycolumn,yytext());}
 <YYINITIAL> {MENOS}         {return new Symbol(sym.MENOS, yyline, yycolumn,yytext());}
@@ -113,6 +121,10 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {TKBOOL}        {return new Symbol(sym.TKBOOL, yyline, yycolumn,yytext());}
 <YYINITIAL> {CONST}         {return new Symbol(sym.CONST, yyline, yycolumn,yytext());}
 <YYINITIAL> {VAR}           {return new Symbol(sym.VAR, yyline, yycolumn,yytext());}
+<YYINITIAL> {ELSEIF}        {return new Symbol(sym.ELSEIF, yyline, yycolumn,yytext());}
+<YYINITIAL> {IF}            {return new Symbol(sym.IF, yyline, yycolumn,yytext());}
+<YYINITIAL> {ELSE}          {return new Symbol(sym.ELSE, yyline, yycolumn,yytext());}
+<YYINITIAL> {BREAK}         {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 
