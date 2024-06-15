@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Instrucciones;
 
 import VariablesGlobales.Variables;
@@ -13,25 +9,17 @@ import simbolo.Tipo;
 import simbolo.tablaSimbolos;
 import simbolo.tipoDato;
 
-/**
- *
- * @author msWas
- */
-//expresion instuccion
-//si condicion ejecuto instruccion -> valido otra vez expresion (condicion)
-public class While extends Instruccion{
+public class DoWhile extends Instruccion {
     private Instruccion condicion;
     private LinkedList<Instruccion> instrucciones;
-    private boolean erroresEncontrados;
-    private Errores error;
-    
-    public While(Instruccion condicion, LinkedList<Instruccion> instrucciones, int linea, int col) {
+
+    public DoWhile(Instruccion condicion, LinkedList<Instruccion> instrucciones, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.condicion = condicion;
         this.instrucciones = instrucciones;
     }
-    
-        @Override
+
+    @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         //creamos un nuevo entorno
         var newTabla = new tablaSimbolos(tabla);
@@ -54,7 +42,7 @@ public class While extends Instruccion{
             cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
         }
 
-        while ((boolean) this.condicion.interpretar(arbol, newTabla)) {
+        do {
             //nuevo entorno
             var newTabla2 = new tablaSimbolos(newTabla);
             newTabla.setNombre(tabla.getNombre() + "WHILE-INTERNO");
@@ -80,14 +68,9 @@ public class While extends Instruccion{
             if (act instanceof Errores) {
                 return act;
             }
-        }
 
-        if(erroresEncontrados && error != null){
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error encotrado dentro de sentencia ELSE", this.linea, this.col));
-            return new Errores("SEMANTICO", "Error encotrado dentro de sentencia ELSE", this.linea, this.col);
-        }
-        
+        } while ((boolean) this.condicion.interpretar(arbol, newTabla));
+
         return null;
     }
-    
 }

@@ -18,6 +18,12 @@ import Instrucciones.Match;
 import Instrucciones.Caso;
 import Instrucciones.While;
 import Instrucciones.For;
+import Instrucciones.Incremento;
+import Instrucciones.Decremento;
+import Instrucciones.Continue;
+import Instrucciones.DoWhile;
+
+
 
 //expresiones
 import expresiones.Nativo;
@@ -70,8 +76,8 @@ terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
 terminal TKDOUBLE, TKINT, TKCHAR, TKSTRING, TKBOOL;
 terminal CONST, VAR;
-terminal IF, ELSE, MATCH, WHILE, FOR;
-terminal String BREAK;
+terminal IF, ELSE, MATCH, WHILE, FOR, DO;
+terminal String BREAK, CONTINUE;
 
 
 //no terminales
@@ -81,8 +87,8 @@ nonterminal Instruccion INSPRINTLN, DECLARACION, ASIGNACION, CASO;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
 nonterminal String MUTABILIDAD;
-nonterminal Instruccion SIF, SMATCH, SWHILE, SFOR, ACTUALIZA_FOR;
-nonterminal Instruccion SBREAK, SDEFAULT;
+nonterminal Instruccion SIF, SMATCH, SWHILE, SFOR, ACTUALIZA_FOR, INCREMENTO, DECREMENTO;
+nonterminal Instruccion SBREAK, SDEFAULT, SCONTINUE, SDOWHILE;
 
 
 precedence left UMENOS;
@@ -108,8 +114,12 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | SIF:a               {:   RESULT=a;   :}
                 | SMATCH:a            {:   RESULT=a;   :}
                 | SWHILE:a            {:   RESULT=a;   :}
+                | SDOWHILE:a          {:   RESULT=a;   :}
                 | SFOR:a              {:   RESULT=a;   :}
+                | INCREMENTO:a        {:   RESULT=a;   :}
+                | DECREMENTO:a        {:   RESULT=a;   :}
                 | SBREAK:a            {:   RESULT=a;   :}
+                | SCONTINUE:a         {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | error FINCADENA
                 | error
@@ -119,6 +129,9 @@ INSPRINTLN ::= PRINTLN PAR1 EXPRESION:a PAR2 FINCADENA      {:   RESULT = new Pr
 ;
 
 SBREAK ::= BREAK:a FINCADENA      {:    RESULT = new Break(aleft, aright);     :}
+;
+
+SCONTINUE ::= CONTINUE:a FINCADENA      {:    RESULT = new Continue(aleft, aright);     :}
 ;
 
 //INICIO SENTENCIAS DE CONTROL
@@ -147,15 +160,26 @@ SDEFAULT ::= GUIONBAJO IGUAL MAYOR LLAVE1 INSTRUCCIONES:a LLAVE2 {: RESULT = new
 SWHILE ::= WHILE PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 {:  RESULT = new While(a, b, aleft, aright);   :} 
 ;
 
+SDOWHILE ::= DO LLAVE1 INSTRUCCIONES:b LLAVE2 WHILE PAR1 EXPRESION:a PAR2 FINCADENA {:  RESULT = new DoWhile(a, b, aleft, aright);   :} 
+;
+
 SFOR ::= FOR PAR1 ASIGNACION:a EXPRESION:b FINCADENA ACTUALIZA_FOR:c PAR2 LLAVE1 INSTRUCCIONES:d LLAVE2     
 {:   RESULT = new For(a, b, c, d, aleft, aright);   :}
 ;
 
 //Colocar incremento y decremento
-ACTUALIZA_FOR ::= ID:a IGUAL EXPRESION:b {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
+ACTUALIZA_FOR ::= INCREMENTO:a           {:   RESULT=new AsignacionVar(a, aleft, aright);  :}
+                | DECREMENTO:a           {:   RESULT=new AsignacionVar(a, aleft, aright);  :}
+                | ID:a IGUAL EXPRESION:b {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
 ;
 
+INCREMENTO ::=    ID:a MAS MAS FINCADENA {: RESULT=new Incremento(a, aleft, aright);  :}
+                | ID:a MAS MAS           {: RESULT=new Incremento(a, aleft, aright);  :}
+;
 
+DECREMENTO ::=    ID:a MENOS MENOS FINCADENA {: RESULT=new Decremento(a, aleft, aright);  :}
+                | ID:a MENOS MENOS           {: RESULT=new Decremento(a, aleft, aright);  :}
+;
 //FIN    SENTENCIAS CICLICAS
 
 DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                      {:   RESULT = new Declaracion(b, d, a, aleft, aright);   :}
@@ -188,7 +212,7 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | EXPRESION:a TKOR EXPRESION:b             {:   RESULT = new Logicos(a, b, OperadoresLogicos.OPOR, aleft, aright);   :}
 
             | PAR1 TIPOS:a PAR2 EXPRESION:b             {:   RESULT = new Casteos(a, b, aleft, aright);   :}
-
+        
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :}
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}

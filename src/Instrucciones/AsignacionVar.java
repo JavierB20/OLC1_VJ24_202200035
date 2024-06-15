@@ -22,11 +22,17 @@ public class AsignacionVar extends Instruccion{
     private Instruccion exp;
     Variables vars = new Variables();
 
+    public AsignacionVar(Instruccion exp, int linea, int col) {
+        super(new Tipo(tipoDato.VOID), linea, col);
+        this.exp = exp;
+    }
+    
     public AsignacionVar(String id, Instruccion exp, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.id = id;
         this.exp = exp;
     }
+    
 
     @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {

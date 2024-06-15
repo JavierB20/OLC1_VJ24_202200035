@@ -23,6 +23,7 @@ public class sym {
   public static final int LLAVE1 = 11;
   public static final int ENTERO = 3;
   public static final int TKOR = 32;
+  public static final int CONTINUE = 49;
   public static final int TKBOOL = 39;
   public static final int PRINTLN = 9;
   public static final int FOR = 46;
@@ -44,7 +45,7 @@ public class sym {
   public static final int MENOS = 16;
   public static final int MENOR = 28;
   public static final int MOD = 20;
-  public static final int BREAK = 47;
+  public static final int BREAK = 48;
   public static final int TKSTRING = 38;
   public static final int MAYOR = 30;
   public static final int POTENCIA = 17;
@@ -55,6 +56,7 @@ public class sym {
   public static final int VAR = 41;
   public static final int TKDOUBLE = 35;
   public static final int TKXOR = 34;
+  public static final int DO = 47;
   public static final int MAS = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -104,7 +106,9 @@ public class sym {
   "MATCH",
   "WHILE",
   "FOR",
-  "BREAK"
+  "DO",
+  "BREAK",
+  "CONTINUE"
   };
 }
 

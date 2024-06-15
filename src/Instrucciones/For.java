@@ -18,7 +18,6 @@ import simbolo.tipoDato;
  * @author msWas
  */
 public class For extends Instruccion {
-
     private Instruccion asignacion;
     private Instruccion condicion;
     private Instruccion actualizacion;
@@ -34,61 +33,65 @@ public class For extends Instruccion {
 
     @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
-        //creamos un nuevo entorno
+        // Crear un nuevo entorno
         var newTabla = new tablaSimbolos(tabla);
         newTabla.setNombre(tabla.getNombre() + "FOR");
 
-        // asignacion/declaracion
+        // Asignación/declaración
         var res1 = this.asignacion.interpretar(arbol, newTabla);
         if (res1 instanceof Errores) {
-                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error en condicional del WHILE", this.linea, this.col));
+            Variables.addToGlobalLinkedList((Errores) res1);
             return res1;
         }
 
-        //validar la condicion -> Booleano
+        // Validar la condición -> Booleano
         var cond = this.condicion.interpretar(arbol, newTabla);
         if (cond instanceof Errores) {
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error en la declaracion del FOR", this.linea, this.col));
+            Variables.addToGlobalLinkedList((Errores) cond);
             return cond;
         }
-        
-        // ver que cond sea booleano
+
+        // Verificar que la condición sea booleana
         if (this.condicion.tipo.getTipo() != tipoDato.BOOLEANO) {
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Expresion invalida", this.linea, this.col));
-            return new Errores("SEMANTICO", "Expresion invalida",
-                    this.linea, this.col);
+            Errores error = new Errores("SEMANTICO", "Expresión inválida", this.linea, this.col);
+            Variables.addToGlobalLinkedList(error);
+            return error;
         }
-        if(cond instanceof String){
-            cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
-        }
-        
-        if(cond instanceof String){
-            cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
+
+        if (cond instanceof String) {
+            cond = ((String) cond).equalsIgnoreCase("true");
         }
 
         while ((boolean) this.condicion.interpretar(arbol, newTabla)) {
-            //nuevo entorno
+            // Nuevo entorno
             var newTabla2 = new tablaSimbolos(newTabla);
-            newTabla.setNombre(tabla.getNombre() + "FOR-INTERNO");
+            newTabla2.setNombre(tabla.getNombre() + "FOR-INTERNO");
 
-            //ejecutar instrucciones
+            // Ejecutar instrucciones
             for (var i : this.instrucciones) {
-                if (i instanceof Break) {
-                    return null;
-                }
                 var resIns = i.interpretar(arbol, newTabla2);
                 if (resIns instanceof Break) {
                     return null;
                 }
+                
+                if (i instanceof Continue) {
+                    break;
+                }
+                
+                if (resIns instanceof Errores) {
+                    Variables.addToGlobalLinkedList((Errores) resIns);
+                    return resIns;
+                }
             }
 
-            //actualizar la variable
+            // Actualizar la variable
             var act = this.actualizacion.interpretar(arbol, newTabla);
             if (act instanceof Errores) {
+                Variables.addToGlobalLinkedList((Errores) act);
                 return act;
             }
         }
         return null;
     }
-    
 }
+

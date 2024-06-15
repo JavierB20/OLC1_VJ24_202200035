@@ -83,11 +83,20 @@ public class If extends Instruccion{
                     return i;
                 }
                 
+                if (i instanceof Continue) {
+                    break;
+                }
+                
                 var resultado = i.interpretar(arbol, newTabla);
                 
                 if (resultado instanceof Break) {
                     Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
                     return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
+                }
+                
+                if (resultado instanceof Continue) {
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Continue' fuera de ciclo", this.linea, this.col));
+                    return new Errores("SEMANTICO", "Error 'Continue' fuera de ciclo", this.linea, this.col);
                 }
                 //Manejo de errores en if
                 
@@ -110,6 +119,11 @@ public class If extends Instruccion{
 
                         if (i instanceof Break) {
                             return i;
+                        }
+                        
+                        if (i instanceof Continue) {
+                            System.out.println("PENE" + i);
+                            break;
                         }
 
                         var resultado = i.interpretar(arbol, newTabla);
