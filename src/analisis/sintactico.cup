@@ -108,6 +108,7 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | SIF:a               {:   RESULT=a;   :}
                 | SMATCH:a            {:   RESULT=a;   :}
                 | SWHILE:a            {:   RESULT=a;   :}
+                | SFOR:a              {:   RESULT=a;   :}
                 | SBREAK:a            {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | error FINCADENA
@@ -143,12 +144,14 @@ SDEFAULT ::= GUIONBAJO IGUAL MAYOR LLAVE1 INSTRUCCIONES:a LLAVE2 {: RESULT = new
 
 
 //INICIO SENTENCIAS CICLICAS
-SWHILE ::= WHILE PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCION:b LLAVE2 {:  RESULT = new While(a, b, aleft, aright);   :} 
+SWHILE ::= WHILE PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 {:  RESULT = new While(a, b, aleft, aright);   :} 
 ;
 
-SFOR ::= FOR PAR1 ASIGNACION:a FINCADENA EXPRESION:b FINCADENA ACTUALIZA_FOR:c PAR2 LLAVE1 INSTRUCCIONES:d LLAVE2 {:   RESULT = new For(a, b, c, d, aleft, aright);   :}
+SFOR ::= FOR PAR1 ASIGNACION:a EXPRESION:b FINCADENA ACTUALIZA_FOR:c PAR2 LLAVE1 INSTRUCCIONES:d LLAVE2     
+{:   RESULT = new For(a, b, c, d, aleft, aright);   :}
 ;
 
+//Colocar incremento y decremento
 ACTUALIZA_FOR ::= ID:a IGUAL EXPRESION:b {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
 ;
 

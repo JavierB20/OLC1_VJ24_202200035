@@ -21,20 +21,26 @@ import simbolo.tipoDato;
 //si condicion ejecuto instruccion -> valido otra vez expresion (condicion)
 public class While extends Instruccion{
     private Instruccion condicion;
-    private Instruccion instruccion;
+    private LinkedList<Instruccion> instrucciones;
     private boolean erroresEncontrados;
     private Errores error;
     
-    public While(Instruccion condicion, Instruccion instruccion, int linea, int col) {
+    public While(Instruccion condicion, LinkedList<Instruccion> instrucciones, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);
         this.condicion = condicion;
-        this.instruccion = instruccion;
+        this.instrucciones = instrucciones;
     }
     
         @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
+        //creamos un nuevo entorno
+        var newTabla = new tablaSimbolos(tabla);
+        newTabla.setNombre(tabla.getNombre() + "WHILE");
+
+        //validar la condicion -> Booleano
         var cond = this.condicion.interpretar(arbol, tabla);
         if (cond instanceof Errores) {
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error en condicional del WHILE", this.linea, this.col));
             return cond;
         }
 
@@ -48,35 +54,28 @@ public class While extends Instruccion{
             cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
         }
 
-        var newTabla = new tablaSimbolos(tabla);
-                
-        while((boolean) cond) {
-                if(instruccion == null){
-                    Variables.addToGlobalLinkedList(new Errores("SINTACTICO", "Error dentro de While no reconocible", this.linea, this.col));
-                    return new Errores("SINTACTICO", "Error dentro de While no reconocible (Falta o hay un caracter de mas)", this.linea, this.col);
+        while ((boolean) this.condicion.interpretar(arbol, newTabla)) {
+            //nuevo entorno
+            var newTabla2 = new tablaSimbolos(newTabla);
+            newTabla.setNombre(tabla.getNombre() + "WHILE-INTERNO");
+
+            //ejecutar instrucciones
+            for (var i : this.instrucciones) {
+                if (i instanceof Break) {
+                    return null;
                 }
-                
-                if (instruccion instanceof Break) {
-                    return instruccion;
+                var resIns = i.interpretar(arbol, newTabla2);
+                if (resIns instanceof Break) {
+                    return null;
                 }
-                
-                var resultado = instruccion.interpretar(arbol, newTabla);
-                
-                if (resultado instanceof Break) {
-                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
-                    return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
-                }
-                
-                //Manejo de errores en While
-                if (resultado instanceof Errores){
-                    erroresEncontrados = true;
-                    error = (Errores) resultado;
-                    break;
-                }
-                
-                cond = this.condicion.interpretar(arbol, tabla);
+            }
+
+            //actualizar la variable
+            var act = this.condicion.interpretar(arbol, newTabla);
+            if (act instanceof Errores) {
+                return act;
+            }
         }
-        
 
         if(erroresEncontrados && error != null){
             Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error encotrado dentro de sentencia ELSE", this.linea, this.col));
