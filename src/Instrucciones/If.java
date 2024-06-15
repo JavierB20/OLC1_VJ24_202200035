@@ -84,19 +84,17 @@ public class If extends Instruccion{
                 }
                 
                 if (i instanceof Continue) {
-                    break;
+                    return i;
                 }
                 
                 var resultado = i.interpretar(arbol, newTabla);
                 
                 if (resultado instanceof Break) {
-                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
-                    return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
+                    return resultado;
                 }
-                
+
                 if (resultado instanceof Continue) {
-                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Continue' fuera de ciclo", this.linea, this.col));
-                    return new Errores("SEMANTICO", "Error 'Continue' fuera de ciclo", this.linea, this.col);
+                    return resultado;
                 }
                 //Manejo de errores en if
                 
@@ -122,15 +120,17 @@ public class If extends Instruccion{
                         }
                         
                         if (i instanceof Continue) {
-                            System.out.println("PENE" + i);
-                            break;
+                            return i;
                         }
 
                         var resultado = i.interpretar(arbol, newTabla);
 
                         if (resultado instanceof Break) {
-                            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
-                            return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
+                            return resultado;
+                        }
+                        
+                        if (resultado instanceof Continue) {
+                            return resultado;
                         }
                         //Manejo de errores en else
 

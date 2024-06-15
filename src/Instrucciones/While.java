@@ -73,6 +73,10 @@ public class While extends Instruccion{
                 if (resIns instanceof Break) {
                     return null;
                 }
+                
+                if (resIns instanceof Continue) {
+                    break;
+                }
             }
 
             //actualizar la variable

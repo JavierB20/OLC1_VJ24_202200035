@@ -70,11 +70,12 @@ public class For extends Instruccion {
             // Ejecutar instrucciones
             for (var i : this.instrucciones) {
                 var resIns = i.interpretar(arbol, newTabla2);
-                if (resIns instanceof Break) {
+                
+                if (resIns instanceof Break || i instanceof Break) {
                     return null;
                 }
                 
-                if (i instanceof Continue) {
+                if (resIns instanceof Continue || i instanceof Continue) {
                     break;
                 }
                 
