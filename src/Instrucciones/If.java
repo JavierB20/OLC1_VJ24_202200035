@@ -70,6 +70,8 @@ public class If extends Instruccion{
         }
 
         var newTabla = new tablaSimbolos(tabla);
+        newTabla.setNombre(tabla.getNombre() + "IF");
+
                 
         if ((boolean) cond) {
             for (var i : this.instrucciones) {

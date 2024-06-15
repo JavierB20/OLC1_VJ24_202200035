@@ -57,7 +57,7 @@ public class While extends Instruccion{
         while ((boolean) this.condicion.interpretar(arbol, newTabla)) {
             //nuevo entorno
             var newTabla2 = new tablaSimbolos(newTabla);
-            newTabla.setNombre(tabla.getNombre() + "WHILE-INTERNO");
+            newTabla2.setNombre(tabla.getNombre() + "WHILE-INTERNO");
 
             //ejecutar instrucciones
             for (var i : this.instrucciones) {
@@ -70,6 +70,12 @@ public class While extends Instruccion{
                 }
                 
                 var resIns = i.interpretar(arbol, newTabla2);
+                
+                if (resIns instanceof Error) {
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error encotrado dentro de sentencia While", this.linea, this.col));
+                    return new Errores("SEMANTICO", "Error encotrado dentro de sentencia While", this.linea, this.col);
+                }
+                
                 if (resIns instanceof Break) {
                     return null;
                 }
@@ -82,6 +88,7 @@ public class While extends Instruccion{
             //actualizar la variable
             var act = this.condicion.interpretar(arbol, newTabla);
             if (act instanceof Errores) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error al actualizar variable", this.linea, this.col));
                 return act;
             }
         }

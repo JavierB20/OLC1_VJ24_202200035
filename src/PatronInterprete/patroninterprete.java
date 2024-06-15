@@ -30,6 +30,7 @@ public class patroninterprete {
 
     public String Ejecutar(String args) {
         try {
+            Variables.clearGlobalLstSimbolo();
             scanner s = new scanner(new BufferedReader(new StringReader(args)));
             parser p = new parser(s);
             var resultado = p.parse();

@@ -67,6 +67,7 @@ public class For extends Instruccion {
             var newTabla2 = new tablaSimbolos(newTabla);
             newTabla2.setNombre(tabla.getNombre() + "FOR-INTERNO");
 
+
             // Ejecutar instrucciones
             for (var i : this.instrucciones) {
                 var resIns = i.interpretar(arbol, newTabla2);
@@ -80,7 +81,7 @@ public class For extends Instruccion {
                 }
                 
                 if (resIns instanceof Errores) {
-                    Variables.addToGlobalLinkedList((Errores) resIns);
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error dentro de la sentencia For", this.linea, this.col));
                     return resIns;
                 }
             }
@@ -88,7 +89,7 @@ public class For extends Instruccion {
             // Actualizar la variable
             var act = this.actualizacion.interpretar(arbol, newTabla);
             if (act instanceof Errores) {
-                Variables.addToGlobalLinkedList((Errores) act);
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error al actualizar la variable", this.linea, this.col));
                 return act;
             }
         }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import simbolo.Simbolo;
 import simbolo.tablaSimbolos;
 
 /**
@@ -27,7 +28,7 @@ public class RptTablaSimbolos {
     String filename = "TablaSimbolos" + fechaFormateada + ".html";            
     String rutaArchivo = "src/RptSalida/TablaSimbolo/" + filename; 
 
-    public void generarReporte(List<tablaSimbolos> tokenList) {
+    public void generarReporte(List<Simbolo> tokenList) {
         // Creacion del archivo
         File file = new File(rutaArchivo);
 
@@ -39,16 +40,16 @@ public class RptTablaSimbolos {
             writer.write("<h1>Tabla de Simbolos</h1>");
             writer.write("<table border='1'><tr><th>#</th><th>Id</th><th>Tipo</th><th>Tipo Dato</th><th>Entorno</th><th>Valor</th><th>Línea</th><th>Columna</th></tr>");
             
-            for (tablaSimbolos token : tokenList) {
+            for (Simbolo token : tokenList) {
                 writer.write("<tr>");
                 writer.write("<td>" + contadorT + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
-                writer.write("<td>" + token.getNombre() + "</td>");
+                writer.write("<td>" + token.getId() + "</td>");
+                writer.write("<td>" + token.getTipos() + "</td>");
+                writer.write("<td>" + token.getTipoDato() + "</td>");
+                writer.write("<td>" + token.getEntorno() + "</td>");
+                writer.write("<td>" + token.getValor() + "</td>");
+                writer.write("<td>" + token.getLinea() + "</td>");
+                writer.write("<td>" + token.getColumna() + "</td>");
                 writer.write("</tr>");
                 contadorT++;
             }

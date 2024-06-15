@@ -5,6 +5,7 @@
 package GUI;
 
 import RptHTML.RptErrores;
+import RptHTML.RptTablaSimbolos;
 import VariablesGlobales.Variables;
 import excepciones.Errores;
 import java.awt.Component;
@@ -35,6 +36,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import patroninterprete.patroninterprete;
+import simbolo.Simbolo;
+import simbolo.tablaSimbolos;
 
 /**
  *
@@ -146,6 +149,18 @@ public class MainGUI extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     generarReporteErrores();
+                } catch (Exception ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        // Agregar ActionListener para manejar EL RPT tokens
+        subMenuTablaSimbolos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    generarTablaSimbolo();
                 } catch (Exception ex) {
                     Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -311,6 +326,18 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
     
+    private void generarTablaSimbolo() throws Exception{
+        RptTablaSimbolos rptTablaSimbolo = new RptTablaSimbolos();
+        LinkedList<Simbolo> list = Variables.getGlobalLstSimbolo();
+
+        if(list.size() > 0) {
+            rptTablaSimbolo.generarReporte(list);
+            JOptionPane.showMessageDialog(this, "Se ha generado la tabla de simbolos", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "No se ha analizado ningun archivo/ No se tienen simbolo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     //FIN FUNCIONES REPORTES
     private void ejecutarArchivo(){

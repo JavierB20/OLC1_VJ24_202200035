@@ -80,12 +80,22 @@ public class Declaracion extends Instruccion {
         this.boolMutabilidad = this.strMutabilidad.equalsIgnoreCase("const");
         Simbolo s = new Simbolo(this.tipo, this.identificador, valorInterpretado, this.boolMutabilidad);
 
+        Simbolo simbolo = new Simbolo(
+            identificador, 
+            "Variable", 
+            tipo.getTipo().toString(), 
+            tabla.getNombre(), 
+            valorInterpretado, 
+            this.linea, 
+            this.col
+        );
+        
         boolean creacion = tabla.setVariable(s);
         if (!creacion) {
             Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Variable ya exitente", this.linea, this.col));
             return new Errores("SEMANTICO", "Variable ya existente", this.linea, this.col);
         }
-
+        Variables.addGlobalLstSimbolo(simbolo);
         return null;
     }
 }

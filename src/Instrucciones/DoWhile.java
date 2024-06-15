@@ -45,7 +45,7 @@ public class DoWhile extends Instruccion {
         do {
             //nuevo entorno
             var newTabla2 = new tablaSimbolos(newTabla);
-            newTabla.setNombre(tabla.getNombre() + "WHILE-INTERNO");
+            newTabla2.setNombre(tabla.getNombre() + "WHILE-INTERNO");
 
             //ejecutar instrucciones
             for (var i : this.instrucciones) {
@@ -56,16 +56,27 @@ public class DoWhile extends Instruccion {
                 if (i instanceof Continue) {
                     break;
                 }
-                
+
                 var resIns = i.interpretar(arbol, newTabla2);
+                if(resIns instanceof Error){
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error encotrado dentro de sentencia DoWhile", this.linea, this.col));
+                    return new Errores("SEMANTICO", "Error encotrado dentro de sentencia DoWhile", this.linea, this.col);
+                }
+                
                 if (resIns instanceof Break) {
                     return null;
                 }
+                
+                if (resIns instanceof Continue) {
+                    break;
+                }
+                
             }
 
             //actualizar la variable
             var act = this.condicion.interpretar(arbol, newTabla);
             if (act instanceof Errores) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error al actualizar variable", this.linea, this.col));
                 return act;
             }
 

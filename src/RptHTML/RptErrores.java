@@ -24,7 +24,8 @@ public class RptErrores {
     LocalDateTime fechaHoraActual = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
     String fechaFormateada = fechaHoraActual.format(formatter);
-    String filename = "RptErrores" + fechaFormateada + ".html";            
+    String filename = "RptErrores" + fechaFormateada + ".html";   
+    //Cambiar para jar
     String rutaArchivo = "src/RptSalida/Errores/" + filename; 
 
     public void generarReporte(List<Errores> tokenList) {
