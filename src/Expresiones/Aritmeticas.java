@@ -87,7 +87,7 @@ public class Aritmeticas extends Instruccion {
                         return (int) op1 + (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 + (int) op2.toString().charAt(0);
                     }
                     case tipoDato.CADENA -> {
@@ -103,15 +103,15 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
-                        return (double) op1 + (double) op2;
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double) op1 + (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
                         this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 + (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 + (double) op2.toString().charAt(0);
                     }
                     case tipoDato.CADENA -> {
@@ -147,7 +147,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1.toString().charAt(0) + (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
                     case tipoDato.CADENA -> {
@@ -163,19 +163,19 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
                     case tipoDato.DECIMAL -> {
-                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
                     case tipoDato.BOOLEANO -> {
-                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
                     case tipoDato.CADENA -> {
@@ -211,7 +211,7 @@ public class Aritmeticas extends Instruccion {
                         return (int) op1 - (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 - (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -223,7 +223,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 - (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
@@ -231,7 +231,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 - (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 - (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -279,7 +279,7 @@ public class Aritmeticas extends Instruccion {
                         return (int) op1 * (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.ENTERO);
                         return (int) op1 * (int) op2.toString().charAt(0);
                     }
                     default -> {
@@ -291,7 +291,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 * (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
@@ -299,7 +299,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 * (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 * (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -357,7 +357,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         int intVal1 = (int) op1;
                         int intVal2 = (int) op2;
                         return (double) intVal1 / (double) intVal2;
@@ -368,7 +368,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) intVal1 / (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         System.out.println("HOLA");
                         int intVal1 = (int) op1;
                         return (double) intVal1 / (double) op2.toString().charAt(0);
@@ -382,7 +382,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 / (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
@@ -390,7 +390,7 @@ public class Aritmeticas extends Instruccion {
                         return (double) op1 / (double) op2;
                     }
                     case tipoDato.CARACTER -> {
-                        this.tipo.setTipo(tipoDato.CARACTER);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 / (double) op2.toString().charAt(0);
                     }
                     default -> {
@@ -402,7 +402,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1.toString().charAt(0) / (int) op2;
                     }
                     case tipoDato.DECIMAL -> {
@@ -446,7 +446,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return Math.pow((double) op1,(int) op2);
                     }
                     case tipoDato.DECIMAL -> {
@@ -474,7 +474,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.ENTERO -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         int intVal1 = (int) op1;
                         int intVal2 = (int) op2;
                         return (double) intVal1 % (double) intVal2;
@@ -492,7 +492,7 @@ public class Aritmeticas extends Instruccion {
             case tipoDato.DECIMAL -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
-                        this.tipo.setTipo(tipoDato.ENTERO);
+                        this.tipo.setTipo(tipoDato.DECIMAL);
                         return (double) op1 % (int) op2;
                     }
                     case tipoDato.DECIMAL -> {

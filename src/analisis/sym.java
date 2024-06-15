@@ -25,6 +25,7 @@ public class sym {
   public static final int TKOR = 32;
   public static final int TKBOOL = 39;
   public static final int PRINTLN = 9;
+  public static final int FOR = 46;
   public static final int MATCH = 44;
   public static final int FINCADENA = 8;
   public static final int MENORIGUAL = 27;
@@ -43,11 +44,12 @@ public class sym {
   public static final int MENOS = 16;
   public static final int MENOR = 28;
   public static final int MOD = 20;
-  public static final int BREAK = 45;
+  public static final int BREAK = 47;
   public static final int TKSTRING = 38;
   public static final int MAYOR = 30;
   public static final int POTENCIA = 17;
   public static final int ELSE = 43;
+  public static final int WHILE = 45;
   public static final int FALSO = 24;
   public static final int TKCHAR = 37;
   public static final int VAR = 41;
@@ -100,6 +102,8 @@ public class sym {
   "IF",
   "ELSE",
   "MATCH",
+  "WHILE",
+  "FOR",
   "BREAK"
   };
 }

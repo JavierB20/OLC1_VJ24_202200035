@@ -70,6 +70,8 @@ IF = "IF"
 ELSE = "ELSE"
 BREAK = "BREAK"
 MATCH = "MATCH"
+WHILE = "WHILE"
+FOR = "FOR"
 
 //Expresiones regulares
 ID=[a-zA-z][a-zA-Z0-9_]*
@@ -126,6 +128,8 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {ELSE}          {return new Symbol(sym.ELSE, yyline, yycolumn,yytext());}
 <YYINITIAL> {BREAK}         {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}
 <YYINITIAL> {MATCH}         {return new Symbol(sym.MATCH, yyline, yycolumn,yytext());}
+<YYINITIAL> {WHILE}         {return new Symbol(sym.WHILE, yyline, yycolumn,yytext());}
+<YYINITIAL> {FOR}           {return new Symbol(sym.FOR, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 

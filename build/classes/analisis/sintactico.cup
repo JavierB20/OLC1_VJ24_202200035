@@ -16,7 +16,8 @@ import Instrucciones.If;
 import Instrucciones.Break;
 import Instrucciones.Match;
 import Instrucciones.Caso;
-
+import Instrucciones.While;
+import Instrucciones.For;
 
 //expresiones
 import expresiones.Nativo;
@@ -69,7 +70,7 @@ terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
 terminal TKDOUBLE, TKINT, TKCHAR, TKSTRING, TKBOOL;
 terminal CONST, VAR;
-terminal IF, ELSE, MATCH;
+terminal IF, ELSE, MATCH, WHILE, FOR;
 terminal String BREAK;
 
 
@@ -80,7 +81,7 @@ nonterminal Instruccion INSPRINTLN, DECLARACION, ASIGNACION, CASO;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
 nonterminal String MUTABILIDAD;
-nonterminal Instruccion SIF, SMATCH;
+nonterminal Instruccion SIF, SMATCH, SWHILE, SFOR, ACTUALIZA_FOR;
 nonterminal Instruccion SBREAK, SDEFAULT;
 
 
@@ -105,7 +106,8 @@ INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b)
 INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | DECLARACION:a       {:   RESULT=a;   :}
                 | SIF:a               {:   RESULT=a;   :}
-                | SMATCH:a               {:   RESULT=a;   :}
+                | SMATCH:a            {:   RESULT=a;   :}
+                | SWHILE:a            {:   RESULT=a;   :}
                 | SBREAK:a            {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | error FINCADENA
@@ -141,6 +143,16 @@ SDEFAULT ::= GUIONBAJO IGUAL MAYOR LLAVE1 INSTRUCCIONES:a LLAVE2 {: RESULT = new
 
 
 //INICIO SENTENCIAS CICLICAS
+SWHILE ::= WHILE PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCION:b LLAVE2 {:  RESULT = new While(a, b, aleft, aright);   :} 
+;
+
+SFOR ::= FOR PAR1 ASIGNACION:a FINCADENA EXPRESION:b FINCADENA ACTUALIZA_FOR:c PAR2 LLAVE1 INSTRUCCIONES:d LLAVE2 {:   RESULT = new For(a, b, c, d, aleft, aright);   :}
+;
+
+ACTUALIZA_FOR ::= ID:a IGUAL EXPRESION:b {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
+;
+
+
 //FIN    SENTENCIAS CICLICAS
 
 DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                      {:   RESULT = new Declaracion(b, d, a, aleft, aright);   :}
