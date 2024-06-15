@@ -53,6 +53,7 @@ TKXOR = "^"
 DOSPUNTOS = ":"
 LLAVE1 = "{"
 LLAVE2 = "}"
+GUIONBAJO = "_"
 
 //palabras reservadas
 PRINTLN = "println"
@@ -68,6 +69,7 @@ VAR = "VAR"
 IF = "IF"
 ELSE = "ELSE"
 BREAK = "BREAK"
+MATCH = "MATCH"
 
 //Expresiones regulares
 ID=[a-zA-z][a-zA-Z0-9_]*
@@ -96,6 +98,7 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {DIV}           {return new Symbol(sym.DIV, yyline, yycolumn,yytext());}
 <YYINITIAL> {MOD}           {return new Symbol(sym.MOD, yyline, yycolumn,yytext());}
 <YYINITIAL> {IGUAL}         {return new Symbol(sym.IGUAL, yyline, yycolumn,yytext());}
+<YYINITIAL> {GUIONBAJO}     {return new Symbol(sym.GUIONBAJO, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {TKNOT}         {return new Symbol(sym.TKNOT, yyline, yycolumn,yytext());}
 <YYINITIAL> {IGUALACION}    {return new Symbol(sym.IGUALACION, yyline, yycolumn,yytext());}
@@ -107,7 +110,6 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {TKOR}          {return new Symbol(sym.TKOR, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKAND}         {return new Symbol(sym.TKAND, yyline, yycolumn,yytext());}
 <YYINITIAL> {TKXOR}         {return new Symbol(sym.TKXOR, yyline, yycolumn,yytext());}
-
 
 //Palabras reservadas
 <YYINITIAL> {PRINTLN}       {return new Symbol(sym.PRINTLN, yyline, yycolumn,yytext());}
@@ -123,6 +125,7 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {IF}            {return new Symbol(sym.IF, yyline, yycolumn,yytext());}
 <YYINITIAL> {ELSE}          {return new Symbol(sym.ELSE, yyline, yycolumn,yytext());}
 <YYINITIAL> {BREAK}         {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}
+<YYINITIAL> {MATCH}         {return new Symbol(sym.MATCH, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 

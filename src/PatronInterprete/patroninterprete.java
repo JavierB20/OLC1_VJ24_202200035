@@ -56,6 +56,22 @@ public class patroninterprete {
                                 println("ELSE");
                            }
                            println("SALIDA");
+                           var j : int = 11;
+                           match j {
+                                   1 => { println("j es 1"); }
+                                   2 => { println("j es 2"); }
+                                   3 => { println("j es 3"); }
+                                   4 => { println("j es 4"); }
+                                   5 => { println("j es 5"); }
+                                   6 => { println("j es 6"); }
+                                   7 => { println("j es 7"); }
+                                   8 => { println("j es 8"); }
+                                   9 => { println("j es 9"); }
+                                   10 => { println("j es 10"); }
+                           _ => { println("j es otro valor"); }
+                               }
+                            println("SALIDA3");
+                           
                            """;
             //97 a
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
@@ -81,7 +97,7 @@ public class patroninterprete {
             }
             
             System.out.println(ast.getConsola());
-            RptErrores rptErrores = new RptErrores();
+//            RptErrores rptErrores = new RptErrores();
 
              for (var i : lista) {
                 System.out.println("\t>> Error de Tipo: "+ i.getTipo() + 
@@ -90,7 +106,7 @@ public class patroninterprete {
                         " Columna: " + i.getColumna());
                 vars.listaErrores.add(new Errores(i.getTipo(), i.getDesc(), i.getLinea(), i.getColumna()));
             }
-            //rptErrores.generarReporte(vars.listaErrores);
+//            rptErrores.generarReporte(vars.listaErrores);
 
         } catch (Exception ex) {
             //Temporal

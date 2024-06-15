@@ -8,50 +8,51 @@ package analisis;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int TKINT = 35;
+  public static final int TKINT = 36;
   public static final int PAR2 = 14;
   public static final int DOSPUNTOS = 10;
   public static final int PAR1 = 13;
-  public static final int DIFERENCIA = 25;
+  public static final int DIFERENCIA = 26;
   public static final int MULT = 18;
-  public static final int CONST = 39;
-  public static final int IGUALACION = 24;
-  public static final int TKNOT = 30;
-  public static final int TKAND = 32;
+  public static final int CONST = 40;
+  public static final int GUIONBAJO = 22;
+  public static final int IGUALACION = 25;
+  public static final int TKNOT = 31;
+  public static final int TKAND = 33;
   public static final int LLAVE2 = 12;
   public static final int LLAVE1 = 11;
   public static final int ENTERO = 3;
-  public static final int TKOR = 31;
-  public static final int TKBOOL = 38;
+  public static final int TKOR = 32;
+  public static final int TKBOOL = 39;
   public static final int PRINTLN = 9;
+  public static final int MATCH = 44;
   public static final int FINCADENA = 8;
-  public static final int MENORIGUAL = 26;
-  public static final int ELSEIF = 43;
+  public static final int MENORIGUAL = 27;
   public static final int IGUAL = 7;
   public static final int CARACTER = 5;
-  public static final int VERDAD = 22;
+  public static final int VERDAD = 23;
   public static final int DIV = 19;
-  public static final int IF = 41;
+  public static final int IF = 42;
   public static final int UMENOS = 21;
   public static final int ID = 6;
-  public static final int MAYORIGUAL = 28;
+  public static final int MAYORIGUAL = 29;
   public static final int EOF = 0;
   public static final int DECIMAL = 4;
   public static final int error = 1;
   public static final int CADENA = 2;
   public static final int MENOS = 16;
-  public static final int MENOR = 27;
+  public static final int MENOR = 28;
   public static final int MOD = 20;
-  public static final int BREAK = 44;
-  public static final int TKSTRING = 37;
-  public static final int MAYOR = 29;
+  public static final int BREAK = 45;
+  public static final int TKSTRING = 38;
+  public static final int MAYOR = 30;
   public static final int POTENCIA = 17;
-  public static final int ELSE = 42;
-  public static final int FALSO = 23;
-  public static final int TKCHAR = 36;
-  public static final int VAR = 40;
-  public static final int TKXOR = 33;
-  public static final int TKDOUBLE = 34;
+  public static final int ELSE = 43;
+  public static final int FALSO = 24;
+  public static final int TKCHAR = 37;
+  public static final int VAR = 41;
+  public static final int TKDOUBLE = 35;
+  public static final int TKXOR = 34;
   public static final int MAS = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -76,6 +77,7 @@ public class sym {
   "DIV",
   "MOD",
   "UMENOS",
+  "GUIONBAJO",
   "VERDAD",
   "FALSO",
   "IGUALACION",
@@ -97,7 +99,7 @@ public class sym {
   "VAR",
   "IF",
   "ELSE",
-  "ELSEIF",
+  "MATCH",
   "BREAK"
   };
 }

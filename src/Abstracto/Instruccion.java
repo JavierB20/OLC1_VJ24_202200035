@@ -19,4 +19,8 @@ public abstract class Instruccion {
 
     public abstract Object interpretar(Arbol arbol, tablaSimbolos tabla);
 
+    public void add(Instruccion a) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
