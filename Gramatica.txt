@@ -1,0 +1,110 @@
+<inicio> ::= <instrucciones>
+
+<instrucciones> ::= <instrucciones> <instruccion> 
+                  | <instruccion>
+
+<instruccion> ::= <ins_println> 
+                | <declaracion> 
+                | <s_if> 
+                | <s_match> 
+                | <s_while> 
+                | <s_do_while> 
+                | <s_for> 
+                | <incremento> 
+                | <decremento> 
+                | <s_break> 
+                | <s_continue> 
+                | <asignacion> 
+                | error <fincadena> 
+                | error
+
+<ins_println> ::= "PRINTLN" "(" <expresion> ")" <fincadena>
+
+<s_break> ::= "BREAK" <fincadena>
+
+<s_continue> ::= "CONTINUE" <fincadena>
+
+// INICIO SENTENCIAS DE CONTROL
+<s_if> ::= "IF" "(" <expresion> ")" "{" <instrucciones> "}" "ELSE" <s_if>
+         | "IF" "(" <expresion> ")" "{" <instrucciones> "}" "ELSE" "{" <instrucciones> "}"
+         | "IF" "(" <expresion> ")" "{" <instrucciones> "}"
+
+<s_match> ::= "MATCH" <expresion> "{" <casos> <s_default> "}"
+
+<casos> ::= <casos> <caso>
+          | <caso>
+
+<caso> ::= <expresion> "=>" "{" <instrucciones> "}"
+
+<s_default> ::= "_" "=>" "{" <instrucciones> "}"
+
+// FIN SENTENCIAS DE CONTROL
+
+// INICIO SENTENCIAS CICLICAS
+<s_while> ::= "WHILE" "(" <expresion> ")" "{" <instrucciones> "}"
+
+<s_do_while> ::= "DO" "{" <instrucciones> "}" "WHILE" "(" <expresion> ")" <fincadena>
+
+<s_for> ::= "FOR" "(" <asignacion> <expresion> <fincadena> <actualiza_for> ")" "{" <instrucciones> "}"
+
+<actualiza_for> ::= <incremento>
+                  | <decremento>
+                  | <id> "=" <expresion>
+
+<incremento> ::= <id> "++" <fincadena>
+               | <id> "++"
+
+<decremento> ::= <id> "--" <fincadena>
+               | <id> "--"
+// FIN SENTENCIAS CICLICAS
+
+<declaracion> ::= <mutabilidad> <id> ":" <tipos> <fincadena>
+                | <mutabilidad> <id> ":" <tipos> "=" <expresion> <fincadena>
+
+<asignacion> ::= <id> "=" <expresion> <fincadena>
+
+<expresion> ::= "-" <expresion>
+              | "!" <expresion>
+              | <expresion> "+" <expresion>
+              | <expresion> "-" <expresion>
+              | <expresion> "**" <expresion>
+              | <expresion> "*" <expresion>
+              | <expresion> "/" <expresion>
+              | <expresion> "%" <expresion>
+              | <expresion> "==" <expresion>
+              | <expresion> "!=" <expresion>
+              | <expresion> "<=" <expresion>
+              | <expresion> "<" <expresion>
+              | <expresion> ">=" <expresion>
+              | <expresion> ">" <expresion>
+              | <expresion> "&&" <expresion>
+              | <expresion> "^" <expresion>
+              | <expresion> "||" <expresion>
+              | "(" <tipos> ")" <expresion>
+              | "(" <expresion> ")"
+              | <entero>
+              | <decimal>
+              | <cadena>
+              | <caracter>
+              | <verdad>
+              | <falso>
+              | <id>
+
+<tipos> ::= "int"
+          | "double"
+          | "char"
+          | "string"
+          | "bool"
+
+<mutabilidad> ::= "VAR"
+                | "CONST"
+
+<id> ::= "ID"
+
+<entero> ::= "ENTERO"
+<decimal> ::= "DECIMAL"
+<cadena> ::= "CADENA"
+<caracter> ::= "CARACTER"
+<verdad> ::= "VERDAD"
+<falso> ::= "FALSO"
+<fincadena> ::= "FINCADENA"
