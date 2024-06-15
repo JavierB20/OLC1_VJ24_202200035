@@ -55,7 +55,7 @@ public class Relacionales extends Instruccion {
                 this.mayorIgual(opIzq, opDer);
             
             default ->{
-                vars.listaErrores.add(new Errores("SEMANTICO", "Operador relacional", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Operador relacional", this.linea, this.col));
                 yield null;   
             }        
         };
@@ -78,7 +78,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1 == (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col);
                     }
                 }
@@ -95,7 +95,7 @@ public class Relacionales extends Instruccion {
                         return (double) op1 == (double) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col);
                     }
                 }
@@ -106,7 +106,7 @@ public class Relacionales extends Instruccion {
                         return Boolean.parseBoolean(op1.toString()) == Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col);
                     }
                 }
@@ -123,7 +123,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1.toString().charAt(0) == (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col);
                     }
                 }
@@ -134,13 +134,13 @@ public class Relacionales extends Instruccion {
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Igualacion erronea", this.linea, this.col);
             }
         }
@@ -163,7 +163,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1 != (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "diferencia erronea", this.linea, this.col);
                     }
                 }
@@ -180,7 +180,7 @@ public class Relacionales extends Instruccion {
                         return (double) op1 != (double) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "diferencia erronea", this.linea, this.col);
                     }
                 }
@@ -191,7 +191,7 @@ public class Relacionales extends Instruccion {
                         return Boolean.parseBoolean(op1.toString()) != Boolean.parseBoolean(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "diferencia erronea", this.linea, this.col);
                     }
                 }
@@ -208,7 +208,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1.toString().charAt(0) != (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "diferencia erronea", this.linea, this.col);
                     }
                 }
@@ -219,13 +219,13 @@ public class Relacionales extends Instruccion {
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "diferencia erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "diferencia erronea", this.linea, this.col);
             }
         }
@@ -248,7 +248,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1 < (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor que  erronea", this.linea, this.col);
                     }
                 }
@@ -265,7 +265,7 @@ public class Relacionales extends Instruccion {
                         return (double) op1 < (double) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor que  erronea", this.linea, this.col);
                     }
                 }
@@ -278,7 +278,7 @@ public class Relacionales extends Instruccion {
                         return aux1 < aux2;
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor que  erronea", this.linea, this.col);
                     }
                 }
@@ -295,7 +295,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1.toString().charAt(0) < (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor que  erronea", this.linea, this.col);
                     }
                 }
@@ -306,13 +306,13 @@ public class Relacionales extends Instruccion {
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor que  erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor que erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Menor que  erronea", this.linea, this.col);
             }
         }
@@ -335,7 +335,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1 <= (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col);
                     }
                 }
@@ -352,7 +352,7 @@ public class Relacionales extends Instruccion {
                         return (double) op1 <= (double) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col);
                     }
                 }
@@ -365,7 +365,7 @@ public class Relacionales extends Instruccion {
                         return aux1 <=  aux2;
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col);
                     }
                 }
@@ -382,7 +382,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1.toString().charAt(0) <= (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col);
                     }
                 }
@@ -393,13 +393,13 @@ public class Relacionales extends Instruccion {
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Menor igual erronea", this.linea, this.col);
             }
         }
@@ -422,7 +422,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1 > (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col);
                     }
                 }
@@ -439,7 +439,7 @@ public class Relacionales extends Instruccion {
                         return (double) op1 > (double) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col);
                     }
                 }
@@ -452,7 +452,7 @@ public class Relacionales extends Instruccion {
                         return aux1 >  aux2;
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col);
                     }
                 }
@@ -469,7 +469,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1.toString().charAt(0) > (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col);
                     }
                 }
@@ -480,13 +480,13 @@ public class Relacionales extends Instruccion {
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Mayor que erronea", this.linea, this.col);
             }
         }
@@ -509,7 +509,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1 >= (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col);
                     }
                 }
@@ -526,7 +526,7 @@ public class Relacionales extends Instruccion {
                         return (double) op1 >= (double) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col);
                     }
                 }
@@ -539,7 +539,7 @@ public class Relacionales extends Instruccion {
                         return aux1 >=  aux2;
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col);
                     }
                 }
@@ -556,7 +556,7 @@ public class Relacionales extends Instruccion {
                         return (int) op1.toString().charAt(0) >= (int) op2.toString().charAt(0);
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col);
                     }
                 }
@@ -567,13 +567,13 @@ public class Relacionales extends Instruccion {
                         return op1.toString().equals(op2.toString());
                     }
                     default -> {
-                        vars.listaErrores.add(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
+                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
                         return new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col);
                     }
                 }
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col));
                 return new Errores("SEMANTICO", "Mayor igual erronea", this.linea, this.col);
             }
         }

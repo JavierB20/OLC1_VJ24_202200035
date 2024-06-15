@@ -56,7 +56,7 @@ public class Declaracion extends Instruccion {
                 case tipoDato.BOOLEANO ->
                     this.valor =  new VarValorDefecto(true, tipoDato.BOOLEANO,this.linea, this.col);
                 default -> {
-                    vars.listaErrores.add(new Errores("SEMANTICO", "Error al crear variable", this.linea, this.col));
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error al crear variable", this.linea, this.col));
                 }
             }
             
@@ -73,7 +73,7 @@ public class Declaracion extends Instruccion {
         
         //validamos los tipo
         if (this.valor.tipo.getTipo() != this.tipo.getTipo()) {
-            vars.listaErrores.add(new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col));
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col));
             return new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col);
         }
 
@@ -82,7 +82,7 @@ public class Declaracion extends Instruccion {
 
         boolean creacion = tabla.setVariable(s);
         if (!creacion) {
-            vars.listaErrores.add(new Errores("SEMANTICO", "Variable ya exitente", this.linea, this.col));
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Variable ya exitente", this.linea, this.col));
             return new Errores("SEMANTICO", "Variable ya existente", this.linea, this.col);
         }
 

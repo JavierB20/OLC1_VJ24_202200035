@@ -47,7 +47,7 @@ public class Casteos extends Instruccion {
             case CARACTER ->
                 this.castChar(operador);
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Casteo incorrecto", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Casteo incorrecto", this.linea, this.col));
                 yield null;
             }
         };
@@ -68,7 +68,7 @@ public class Casteos extends Instruccion {
                 return (int) op1.toString().charAt(0);
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.linea, this.col);
             }
         }
@@ -88,7 +88,7 @@ public class Casteos extends Instruccion {
                 return (double) op1.toString().charAt(0);
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a decimal solo puedo ser de entero o caracter", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "El casteo a decimal solo puedo ser de entero o caracter", this.linea, this.col));
                 return new Errores("SEMANTICO", "Casteo a double erroneo", this.linea, this.col);
             }
         }
@@ -99,7 +99,7 @@ public class Casteos extends Instruccion {
 
         if (op1 instanceof Integer) {
             if((int) op1 < 0 && (int) op1 > 255) {
-                vars.listaErrores.add(new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col));
                 return new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col);
             }
         }
@@ -110,7 +110,7 @@ public class Casteos extends Instruccion {
                 return (char) ((Integer) op1).intValue();
             }
             default -> {
-                vars.listaErrores.add(new Errores("SEMANTICO", "El casteo a char solo puedo ser de entero", this.linea, this.col));
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "El casteo a char solo puedo ser de entero", this.linea, this.col));
                 return new Errores("SEMANTICO", "Casteo a double erroneo", this.linea, this.col);
             }
         }

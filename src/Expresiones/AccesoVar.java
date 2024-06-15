@@ -29,7 +29,7 @@ public class AccesoVar extends Instruccion {
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         var valor = tabla.getVariable(this.id);
         if (valor == null) {
-            vars.listaErrores.add(new Errores("SEMANTICO", "Variable no existente", this.linea, this.col));
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Variable no existente", this.linea, this.col));
             return new Errores("SEMANTICA", "Variable no existente",
                     this.linea, this.col);
         }

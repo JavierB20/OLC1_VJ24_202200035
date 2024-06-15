@@ -6,6 +6,8 @@ package GUI;
 
 import RptHTML.RptErrores;
 import VariablesGlobales.Variables;
+import excepciones.Errores;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
@@ -17,6 +19,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -31,12 +34,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import patroninterprete.patroninterprete;
 
 /**
  *
  * @author msWas
  */
 public class MainGUI extends javax.swing.JFrame {
+    Variables vars = new Variables();
 
     /**
      * Creates new form MainGUI
@@ -140,13 +145,21 @@ public class MainGUI extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    generarReporteTokens();
+                    generarReporteErrores();
                 } catch (Exception ex) {
                     Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
        
+        // Agregar ActionListener para ejecutar archivo
+        subMenuEjecutar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ejecutarArchivo();
+            }
+        });
+        
         
         //FIN    FUNCIONES MENUS
         
@@ -285,12 +298,12 @@ public class MainGUI extends javax.swing.JFrame {
     
     
     //INICIO FUNCIONES REPORTES
-    private void generarReporteTokens() throws Exception{
-        Variables vars = new Variables();
+    private void generarReporteErrores() throws Exception{
         RptErrores rptErrores = new RptErrores();
-        
-        if(vars.listaErrores.size() > 0) {
-            rptErrores.generarReporte(vars.listaErrores);
+        LinkedList<Errores> list = Variables.getGlobalLinkedList();
+
+        if(list.size() > 0) {
+            rptErrores.generarReporte(list);
             JOptionPane.showMessageDialog(this, "Se ha generado el reporte de errores", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else {
@@ -300,7 +313,45 @@ public class MainGUI extends javax.swing.JFrame {
     
     
     //FIN FUNCIONES REPORTES
+    private void ejecutarArchivo(){
+        JTabbedPane jTabbedPaneCodigo = JPaneEditor;
+        patroninterprete patron = new patroninterprete();
+        JAreaConsola.setText("");
+
+
+        int indexPestanaActual = jTabbedPaneCodigo.getSelectedIndex();
+        if (indexPestanaActual == -1) {
+            // No hay pestaña seleccionada
+            JOptionPane.showMessageDialog(this, "No hay pestaña seleccionada para ejecutar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Component componenteActual = jTabbedPaneCodigo.getComponentAt(indexPestanaActual);
+        if (componenteActual instanceof JScrollPane) {
+            JScrollPane scrollPane = (JScrollPane) componenteActual;
+            Component componenteInterno = scrollPane.getViewport().getView();
+            if (componenteInterno instanceof JTextArea) {
+                JTextArea textArea = (JTextArea) componenteInterno;
+                String contenido = textArea.getText();
+                if (contenido.equals("") || contenido.equals(" ") || contenido == null) {
+                    JOptionPane.showMessageDialog(this, "La pestaña actual no tiene codigo fuente que analizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                   String respuesta = patron.Ejecutar(contenido);
+                   JAreaConsola.setText(respuesta);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "La pestaña actual no contiene un componente de texto editable.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "La pestaña actual no contiene un JScrollPane.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
     
+    //INICIO FUNCIONES EJECUTAR
+    
+    //FIN FUNCIONES EJECUTAR
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -345,7 +396,7 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                     .addComponent(JPaneEditor))
                 .addContainerGap())
         );

@@ -14,5 +14,22 @@ import java.util.LinkedList;
  * @author msWas
  */
 public class Variables {
-    public LinkedList<Errores> listaErrores = new LinkedList<>();
+    private static LinkedList<Errores> listaErrores = new LinkedList<>();
+    
+    
+        // Método público para obtener la LinkedList
+    public static LinkedList<Errores> getGlobalLinkedList() {
+        return listaErrores;
+    }
+
+    // Método público para agregar un elemento a la LinkedList
+    public static void addToGlobalLinkedList(Errores element) {
+        listaErrores.add(element);
+    }
+    
+    // Método público para limpiar la lista
+    public static void clearGlobalLinkedList() {
+        listaErrores.clear();
+        return;
+    }
 }

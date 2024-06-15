@@ -33,7 +33,7 @@ public class AsignacionVar extends Instruccion{
         //variable exista
         var variable = tabla.getVariable(id);
         if (variable == null) {
-            vars.listaErrores.add(new Errores("SEMANTICO", "Variable no exitente", this.linea, this.col));
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Variable no exitente", this.linea, this.col));
             return new Errores("SEMANTICO", "Variable no exitente",
                     this.linea, this.col);
         }
@@ -46,14 +46,14 @@ public class AsignacionVar extends Instruccion{
 
         //validar tipos
         if (variable.getTipo().getTipo() != this.exp.tipo.getTipo()) {
-            vars.listaErrores.add(new Errores("SEMANTICO", "Tipos erroneos en asignacion", this.linea, this.col));
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Tipos erroneos en asignacion", this.linea, this.col));
             return new Errores("SEMANTICO", "Tipos erroneos en asignacion",
                     this.linea, this.col);
         }
         //this.tipo.setTipo(variable.getTipo().getTipo());
         boolean asignacion = (boolean)variable.setValor(newValor);
         if (!asignacion) {
-            vars.listaErrores.add(new Errores("SEMANTICO", "No se puede cambiar el valor de una variable constante", this.linea, this.col));
+            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "No se puede cambiar el valor de una variable constante", this.linea, this.col));
             return new Errores("SEMANTICO", "No se puede cambiar el valor de una variable constante", this.linea, this.col);
         }
         return null;

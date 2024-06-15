@@ -41,11 +41,11 @@ public class Caso extends Instruccion {
             Object resultado = instruccion.interpretar(arbol, tabla);
             if (resultado instanceof Instruccion) {
                 if (resultado instanceof Break) {
-                    vars.listaErrores.add(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col));
                     return new Errores("SEMANTICO", "Error 'Break' fuera de ciclo", this.linea, this.col);
                 }
                 if (resultado instanceof Errores) {
-                    vars.listaErrores.add(new Errores("SEMANTICO", "Expresion invalida en CASE", this.linea, this.col));
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Expresion invalida en CASE", this.linea, this.col));
                     return new Errores("SEMANTICO", "Expresion invalida en CASE",this.linea, this.col);
                 }
                 return resultado;
