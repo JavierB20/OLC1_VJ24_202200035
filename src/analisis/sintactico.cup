@@ -90,15 +90,17 @@ nonterminal String MUTABILIDAD;
 nonterminal Instruccion SIF, SMATCH, SWHILE, SFOR, ACTUALIZA_FOR, INCREMENTO, DECREMENTO;
 nonterminal Instruccion SBREAK, SDEFAULT, SCONTINUE, SDOWHILE;
 
-
-precedence left UMENOS;
-precedence nonassoc POTENCIA;
-precedence left MULT, DIV;
-precedence left MAS, MENOS;
-precedence left MOD;
+precedence left TKOR;
+precedence left TKAND;
+precedence left TKXOR;
+precedence right TKNOT;
 precedence left IGUALACION, DIFERENCIA, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL;
-precedence left TKNOT;
-precedence right TKXOR, TKAND, TKOR;
+precedence left MAS, MENOS;
+precedence left MULT, DIV, MOD;
+precedence nonassoc POTENCIA;
+precedence right UMENOS;
+
+
 
 start with INICIO;
 
@@ -220,8 +222,8 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | DECIMAL:a     {:   RESULT = new Nativo(Double.parseDouble(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
             | CADENA:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.CADENA), aleft, aright );   :}
             | CARACTER:a    {:   RESULT = new Nativo(a, new Tipo(tipoDato.CARACTER), aleft, aright );   :}
-            | VERDAD:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
-            | FALSO:a       {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
+            | VERDAD:a      {:   RESULT = new Nativo(true, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
+            | FALSO:a       {:   RESULT = new Nativo(false, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
             | ID:a          {:   RESULT = new AccesoVar(a, aleft, aright);   :}
 
 ;

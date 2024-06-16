@@ -50,6 +50,7 @@ public class While extends Instruccion{
             return new Errores("SEMANTICO", "Expresion invalida",
                     this.linea, this.col);
         }
+        
         if(cond instanceof String){
             cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
         }
