@@ -1,5 +1,5 @@
 
-package expresiones;
+package Expresiones;
 
 
 public enum OperadoresAritmeticos {

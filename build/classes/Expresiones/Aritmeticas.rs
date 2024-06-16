@@ -1,2 +1,0 @@
-abstracto.Instruccion
-expresiones.Aritmeticas

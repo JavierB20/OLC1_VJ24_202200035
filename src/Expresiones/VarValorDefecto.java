@@ -4,11 +4,11 @@
  */
 package Expresiones;
 
-import abstracto.Instruccion;
-import simbolo.Arbol;
-import simbolo.Tipo;
-import simbolo.tablaSimbolos;
-import simbolo.tipoDato;
+import Abstracto.Instruccion;
+import Simbolos.Arbol;
+import Simbolos.Tipo;
+import Simbolos.tablaSimbolos;
+import Simbolos.tipoDato;
 
 /**
  *

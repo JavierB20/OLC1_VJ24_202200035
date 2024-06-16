@@ -1,1 +1,0 @@
-abstracto.Instruccion

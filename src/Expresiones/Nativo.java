@@ -1,10 +1,14 @@
 
-package expresiones;
+package Expresiones;
 
-import abstracto.Instruccion;
-import simbolo.Arbol;
-import simbolo.Tipo;
-import simbolo.tablaSimbolos;
+/**
+ *
+ * @author msWas
+ */
+import Abstracto.Instruccion;
+import Simbolos.Arbol;
+import Simbolos.Tipo;
+import Simbolos.tablaSimbolos;
 
 
 public class Nativo extends Instruccion{
@@ -19,7 +23,5 @@ public class Nativo extends Instruccion{
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         return this.valor;
     }
-    
-    
     
 }

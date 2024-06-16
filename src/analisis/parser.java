@@ -7,10 +7,10 @@ package analisis;
 
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
-import abstracto.Instruccion;
-import simbolo.Tipo;
-import simbolo.tipoDato;
-import excepciones.Errores;
+import Abstracto.Instruccion;
+import Simbolos.Tipo;
+import Simbolos.tipoDato;
+import Excepciones.Errores;
 import Instrucciones.Print;
 import Instrucciones.AsignacionVar;
 import Instrucciones.Declaracion;
@@ -24,9 +24,9 @@ import Instrucciones.Incremento;
 import Instrucciones.Decremento;
 import Instrucciones.Continue;
 import Instrucciones.DoWhile;
-import expresiones.Nativo;
-import expresiones.Aritmeticas;
-import expresiones.OperadoresAritmeticos;
+import Expresiones.Nativo;
+import Expresiones.Aritmeticas;
+import Expresiones.OperadoresAritmeticos;
 import Expresiones.OperadoresRelacionales;
 import Expresiones.Relacionales;
 import Expresiones.Logicos;
@@ -1494,7 +1494,7 @@ class CUP$parser$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   
+		   RESULT = new Nativo(Double.parseDouble(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   
               CUP$parser$result = parser.getSymbolFactory().newSymbol("EXPRESION",9, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

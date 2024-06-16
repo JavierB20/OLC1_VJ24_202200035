@@ -4,9 +4,12 @@
  */
 package Instrucciones;
 
-import abstracto.Instruccion;
-import excepciones.Errores;
-import simbolo.*;
+import Simbolos.tablaSimbolos;
+import Simbolos.tipoDato;
+import Simbolos.Arbol;
+import Simbolos.Tipo;
+import Abstracto.Instruccion;
+import Excepciones.Errores;
 
 /**
  *

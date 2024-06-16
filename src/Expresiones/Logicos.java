@@ -5,12 +5,12 @@
 package Expresiones;
 
 import VariablesGlobales.Variables;
-import abstracto.Instruccion;
-import excepciones.Errores;
-import simbolo.Arbol;
-import simbolo.Tipo;
-import simbolo.tablaSimbolos;
-import simbolo.tipoDato;
+import Abstracto.Instruccion;
+import Excepciones.Errores;
+import Simbolos.Arbol;
+import Simbolos.Tipo;
+import Simbolos.tablaSimbolos;
+import Simbolos.tipoDato;
 
 /**
  *

@@ -7,10 +7,11 @@ package GUI;
 import RptHTML.RptErrores;
 import RptHTML.RptTablaSimbolos;
 import VariablesGlobales.Variables;
-import excepciones.Errores;
+import Excepciones.Errores;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,9 +36,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import patroninterprete.patroninterprete;
-import simbolo.Simbolo;
-import simbolo.tablaSimbolos;
+import Patroninterprete.patroninterprete;
+import Simbolos.Simbolo;
 
 /**
  *
@@ -89,7 +89,8 @@ public class MainGUI extends javax.swing.JFrame {
         JAreaConsola.setEditable(false);
         setTitle("JavaCraft - Javier Bonilla");
         this.setLocationRelativeTo(null);
-        
+        Font tabFont = new Font("Rockwell", Font.BOLD, 24);
+        JPaneEditor.setFont(tabFont);
         //Manejo de los subMenus
         JTabbedPane jTabbedPaneCodigo = JPaneEditor;
 
@@ -245,6 +246,8 @@ public class MainGUI extends javax.swing.JFrame {
     
     private void nuevoArchivo() {
         JTabbedPane jTabbedPaneCodigo = JPaneEditor;
+        Font tabFont = new Font("Rockwell", Font.BOLD, 24);
+        JPaneEditor.setFont(tabFont);
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         
@@ -364,8 +367,8 @@ public class MainGUI extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "La pestaña actual no tiene codigo fuente que analizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
                 else {
-                   String respuesta = patron.Ejecutar(contenido);
-                   JAreaConsola.setText(respuesta);
+                    String respuesta = patron.Ejecutar(contenido);
+                    JAreaConsola.setText(respuesta);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "La pestaña actual no contiene un componente de texto editable.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -399,6 +402,7 @@ public class MainGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         JPaneEditor.setBackground(new java.awt.Color(208, 205, 209));
+        JPaneEditor.setFont(new java.awt.Font("Rockwell", 0, 36)); // NOI18N
 
         JAreaConsola.setBackground(new java.awt.Color(204, 204, 204));
         JAreaConsola.setColumns(20);

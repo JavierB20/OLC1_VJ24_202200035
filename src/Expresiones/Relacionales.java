@@ -4,10 +4,13 @@
  */
 package Expresiones;
 
+import Simbolos.tablaSimbolos;
+import Simbolos.tipoDato;
+import Simbolos.Arbol;
+import Simbolos.Tipo;
 import VariablesGlobales.Variables;
-import abstracto.Instruccion;
-import excepciones.Errores;
-import simbolo.*;
+import Abstracto.Instruccion;
+import Excepciones.Errores;
 
 /**
  *

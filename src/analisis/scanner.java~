@@ -7,7 +7,7 @@ package analisis;
 //importaciones
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
-import excepciones.Errores;
+import Excepciones.Errores;
 
 
 @SuppressWarnings("fallthrough")

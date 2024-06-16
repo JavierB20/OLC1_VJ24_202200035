@@ -6,13 +6,13 @@ package Instrucciones;
 
 import Expresiones.VarValorDefecto;
 import VariablesGlobales.Variables;
-import abstracto.Instruccion;
-import excepciones.Errores;
-import simbolo.Arbol;
-import simbolo.Simbolo;
-import simbolo.Tipo;
-import simbolo.tablaSimbolos;
-import simbolo.tipoDato;
+import Abstracto.Instruccion;
+import Excepciones.Errores;
+import Simbolos.Arbol;
+import Simbolos.Simbolo;
+import Simbolos.Tipo;
+import Simbolos.tablaSimbolos;
+import Simbolos.tipoDato;
 
 /**
  *

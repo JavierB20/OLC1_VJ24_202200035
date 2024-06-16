@@ -1,4 +1,4 @@
-package simbolo;
+package Simbolos;
 
 public enum tipoDato {
     ENTERO,

@@ -4,7 +4,7 @@
  */
 package RptHTML;
 
-import excepciones.Errores;
+import Excepciones.Errores;
 import java.util.List;
 import java.io.BufferedWriter;
 import java.io.File;

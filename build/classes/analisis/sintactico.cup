@@ -3,10 +3,10 @@ package analisis;
 //importaciones
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
-import abstracto.Instruccion;
-import simbolo.Tipo;
-import simbolo.tipoDato;
-import excepciones.Errores;
+import Abstracto.Instruccion;
+import Simbolos.Tipo;
+import Simbolos.tipoDato;
+import Excepciones.Errores;
 
 //instrucciones
 import Instrucciones.Print;
@@ -26,9 +26,9 @@ import Instrucciones.DoWhile;
 
 
 //expresiones
-import expresiones.Nativo;
-import expresiones.Aritmeticas;
-import expresiones.OperadoresAritmeticos;
+import Expresiones.Nativo;
+import Expresiones.Aritmeticas;
+import Expresiones.OperadoresAritmeticos;
 import Expresiones.OperadoresRelacionales;
 import Expresiones.Relacionales;
 import Expresiones.Logicos;
@@ -217,7 +217,7 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
         
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :}
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
-            | DECIMAL:a     {:   RESULT = new Nativo(new Double(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
+            | DECIMAL:a     {:   RESULT = new Nativo(Double.parseDouble(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
             | CADENA:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.CADENA), aleft, aright );   :}
             | CARACTER:a    {:   RESULT = new Nativo(a, new Tipo(tipoDato.CARACTER), aleft, aright );   :}
             | VERDAD:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}

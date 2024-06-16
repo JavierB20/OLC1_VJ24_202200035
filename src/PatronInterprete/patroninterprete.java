@@ -1,16 +1,16 @@
-package patroninterprete;
+package Patroninterprete;
 
 
 import VariablesGlobales.Variables;
-import abstracto.Instruccion;
+import Abstracto.Instruccion;
 import analisis.parser;
 import analisis.scanner;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.LinkedList;
-import simbolo.Arbol;
-import simbolo.tablaSimbolos;
-import excepciones.Errores;
+import Simbolos.Arbol;
+import Simbolos.tablaSimbolos;
+import Excepciones.Errores;
 
 
 /*
@@ -60,13 +60,7 @@ public class patroninterprete {
                         " Descripcion: " +i.getDesc() +
                         " Linea: " + i.getLinea() + 
                         " Columna: " + i.getColumna() + "\n");
-//                System.out.println("\t>> Error de Tipo: "+ i.getTipo() + 
-//                        " Descripcion: " +i.getDesc() +
-//                        " Linea: " + i.getLinea() + 
-//                        " Columna: " + i.getColumna());
-                //Variables.addToGlobalLinkedList(new Errores(i.getTipo(), i.getDesc(), i.getLinea(), i.getColumna()));
             }
-            //System.out.println(Variables.getGlobalLinkedList());
             
             return ast.getConsola() + "\n" + errores;
 

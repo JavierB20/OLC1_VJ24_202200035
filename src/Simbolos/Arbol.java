@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package simbolo;
+package Simbolos;
 
-import abstracto.Instruccion;
-import excepciones.Errores;
+import Abstracto.Instruccion;
+import Excepciones.Errores;
 import java.util.LinkedList;
 
 public class Arbol {

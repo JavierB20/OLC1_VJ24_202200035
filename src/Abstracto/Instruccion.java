@@ -1,9 +1,9 @@
 
-package abstracto;
+package Abstracto;
 
-import simbolo.Arbol;
-import simbolo.Tipo;
-import simbolo.tablaSimbolos;
+import Simbolos.Arbol;
+import Simbolos.Tipo;
+import Simbolos.tablaSimbolos;
 
 public abstract class Instruccion {
 

@@ -5,11 +5,11 @@
 package Instrucciones;
 
 import VariablesGlobales.Variables;
-import abstracto.Instruccion;
-import excepciones.Errores;
+import Abstracto.Instruccion;
+import Excepciones.Errores;
 import java.util.LinkedList;
-import simbolo.Arbol;
-import simbolo.tablaSimbolos;
+import Simbolos.Arbol;
+import Simbolos.tablaSimbolos;
 
 /**
  *

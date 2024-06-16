@@ -1,10 +1,10 @@
 package VariablesGlobales;
 
 
-import excepciones.Errores;
+import Excepciones.Errores;
 import java.util.LinkedList;
-import simbolo.Simbolo;
-import simbolo.tablaSimbolos;
+import Simbolos.Simbolo;
+import Simbolos.tablaSimbolos;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
