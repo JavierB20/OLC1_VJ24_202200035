@@ -8,11 +8,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import simbolo.Simbolo;
-import simbolo.tablaSimbolos;
 
 /**
  *
@@ -22,19 +21,26 @@ public class RptTablaSimbolos {
     //Creacion de nombre del reportes
     int contadorT = 1;
 
-    LocalDateTime fechaHoraActual = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-    String fechaFormateada = fechaHoraActual.format(formatter);
-    String filename = "TablaSimbolos" + fechaFormateada + ".html";            
-    String rutaArchivo = "src/RptSalida/TablaSimbolo/" + filename; 
+    // Genera el nombre del archivo con la fecha formateada
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    String fechaFormateada = sdf.format(new Date());
+    String filename = "RptTablaSimbolo" + fechaFormateada + ".html";   
+
+    // Obtiene la ruta relativa al directorio de trabajo actual
+    String rutaArchivo = "./RptSalida/TablaSimbolo/" + filename; 
 
     public void generarReporte(List<Simbolo> tokenList) {
         // Creacion del archivo
         File file = new File(rutaArchivo);
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            // Escribir encabezado HTML
+            // Asegúrate de que los directorios necesarios existan
+            File directory = new File("./RptSalida/TablaSimbolo");
+            if (!directory.exists()) {
+                directory.mkdirs(); // Crea los directorios necesarios
+            }            
+            // Escribe en el archivo
+            FileWriter writer = new FileWriter(file);            // Escribir encabezado HTML
             writer.write("<!DOCTYPE html>");
             writer.write("<html><head><title>Tabla Simbolos</title></head><body>");
             writer.write("<h1>Tabla de Simbolos</h1>");
