@@ -10,8 +10,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -21,19 +21,27 @@ public class RptErrores {
     //Creacion de nombre del reportes
     int contadorT = 1;
 
-    LocalDateTime fechaHoraActual = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-    String fechaFormateada = fechaHoraActual.format(formatter);
+    // Genera el nombre del archivo con la fecha formateada
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    String fechaFormateada = sdf.format(new Date());
     String filename = "RptErrores" + fechaFormateada + ".html";   
-    //Cambiar para jar
-    String rutaArchivo = "src/RptSalida/Errores/" + filename; 
+
+    // Obtiene la ruta relativa al directorio de trabajo actual
+    String rutaArchivo = "./RptSalida/Errores/" + filename; 
+
 
     public void generarReporte(List<Errores> tokenList) {
         // Creacion del archivo
         File file = new File(rutaArchivo);
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            // Asegúrate de que los directorios necesarios existan
+            File directory = new File("./RptSalida/Errores");
+            if (!directory.exists()) {
+                directory.mkdirs(); // Crea los directorios necesarios
+            }            
+            // Escribe en el archivo
+            FileWriter writer = new FileWriter(file);
             // Escribir encabezado HTML
             writer.write("<!DOCTYPE html>");
             writer.write("<html><head><title>Reporte de Errores</title></head><body>");
@@ -56,7 +64,7 @@ public class RptErrores {
             writer.write("</html>");
             writer.close();
 
-            System.out.println("HTML report generated successfully.");
+            System.out.println("HTML report generated successfully." + file.getAbsolutePath());
         } catch (IOException e) {
             System.err.println("Error al crear el archivo HTML: " + e.getMessage());
         }

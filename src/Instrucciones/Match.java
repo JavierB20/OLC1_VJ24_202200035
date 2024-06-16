@@ -4,6 +4,7 @@
  */
 package Instrucciones;
 
+import VariablesGlobales.Variables;
 import abstracto.Instruccion;
 import excepciones.Errores;
 import java.util.LinkedList;
@@ -36,25 +37,32 @@ public class Match extends Instruccion {
             return valorExpresion;
         }
 
-        for (Instruccion caso : casos) {
-            Object valorCaso = ((Caso) caso).getExpresion().interpretar(arbol, tabla);
-            if (valorCaso instanceof Errores) {
-                return valorCaso;
-            }
+        if (this.casos != null) {
+            for (Instruccion caso : casos) {
+                Object valorCaso = ((Caso) caso).getExpresion().interpretar(arbol, tabla);
+                if (valorCaso instanceof Errores) {
+                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error en Caso", this.linea, this.col));
+                    return valorCaso;
+                }
 
-            if (valorExpresion.equals(valorCaso)) {
-                return caso.interpretar(arbol, tabla);
+                if (valorExpresion.equals(valorCaso)) {
+                    return caso.interpretar(arbol, tabla);
+                }
             }
         }
+
         
-        Object casoDefault = this.defualt.interpretar(arbol, tabla);
-        
-        if(casoDefault instanceof Errores) {
-            return casoDefault;
+        if(this.defualt != null){
+            Object casoDefault = this.defualt.interpretar(arbol, tabla);
+            if(casoDefault instanceof Errores) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error en caso Defualt", this.linea, this.col));
+                return casoDefault;
+            }
+            else {
+                return casoDefault;
+            } 
         }
-        else {
-            return casoDefault;
-        } 
-        
+        return null;
+
     }
 }

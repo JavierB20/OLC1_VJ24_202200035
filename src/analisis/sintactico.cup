@@ -140,7 +140,9 @@ SIF ::=   IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2 ELSE SIF:c     
         | IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2                                      {:   RESULT = new If(a, b, aleft, aright);   :}
 ;
 
-SMATCH ::= MATCH EXPRESION:a LLAVE1 CASOS:b SDEFAULT:c LLAVE2 {: RESULT = new Match(a, b, c, aleft, aright); :}
+SMATCH ::= MATCH EXPRESION:a LLAVE1 CASOS:b LLAVE2              {: RESULT = new Match(a, b, null, aleft, aright); :}
+        |  MATCH EXPRESION:a LLAVE1 SDEFAULT:c LLAVE2           {: RESULT = new Match(a, null, c, aleft, aright); :}
+        |  MATCH EXPRESION:a LLAVE1 CASOS:b SDEFAULT:c LLAVE2   {: RESULT = new Match(a, b, c, aleft, aright); :}
 ;
 
 CASOS ::= CASOS:a CASO:b            {: RESULT = a; RESULT.add(b); :}
