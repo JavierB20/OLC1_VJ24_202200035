@@ -319,6 +319,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void generarReporteErrores() throws Exception{
         RptErrores rptErrores = new RptErrores();
         LinkedList<Errores> list = Variables.getGlobalLinkedList();
+        System.out.println(list);
 
         if(list.size() > 0) {
             rptErrores.generarReporte(list);

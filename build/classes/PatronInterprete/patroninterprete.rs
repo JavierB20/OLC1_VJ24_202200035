@@ -1,4 +1,0 @@
-patroninterprete.patroninterprete
-patroninterprete.patroninterprete$ImprimirErroes
-Patroninterprete.patroninterprete
-patroninterprete.PatronInterprete

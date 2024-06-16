@@ -60,6 +60,7 @@ public class patroninterprete {
                         " Descripcion: " +i.getDesc() +
                         " Linea: " + i.getLinea() + 
                         " Columna: " + i.getColumna() + "\n");
+                Variables.addToGlobalLinkedList(i);
             }
             
             return ast.getConsola() + "\n" + errores;

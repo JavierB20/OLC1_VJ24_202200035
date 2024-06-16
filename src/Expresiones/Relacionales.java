@@ -202,6 +202,7 @@ public class Relacionales extends Instruccion {
             case tipoDato.CARACTER -> {
                 switch (tipo2) {
                     case tipoDato.ENTERO -> {
+                        boolean result = (int) op1.toString().charAt(0) != (int) op2;
                         return (int) op1.toString().charAt(0) != (int) op2;
                     }
                     case tipoDato.DECIMAL -> {

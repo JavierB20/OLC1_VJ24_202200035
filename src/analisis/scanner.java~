@@ -886,8 +886,17 @@ public class scanner implements java_cup.runtime.Scanner {
           case 71: break;
           case 23:
             { String cadena = yytext();
+                            System.out.println(cadena);
+
                             cadena = cadena.substring(1, cadena.length()-1);
                             int find = -1;
+
+                            find = cadena.indexOf("\\\""); 
+                            System.out.println("PENE" + find);
+                            if (find != -1) {
+                                System.out.println("PENE SI");
+                                cadena = cadena.replace("\\\"", "\"");
+                            }
                             
                             find = cadena.indexOf("\\n"); 
                             if (find != -1) {
@@ -908,6 +917,7 @@ public class scanner implements java_cup.runtime.Scanner {
                             if (find != -1) {
                                 cadena = cadena.replace("\\f", "\f");
                             }
+
                             
                             return new Symbol(sym.CADENA, yyline, yycolumn,cadena);
             }
