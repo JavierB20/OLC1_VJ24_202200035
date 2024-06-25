@@ -90,13 +90,14 @@ public class patroninterprete {
             var resultadoStart = start.interpretar(ast, tabla);
             if(resultadoStart instanceof Errores) {
                 System.out.println("Compila con error");
+                System.out.println(lista);
             }
             
             System.out.println(ast.getConsola());
             
-            
+            System.out.println(Variables.getGlobalLinkedList());
             String errores = "";
-            Variables.clearGlobalLinkedList();
+            //Variables.clearGlobalLinkedList();
             for (var i : lista) {
                 errores += ("\t>> Error de Tipo: "+ i.getTipo() + 
                         " Descripcion: " +i.getDesc() +

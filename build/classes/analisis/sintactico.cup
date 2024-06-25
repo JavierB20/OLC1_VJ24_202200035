@@ -25,6 +25,7 @@ import Instrucciones.Continue;
 import Instrucciones.DoWhile;
 import Instrucciones.Metodo;
 import Instrucciones.StartWith;
+import Instrucciones.Llamada;
 
 
 //expresiones
@@ -97,6 +98,7 @@ nonterminal Instruccion METODO;
 nonterminal LinkedList<HashMap> PARAMS;
 nonterminal Instruccion SSTART_WITH;
 nonterminal LinkedList<Instruccion> PARAMSCALL;
+nonterminal Instruccion LLAMADA;
 
 precedence left TKOR;
 precedence left TKAND;
@@ -133,6 +135,7 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | METODO:a            {:   RESULT=a;   :}
                 | SSTART_WITH:a       {:   RESULT=a;   :}
+                | LLAMADA:a           {:   RESULT=a;   :}
                 | error FINCADENA
                 | error
 ;
@@ -232,6 +235,10 @@ PARAMSCALL ::=  PARAMSCALL:a COMA EXPRESION:e   {:      RESULT = a;
                 | EXPRESION:a                   {:      RESULT = new LinkedList<Instruccion>(); 
                                                         RESULT.add(a);
                                                 :}
+;
+
+LLAMADA ::= ID:a PAR1 PARAMSCALL:b PAR2 FINCADENA               {:  RESULT= new Llamada(a, b, aleft, aright);    :}
+          | ID:a PAR1 PAR2 FINCADENA                            {:  RESULT= new Llamada(a, new LinkedList<Instruccion>(), aleft, aright);    :}    
 ;
 
 //FIN METODOS Y FUNCIONES
