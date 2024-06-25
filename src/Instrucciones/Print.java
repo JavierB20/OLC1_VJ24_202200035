@@ -13,7 +13,7 @@ import Excepciones.Errores;
 
 /**
  *
- * @author fabian
+ * @author msWas
  */
 public class Print extends Instruccion {
 

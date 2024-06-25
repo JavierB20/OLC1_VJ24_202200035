@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import Simbolos.Arbol;
 import Simbolos.tablaSimbolos;
 import Excepciones.Errores;
+import Instrucciones.AsignacionVar;
+import Instrucciones.Declaracion;
+import Instrucciones.Metodo;
+import Instrucciones.StartWith;
 
 
 /*
@@ -19,7 +23,7 @@ import Excepciones.Errores;
  */
 /**
  *
- * @author fabian
+ * @author msWas
  */
 public class patroninterprete {
 
@@ -38,21 +42,59 @@ public class patroninterprete {
             var tabla = new tablaSimbolos();
             tabla.setNombre("GLOBAL");
             ast.setConsola("");
+            ast.setTablaGlobal(tabla);
+            
             LinkedList<Errores> lista = new LinkedList<>();
             lista.addAll(s.listaErrores);
             lista.addAll(p.listaErrores);
+            
             for (var a : ast.getInstrucciones()) {
                 if (a == null) {
                     continue;
                 }
 
-                var res = a.interpretar(ast, tabla);
-                if (res instanceof Errores) {
-                    lista.add((Errores) res);
+                //Añade metodo funciones y strucs
+                if(a instanceof Metodo){
+                    ast.addFunciones(a);
                 }
             }
             
+            for (var a : ast.getInstrucciones()) {
+                if (a == null) {
+                    continue;
+                }
+
+                //Añade declaraciones
+                if(a instanceof Declaracion || a instanceof AsignacionVar){
+                    var res = a.interpretar(ast, tabla);
+                    if (res instanceof Errores errores){
+                        Variables.addToGlobalLinkedList(errores);
+                    }
+                }
+            }
+            
+            //START_WITH
+            StartWith start = null;
+            for (var a : ast.getInstrucciones()) {
+                if (a == null) {
+                    continue;
+                }
+
+                //Añade declaraciones
+                if(a instanceof StartWith startWith){
+                    start = startWith;
+                    break;
+                }
+            }
+            
+            var resultadoStart = start.interpretar(ast, tabla);
+            if(resultadoStart instanceof Errores) {
+                System.out.println("Compila con error");
+            }
+            
             System.out.println(ast.getConsola());
+            
+            
             String errores = "";
             Variables.clearGlobalLinkedList();
             for (var i : lista) {

@@ -7,6 +7,7 @@ import Abstracto.Instruccion;
 import Simbolos.Tipo;
 import Simbolos.tipoDato;
 import Excepciones.Errores;
+import java.util.HashMap;
 
 //instrucciones
 import Instrucciones.Print;
@@ -22,7 +23,8 @@ import Instrucciones.Incremento;
 import Instrucciones.Decremento;
 import Instrucciones.Continue;
 import Instrucciones.DoWhile;
-
+import Instrucciones.Metodo;
+import Instrucciones.StartWith;
 
 
 //expresiones
@@ -70,14 +72,16 @@ action code
 //terminales
 terminal String CADENA, ENTERO, DECIMAL, CARACTER, ID;
 terminal IGUAL, FINCADENA, PRINTLN, DOSPUNTOS, LLAVE1, LLAVE2;
-terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS, GUIONBAJO;
+terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS, GUIONBAJO, COMA;
 terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
 terminal TKDOUBLE, TKINT, TKCHAR, TKSTRING, TKBOOL;
 terminal CONST, VAR;
 terminal IF, ELSE, MATCH, WHILE, FOR, DO;
+terminal VOID;
 terminal String BREAK, CONTINUE;
+terminal START_WITH;
 
 
 //no terminales
@@ -89,6 +93,10 @@ nonterminal Instruccion EXPRESION;
 nonterminal String MUTABILIDAD;
 nonterminal Instruccion SIF, SMATCH, SWHILE, SFOR, ACTUALIZA_FOR, INCREMENTO, DECREMENTO;
 nonterminal Instruccion SBREAK, SDEFAULT, SCONTINUE, SDOWHILE;
+nonterminal Instruccion METODO;
+nonterminal LinkedList<HashMap> PARAMS;
+nonterminal Instruccion SSTART_WITH;
+nonterminal LinkedList<Instruccion> PARAMSCALL;
 
 precedence left TKOR;
 precedence left TKAND;
@@ -123,6 +131,8 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | SBREAK:a            {:   RESULT=a;   :}
                 | SCONTINUE:a         {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
+                | METODO:a            {:   RESULT=a;   :}
+                | SSTART_WITH:a       {:   RESULT=a;   :}
                 | error FINCADENA
                 | error
 ;
@@ -193,6 +203,38 @@ DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                
 ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
 ;
 
+//INICIO METODOS Y FUNCIONES
+METODO ::= TIPOS:a ID:b PAR1 PARAMS:p PAR2 LLAVE1 INSTRUCCIONES:c LLAVE2 {:   RESULT=new Metodo(b, p, c, a, aleft, aright);   :}
+        |  TIPOS:a ID:b PAR1 PAR2 LLAVE1 INSTRUCCIONES:c LLAVE2          {:   RESULT=new Metodo(b, new LinkedList<HashMap>(), c, a, aleft, aright);   :}
+;
+//PARAMETROS
+PARAMS ::= PARAMS:a COMA TIPOS:b ID:c   {:      RESULT = a;
+                                                var hm2 = new HashMap<String, Object>(); 
+                                                hm2.put("id",c); 
+                                                hm2.put("tipo", b);
+                                                RESULT.add(hm2); 
+                                        :}
+        |  TIPOS:a ID:b                 {:      RESULT = new LinkedList<HashMap>(); 
+                                                var hm = new HashMap<String, Object>(); 
+                                                hm.put("id",b); 
+                                                hm.put("tipo", a); 
+                                                RESULT.add(hm);   
+                                        :}
+;
+
+SSTART_WITH ::=   START_WITH ID:a PAR1 PARAMSCALL:b PAR2 FINCADENA {: RESULT = new StartWith(a, b, aleft, aright);  :}
+                | START_WITH ID:a PAR1 PAR2 FINCADENA              {: RESULT = new StartWith(a, new LinkedList<Instruccion>(), aleft, aright);  :}
+;
+
+PARAMSCALL ::=  PARAMSCALL:a COMA EXPRESION:e   {:      RESULT = a;
+                                                        RESULT.add(e);
+                                                :}
+                | EXPRESION:a                   {:      RESULT = new LinkedList<Instruccion>(); 
+                                                        RESULT.add(a);
+                                                :}
+;
+
+//FIN METODOS Y FUNCIONES
 
 EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS
             | TKNOT EXPRESION:a                 {:   RESULT = new Logicos(a, OperadoresLogicos.OPNOT, aleft, aright);   :}
@@ -233,6 +275,7 @@ TIPOS ::= TKINT:a      {:   RESULT=new Tipo(tipoDato.ENTERO);   :}
         | TKCHAR:a     {:   RESULT=new Tipo(tipoDato.CARACTER);   :}
         | TKSTRING:a   {:   RESULT=new Tipo(tipoDato.CADENA);   :}
         | TKBOOL:a     {:   RESULT=new Tipo(tipoDato.BOOLEANO);   :}
+        | VOID:a       {:   RESULT=new Tipo(tipoDato.VOID);   :}
 ;
 
 MUTABILIDAD ::=   VAR:a   {:   RESULT=(String)a;   :}

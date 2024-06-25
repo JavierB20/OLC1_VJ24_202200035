@@ -54,6 +54,7 @@ DOSPUNTOS = ":"
 LLAVE1 = "{"
 LLAVE2 = "}"
 GUIONBAJO = "_"
+COMA = ","
 
 //palabras reservadas
 PRINTLN = "println"
@@ -74,7 +75,8 @@ WHILE = "WHILE"
 FOR = "FOR"
 CONTINUE = "CONTINUE"
 DO = "DO"
-
+VOID = "VOID"
+START_WITH = "START_WITH"
 
 //Expresiones regulares
 ID=[a-zA-z][a-zA-Z0-9_]*
@@ -95,6 +97,7 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {DOSPUNTOS}     {return new Symbol(sym.DOSPUNTOS, yyline, yycolumn,yytext());}
 <YYINITIAL> {LLAVE1}        {return new Symbol(sym.LLAVE1, yyline, yycolumn,yytext());}
 <YYINITIAL> {LLAVE2}        {return new Symbol(sym.LLAVE2, yyline, yycolumn,yytext());}
+<YYINITIAL> {COMA}          {return new Symbol(sym.COMA, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {MAS}           {return new Symbol(sym.MAS, yyline, yycolumn,yytext());}
 <YYINITIAL> {MENOS}         {return new Symbol(sym.MENOS, yyline, yycolumn,yytext());}
@@ -135,6 +138,9 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {FOR}           {return new Symbol(sym.FOR, yyline, yycolumn,yytext());}
 <YYINITIAL> {CONTINUE}      {return new Symbol(sym.CONTINUE, yyline, yycolumn,yytext());}
 <YYINITIAL> {DO}            {return new Symbol(sym.DO, yyline, yycolumn,yytext());}
+<YYINITIAL> {VOID}          {return new Symbol(sym.VOID, yyline, yycolumn,yytext());}
+<YYINITIAL> {START_WITH}    {return new Symbol(sym.START_WITH, yyline, yycolumn,yytext());}
+
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 
