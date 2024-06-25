@@ -532,4 +532,60 @@ public class Aritmeticas extends Instruccion {
             }
         }
     }
+
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+        //negacion
+        if(this.operacion==OperadoresAritmeticos.NEGACION){
+            String nodoExp1 = "n" + arbol.getContador();
+            String nodoOp = "n" + arbol.getContador();
+            
+            String resultado = anterior + "->" + nodoOp + ";\n";
+            resultado += anterior + "->" + nodoExp1 + ";\n";
+            
+            resultado += nodoOp+"lable=[\"-\"];\n";
+
+            resultado += nodoExp1+"lable=[\"EXP\"];\n";
+            
+            resultado += this.operandoUnico.generarast(arbol, nodoExp1);
+
+            return resultado;
+
+        }
+        //exp op exp
+        String nodoExp1 = "n" + arbol.getContador();
+        String nodoOp = "n" + arbol.getContador();
+        String nodoExp2 = "n" + arbol.getContador();
+        
+        String resultado = anterior + "->" + nodoExp1 + ";\n";
+        resultado += anterior + "->" + nodoOp + ";\n";
+        resultado += anterior + "->" + nodoExp2 + ";\n";
+
+        resultado += nodoExp1+"lable=[\"EXP\"];\n";
+        if(this.operacion==OperadoresAritmeticos.SUMA){
+            resultado += nodoOp+"lable=[\"+\"];\n";
+        }
+        if(this.operacion==OperadoresAritmeticos.RESTA){
+            resultado += nodoOp+"lable=[\"-\"];\n";
+        }
+        if(this.operacion==OperadoresAritmeticos.MULTIPLICACION){
+            resultado += nodoOp+"lable=[\"*\"];\n";
+        }
+        if(this.operacion==OperadoresAritmeticos.DIVISION){
+            resultado += nodoOp+"lable=[\"/\"];\n";
+        }
+        if(this.operacion==OperadoresAritmeticos.POTENCIA){
+            resultado += nodoOp+"lable=[\"^\"];\n";
+        }
+        if(this.operacion==OperadoresAritmeticos.MODULO){
+            resultado += nodoOp+"lable=[\"%\"];\n";
+        }
+        resultado += nodoExp2+"lable=[\"EXP\"];\n";
+
+        resultado += this.operando1.generarast(arbol, nodoExp1);
+        resultado += this.operando2.generarast(arbol, nodoExp2);
+
+        
+        return resultado;
+    }
 }

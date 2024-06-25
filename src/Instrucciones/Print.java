@@ -34,4 +34,27 @@ public class Print extends Instruccion {
         return null;
     }
 
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+        
+        String nodoPrint = "n" + arbol.getContador();
+        String nodoPAR1 = "n" + arbol.getContador();
+        String nodoEXP = "n" + arbol.getContador();
+        String nodoPAR2 = "n" + arbol.getContador();
+
+        String resultado = anterior + "->" + nodoPrint + ";\n";
+        resultado += anterior + "->" + nodoPAR1 + ";\n";
+        resultado += anterior + "->" + nodoEXP + ";\n";
+        resultado += anterior + "->" + nodoPAR2 + ";\n";
+        
+        resultado += nodoPrint+"lable=[\"PRINTLN\"];\n";
+        resultado += nodoPAR1+"lable=[\"(\"];\n";
+        resultado += nodoEXP+"lable=[\"EXP\"];\n";
+        resultado += nodoPAR2+"lable=[\")\"];\n";
+
+        resultado += this.expresion.generarast(arbol, nodoEXP);
+        
+        return resultado;    
+    }
+
 }

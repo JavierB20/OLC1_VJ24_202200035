@@ -54,4 +54,8 @@ public class Incremento extends Instruccion {
             }
         }
     }
+
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+return "";    }
 }

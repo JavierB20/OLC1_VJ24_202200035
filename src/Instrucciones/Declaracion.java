@@ -98,4 +98,8 @@ public class Declaracion extends Instruccion {
         Variables.addGlobalLstSimbolo(simbolo);
         return null;
     }
+
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+return "";    }
 }

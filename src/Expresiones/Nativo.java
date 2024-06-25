@@ -23,5 +23,15 @@ public class Nativo extends Instruccion{
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         return this.valor;
     }
-    
+
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+        String nodoNativo = "n" + arbol.getContador();
+        String nodoValor = "n" + arbol.getContador();
+        String resultado = anterior + "->" + nodoNativo;
+        resultado = nodoNativo + "[label=\"NATIVO\"];\n" ;
+        resultado += nodoValor + "[label=\""+this.valor.toString()+"\"];\n";
+        resultado += nodoNativo + "->" + nodoValor;
+        return resultado;
+    }
 }

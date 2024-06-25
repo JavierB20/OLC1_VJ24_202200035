@@ -28,5 +28,9 @@ public class VarValorDefecto<T> extends Instruccion {
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
         return valor;
     }
+
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+return "";    }
     
 }
