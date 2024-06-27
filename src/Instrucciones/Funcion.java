@@ -17,13 +17,13 @@ import java.util.LinkedList;
  *
  * @author msWas
  */
-public class Metodo extends Instruccion{
+public class Funcion extends Instruccion{
 
     public String id;
     public LinkedList<Instruccion> Instrucciones;
     public LinkedList<HashMap> parametros;
 
-    public Metodo(String id,LinkedList<HashMap> parametros, LinkedList<Instruccion> Instrucciones, Tipo tipo, int linea, int col) {
+    public Funcion(String id,LinkedList<HashMap> parametros, LinkedList<Instruccion> Instrucciones, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
         this.id = id;
         this.parametros = parametros;
@@ -35,13 +35,6 @@ public class Metodo extends Instruccion{
         for (var i:this.Instrucciones){
             var resultado = i.interpretar(arbol, tabla);
             //Validar cuando venga return
-            if (resultado instanceof Return aReturn){
-                if(this.tipo.getTipo() != aReturn.tipo.getTipo()){
-                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error dentro del metodo", this.linea, this.col));
-                    return new Errores("SEMANTICO", "Error dentro del metodo", this.linea, this.col);
-                }
-                return resultado;
-            }
             
             if (resultado instanceof Errores){
                 Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error dentro del metodo", this.linea, this.col));

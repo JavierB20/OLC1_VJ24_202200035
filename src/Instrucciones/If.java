@@ -65,9 +65,6 @@ public class If extends Instruccion{
             return new Errores("SEMANTICO", "Expresion invalida",
                     this.linea, this.col);
         }
-        if(cond instanceof String){
-            cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
-        }
 
         var newTabla = new tablaSimbolos(tabla);
         newTabla.setNombre(tabla.getNombre() + "IF");
@@ -89,6 +86,7 @@ public class If extends Instruccion{
                     return i;
                 }
                 
+                
                 var resultado = i.interpretar(arbol, newTabla);
                 
                 if (resultado instanceof Break) {
@@ -96,6 +94,10 @@ public class If extends Instruccion{
                 }
 
                 if (resultado instanceof Continue) {
+                    return resultado;
+                }
+                
+                if (resultado instanceof Return) {
                     return resultado;
                 }
                 //Manejo de errores en if
@@ -132,6 +134,10 @@ public class If extends Instruccion{
                         }
                         
                         if (resultado instanceof Continue) {
+                            return resultado;
+                        }
+                        
+                        if (resultado instanceof Return) {
                             return resultado;
                         }
                         //Manejo de errores en else

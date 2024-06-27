@@ -13,6 +13,7 @@ import Simbolos.tablaSimbolos;
 import Excepciones.Errores;
 import Instrucciones.AsignacionVar;
 import Instrucciones.Declaracion;
+import Instrucciones.Llamada;
 import Instrucciones.Metodo;
 import Instrucciones.StartWith;
 
@@ -47,7 +48,7 @@ public class patroninterprete {
             LinkedList<Errores> lista = new LinkedList<>();
             lista.addAll(s.listaErrores);
             lista.addAll(p.listaErrores);
-            
+
             for (var a : ast.getInstrucciones()) {
                 if (a == null) {
                     continue;
@@ -87,30 +88,42 @@ public class patroninterprete {
                 }
             }
             
+            String errores = "";
+
             var resultadoStart = start.interpretar(ast, tabla);
+            
             if(resultadoStart instanceof Errores) {
                 System.out.println("Compila con error");
-                System.out.println(lista);
+                for (var i : Variables.getGlobalLinkedList()) {
+                    errores += ("\t>> Error de Tipo: "+ i.getTipo() + 
+                            " Descripcion: " +i.getDesc() +
+                            " Linea: " + i.getLinea() + 
+                            " Columna: " + i.getColumna() + "\n");
+                    
+                    Variables.addToGlobalLinkedList(i);
+                }
             }
             
+
+            //Impresion en consola nativa
+            if(lista.size() > 0) {
+                for (var i : lista) {
+                    errores += ("\t>> Error de Tipo: "+ i.getTipo() + 
+                            " Descripcion: " +i.getDesc() +
+                            " Linea: " + i.getLinea() + 
+                            " Columna: " + i.getColumna() + "\n");
+                    
+                    Variables.addToGlobalLinkedList(i);
+                }
+            }
+
             System.out.println(ast.getConsola());
-            
-            System.out.println(Variables.getGlobalLinkedList());
-            String errores = "";
-            //Variables.clearGlobalLinkedList();
-            for (var i : lista) {
-                errores += ("\t>> Error de Tipo: "+ i.getTipo() + 
-                        " Descripcion: " +i.getDesc() +
-                        " Linea: " + i.getLinea() + 
-                        " Columna: " + i.getColumna() + "\n");
-                Variables.addToGlobalLinkedList(i);
-            }
-            
+
             return ast.getConsola() + "\n" + errores;
 
         } catch (Exception ex) {
             //Temporal
-            System.out.println("LLamen a Dios y pregunten porque me abandono");
+            System.out.println("Error de tipo no reconocible");
             System.out.println(ex);
             return "LLamen a Dios y pregunten porque me abandono\n " + ex;
         }

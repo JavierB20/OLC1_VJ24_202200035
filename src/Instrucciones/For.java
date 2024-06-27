@@ -80,6 +80,10 @@ public class For extends Instruccion {
                     break;
                 }
                 
+                if (resIns instanceof Return) {
+                    return resIns;
+                }
+                
                 if (resIns instanceof Errores) {
                     Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error dentro de la sentencia For", this.linea, this.col));
                     return resIns;

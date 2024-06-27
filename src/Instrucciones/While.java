@@ -70,6 +70,10 @@ public class While extends Instruccion{
                     break;
                 }
                 
+                if (i instanceof Return) {
+                    return i;
+                }
+                
                 var resIns = i.interpretar(arbol, newTabla2);
                 
                 if (resIns instanceof Error) {
@@ -83,6 +87,10 @@ public class While extends Instruccion{
                 
                 if (resIns instanceof Continue) {
                     break;
+                }
+                
+                if (resIns instanceof Return) {
+                    return resIns;
                 }
             }
 

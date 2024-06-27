@@ -24,7 +24,6 @@ public class Declaracion extends Instruccion {
     public Instruccion valor;
     public String strMutabilidad;
     public boolean boolMutabilidad;
-    Variables vars = new Variables();
     
     public Declaracion(String identificador, String strMutabilidad, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
@@ -59,8 +58,6 @@ public class Declaracion extends Instruccion {
                     Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error al crear variable", this.linea, this.col));
                 }
             }
-            
-            
         }
 
         // interpretado la expresion

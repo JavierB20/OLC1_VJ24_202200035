@@ -77,6 +77,7 @@ CONTINUE = "CONTINUE"
 DO = "DO"
 VOID = "VOID"
 START_WITH = "START_WITH"
+RETURN = "RETURN"
 
 //Expresiones regulares
 ID=[a-zA-z][a-zA-Z0-9_]*
@@ -140,6 +141,7 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {DO}            {return new Symbol(sym.DO, yyline, yycolumn,yytext());}
 <YYINITIAL> {VOID}          {return new Symbol(sym.VOID, yyline, yycolumn,yytext());}
 <YYINITIAL> {START_WITH}    {return new Symbol(sym.START_WITH, yyline, yycolumn,yytext());}
+<YYINITIAL> {RETURN}        {return new Symbol(sym.RETURN, yyline, yycolumn,yytext());}
 
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}

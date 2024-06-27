@@ -40,6 +40,7 @@ public class sym {
   public static final int MAYORIGUAL = 30;
   public static final int EOF = 0;
   public static final int DECIMAL = 4;
+  public static final int RETURN = 53;
   public static final int error = 1;
   public static final int COMA = 23;
   public static final int CADENA = 2;
@@ -114,7 +115,8 @@ public class sym {
   "VOID",
   "BREAK",
   "CONTINUE",
-  "START_WITH"
+  "START_WITH",
+  "RETURN"
   };
 }
 

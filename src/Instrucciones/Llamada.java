@@ -35,9 +35,10 @@ public class Llamada extends Instruccion{
             return new Errores("SEMANTICO", "Funcion no existente", this.linea, this.col);
         }
         
-        if(busquedaFun instanceof Metodo metodo) {
-            var newTable = new tablaSimbolos(arbol.getTablaGlobal());
+        if(busquedaFun instanceof Metodo metodo) { 
+            var newTable = new tablaSimbolos(arbol.getTablaGlobal()); //Posible cambio (tabla)
             newTable.setNombre("LLamado Metodo " + this.id);
+            
             if(metodo.parametros.size() != this.parametros.size()){
                 Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "No se esta recibiendo la misma cantidad de parametros", this.linea, this.col));
                 return new Errores("SEMANTICO", "No se esta recibiendo la misma cantidad de parametros", this.linea, this.col);
@@ -76,9 +77,15 @@ public class Llamada extends Instruccion{
                 
                 variable.setValor(valorInterpretado);
             }
+            
             var resultadoFuncion = metodo.interpretar(arbol, newTable);
             if(resultadoFuncion instanceof Errores){
                 return resultadoFuncion;
+            }
+            
+            if(resultadoFuncion instanceof Return){
+                this.tipo.setTipo(metodo.tipo.getTipo());
+                return ((Return) resultadoFuncion).resultado;
             }
             
         }

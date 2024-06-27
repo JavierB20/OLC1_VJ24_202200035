@@ -20,7 +20,6 @@ public class AsignacionVar extends Instruccion{
     
     private String id;
     private Instruccion exp;
-    Variables vars = new Variables();
 
     public AsignacionVar(Instruccion exp, int linea, int col) {
         super(new Tipo(tipoDato.VOID), linea, col);

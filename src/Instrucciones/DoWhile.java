@@ -71,6 +71,10 @@ public class DoWhile extends Instruccion {
                     break;
                 }
                 
+                if (resIns instanceof Return) {
+                    return resIns;
+                }
+                
             }
 
             //actualizar la variable
