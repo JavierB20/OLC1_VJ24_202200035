@@ -156,6 +156,10 @@ public class If extends Instruccion{
                     Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error dentro de if no reconocible", this.linea, this.col));
                     return new Errores("SEMANTICO", "Error dentro de if no reconocible", this.linea, this.col);
                 }
+                
+                if (resultado instanceof Return){
+                    return resultado;
+                }
             }
         }
        

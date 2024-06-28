@@ -55,7 +55,7 @@ public class AsignacionVar extends Instruccion{
             return new Errores("SEMANTICO", "Tipos erroneos en asignacion",
                     this.linea, this.col);
         }
-        //this.tipo.setTipo(variable.getTipo().getTipo());
+        this.tipo.setTipo(variable.getTipo().getTipo());
         boolean asignacion = (boolean)variable.setValor(newValor);
         if (!asignacion) {
             Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "No se puede cambiar el valor de una variable constante", this.linea, this.col));

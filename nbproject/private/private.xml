@@ -4,13 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Instrucciones/Declaracion.java</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Expresiones/AccesoVar.java</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Simbolos/tablaSimbolos.java</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/PatronInterprete/patroninterprete.java</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Simbolos/Simbolo.java</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Instrucciones/DeclaracionVec.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/analisis/parser.java</file>
             <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Instrucciones/AsignacionVar.java</file>
-            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/GUI/MainGUI.java</file>
+            <file>file:/C:/Users/msWas/OneDrive/Documents/NetBeansProjects/JavaCraft_OLC1/src/Instrucciones/AsignacionVec.java</file>
         </group>
     </open-files>
 </project-private>

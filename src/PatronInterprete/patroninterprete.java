@@ -13,6 +13,7 @@ import Simbolos.tablaSimbolos;
 import Excepciones.Errores;
 import Instrucciones.AsignacionVar;
 import Instrucciones.Declaracion;
+import Instrucciones.DeclaracionVec;
 import Instrucciones.Llamada;
 import Instrucciones.Metodo;
 import Instrucciones.StartWith;
@@ -66,7 +67,7 @@ public class patroninterprete {
                 }
 
                 //Añade declaraciones
-                if(a instanceof Declaracion || a instanceof AsignacionVar){
+                if(a instanceof Declaracion || a instanceof AsignacionVar || a instanceof DeclaracionVec){
                     var res = a.interpretar(ast, tabla);
                     if (res instanceof Errores errores){
                         Variables.addToGlobalLinkedList(errores);

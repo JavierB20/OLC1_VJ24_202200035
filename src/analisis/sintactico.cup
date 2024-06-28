@@ -27,6 +27,7 @@ import Instrucciones.Metodo;
 import Instrucciones.StartWith;
 import Instrucciones.Llamada;
 import Instrucciones.Return;
+import Instrucciones.DeclaracionVec;
 
 
 
@@ -75,7 +76,7 @@ action code
 //terminales
 terminal String CADENA, ENTERO, DECIMAL, CARACTER, ID;
 terminal IGUAL, FINCADENA, PRINTLN, DOSPUNTOS, LLAVE1, LLAVE2;
-terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS, GUIONBAJO, COMA;
+terminal PAR1, PAR2, MAS, MENOS, POTENCIA, MULT, DIV, MOD, UMENOS, GUIONBAJO, COMA, CORCHETE1, CORCHETE2;
 terminal VERDAD, FALSO;
 terminal IGUALACION, DIFERENCIA, MENORIGUAL, MENOR, MAYORIGUAL, MAYOR;
 terminal TKNOT, TKOR, TKAND, TKXOR;
@@ -101,6 +102,8 @@ nonterminal LinkedList<HashMap> PARAMS;
 nonterminal Instruccion SSTART_WITH;
 nonterminal LinkedList<Instruccion> PARAMSCALL;
 nonterminal Instruccion LLAMADA, SRETURN;
+nonterminal Instruccion DECLARACIONVEC;
+nonterminal LinkedList<Instruccion> LSTVALORES;
 
 precedence left TKOR;
 precedence left TKAND;
@@ -125,8 +128,12 @@ INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b     {: RESULT = a; RESULT.add(b)
 
 INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | DECLARACION:a       {:   RESULT=a;   :}
+                | ASIGNACION:a        {:   RESULT=a;   :}
+                | DECLARACIONVEC:a    {:   RESULT=a;   :}
+
                 | SIF:a               {:   RESULT=a;   :}
                 | SMATCH:a            {:   RESULT=a;   :}
+
                 | SWHILE:a            {:   RESULT=a;   :}
                 | SDOWHILE:a          {:   RESULT=a;   :}
                 | SFOR:a              {:   RESULT=a;   :}
@@ -134,11 +141,13 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | DECREMENTO:a        {:   RESULT=a;   :}
                 | SBREAK:a            {:   RESULT=a;   :}
                 | SCONTINUE:a         {:   RESULT=a;   :}
-                | ASIGNACION:a        {:   RESULT=a;   :}
+
+
                 | METODO:a            {:   RESULT=a;   :}
                 | SSTART_WITH:a       {:   RESULT=a;   :}
                 | LLAMADA:a FINCADENA {:   RESULT=a;   :}
                 | SRETURN:a           {:   RESULT=a;   :}
+
                 | error FINCADENA
                 | error
 ;
@@ -207,6 +216,18 @@ DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                
 
 ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
 ;
+
+DECLARACIONVEC ::= MUTABILIDAD:a ID:b DOSPUNTOS TIPOS:c CORCHETE1 CORCHETE2 IGUAL CORCHETE1 LSTVALORES:d CORCHETE2 FINCADENA {:   RESULT = new DeclaracionVec(a, b, 1, d, c, aleft, aright);    :}
+;
+
+LSTVALORES ::=    LSTVALORES:a COMA EXPRESION:b         {:      RESULT = a;
+                                                                RESULT.add(b);
+                                                        :}
+                | EXPRESION:a                           {:      RESULT = new LinkedList<Instruccion>();
+                                                                RESULT.add(a);
+                                                        :}
+;
+
 
 //INICIO METODOS Y FUNCIONES
 METODO ::= TIPOS:a ID:b PAR1 PARAMS:p PAR2 LLAVE1 INSTRUCCIONES:c LLAVE2 {:   RESULT=new Metodo(b, p, c, a, aleft, aright);   :}

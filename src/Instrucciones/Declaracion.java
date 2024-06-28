@@ -24,19 +24,19 @@ public class Declaracion extends Instruccion {
     public Instruccion valor;
     public String strMutabilidad;
     public boolean boolMutabilidad;
+
+    public Declaracion(String identificador, Instruccion valor, String strMutabilidad, Tipo tipo, int linea, int col) {
+        super(tipo, linea, col);
+        this.identificador = identificador;
+        this.valor = valor;
+        this.strMutabilidad = strMutabilidad;
+    }
     
     public Declaracion(String identificador, String strMutabilidad, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
         this.identificador = identificador;
         this.strMutabilidad = strMutabilidad;
         this.valor = null;
-    }
-    
-    public Declaracion(String identificador, Instruccion valor, String strMutabilidad, Tipo tipo, int linea, int col) {
-        super(tipo, linea, col);
-        this.identificador = identificador;
-        this.valor = valor;
-        this.strMutabilidad = strMutabilidad;
     }
 
     @Override
@@ -98,5 +98,6 @@ public class Declaracion extends Instruccion {
 
     @Override
     public String generarast(Arbol arbol, String anterior) {
-return "";    }
+        return "";    
+    }
 }

@@ -55,6 +55,8 @@ LLAVE1 = "{"
 LLAVE2 = "}"
 GUIONBAJO = "_"
 COMA = ","
+CORCHETE1="["
+CORCHETE2="]"
 
 //palabras reservadas
 PRINTLN = "println"
@@ -99,6 +101,8 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {LLAVE1}        {return new Symbol(sym.LLAVE1, yyline, yycolumn,yytext());}
 <YYINITIAL> {LLAVE2}        {return new Symbol(sym.LLAVE2, yyline, yycolumn,yytext());}
 <YYINITIAL> {COMA}          {return new Symbol(sym.COMA, yyline, yycolumn,yytext());}
+<YYINITIAL> {CORCHETE1}     {return new Symbol(sym.CORCHETE1, yyline, yycolumn,yytext());}
+<YYINITIAL> {CORCHETE2}     {return new Symbol(sym.CORCHETE2, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {MAS}           {return new Symbol(sym.MAS, yyline, yycolumn,yytext());}
 <YYINITIAL> {MENOS}         {return new Symbol(sym.MENOS, yyline, yycolumn,yytext());}

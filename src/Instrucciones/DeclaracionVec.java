@@ -10,6 +10,7 @@ import Simbolos.Arbol;
 import Simbolos.Simbolo;
 import Simbolos.Tipo;
 import Simbolos.tablaSimbolos;
+import Simbolos.tipoDato;
 import VariablesGlobales.Variables;
 import java.util.LinkedList;
 
@@ -24,70 +25,67 @@ MUTABILIDAD ID : TIPO [][] = LSTVALORES -> LSTEXPRESIONES
 */
 public class DeclaracionVec extends Instruccion {
 
-    public String mutabilidad;
+    public String strMutabilidad;
     public boolean boolMutabilidad;
     public String id;
     public int dimension1;
     public int dimension2;
-    public LinkedList<Instruccion> lstValoes;
+    public LinkedList<Instruccion> lstValores;
 
-    public DeclaracionVec(String mutabilidad, String id, int dimension1, int dimension2, LinkedList<Instruccion> lstValoes, Tipo tipo, int linea, int col) {
+    public DeclaracionVec(String strMutabilidad, String id, int dimension1, int dimension2, LinkedList<Instruccion> lstValores, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
-        this.mutabilidad = mutabilidad;
+        this.strMutabilidad = strMutabilidad;
         this.id = id;
         this.dimension1 = dimension1;
         this.dimension2 = dimension2;
-        this.lstValoes = lstValoes;
+        this.lstValores = lstValores;
     }
 
-    public DeclaracionVec(String mutabilidad, String id, int dimension1, LinkedList<Instruccion> lstValoes, Tipo tipo, int linea, int col) {
+    public DeclaracionVec(String strMutabilidad, String id, int dimension1, LinkedList<Instruccion> lstValores, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
-        this.mutabilidad = mutabilidad;
+        this.strMutabilidad = strMutabilidad;
         this.id = id;
         this.dimension1 = dimension1;
-        this.lstValoes = lstValoes;
+        this.lstValores = lstValores;
     }
 
     
 
     @Override
-    public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
-        for (var i : this.lstValoes){
-            var resIns = i.interpretar(arbol, tabla);
-            
-            if (resIns instanceof Errores) {
-                    Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Error dentro de la sentencia For", this.linea, this.col));
-                    return resIns;
-            }
-            
-            //validamos los tipo
-            if (i.tipo.getTipo() != this.tipo.getTipo()) {
-                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col));
-                return new Errores("SEMANTICO", "Tipos erroneos", this.linea, this.col);
-            }
-            
-            this.boolMutabilidad = this.mutabilidad.equalsIgnoreCase("const");
-            Simbolo s = new Simbolo(this.tipo, this.id, resIns, this.boolMutabilidad);
+public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
+    LinkedList<Object> lstValores = new LinkedList<>(); // Inicializa la lista aquí
 
-            Simbolo simbolo = new Simbolo(
-                id, 
-                "Variable", 
-                tipo.getTipo().toString(), 
-                tabla.getNombre(), 
-                resIns, 
-                this.linea, 
-                this.col
-            );
+    if (this.dimension1 == 1) {
+        for (var dato : this.lstValores) {
+            // Interpretar dato
+            var valorInterpretado = dato.interpretar(arbol, tabla);
 
-            boolean creacion = tabla.setVariable(s);
-            if (!creacion) {
-                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Variable ya exitente", this.linea, this.col));
-                return new Errores("SEMANTICO", "Variable ya existente", this.linea, this.col);
+            if (valorInterpretado instanceof Errores) {
+                return valorInterpretado;
             }
-            Variables.addGlobalLstSimbolo(simbolo);
+
+            // Validar el tipo con la declaración
+            if (dato.tipo.getTipo() != this.tipo.getTipo()) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Tipos erroneos en vector", this.linea, this.col));
+                return new Errores("SEMANTICO", "Tipos erroneos en vector", this.linea, this.col);
+            }
+
+            // Agregar el valor interpretado a la lista
+            lstValores.add(valorInterpretado);
         }
-        return null;
     }
+
+    this.boolMutabilidad = this.strMutabilidad.equalsIgnoreCase("const");
+    Simbolo s = new Simbolo(this.tipo, this.id, lstValores, this.boolMutabilidad);
+
+    // Guardar el símbolo en la tabla de símbolos
+    if (!tabla.setVariable(s)) {
+        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Variable ya definida", this.linea, this.col));
+        return new Errores("SEMANTICO", "Variable ya definida", this.linea, this.col);
+    }
+
+    return null;
+}
 
     @Override
     public String generarast(Arbol arbol, String anterior) {
