@@ -60,23 +60,50 @@ public class AsignacionVec extends Instruccion{
             return new Errores("SEMANTICO", "Vector no exitente",this.linea, this.col);
         }
         
-        var dime1 = this.Dimension1.interpretar(arbol,tabla);
-        if(dime1 instanceof Errores){
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Expresion en dimension erronea", this.linea, this.col));
-            return new Errores("SEMANTICO", "Expresion en dimension erronea",this.linea, this.col);
+        if (this.Dimension2 != null) {
+            var dime1 = this.Dimension1.interpretar(arbol,tabla);
+            if(dime1 instanceof Errores){
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Expresion en dimension erronea", this.linea, this.col));
+                return new Errores("SEMANTICO", "Expresion en dimension erronea",this.linea, this.col);
+            }
+            var dime2 = this.Dimension2.interpretar(arbol,tabla);
+            if(dime2 instanceof Errores){
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Expresion en dimension erronea", this.linea, this.col));
+                return new Errores("SEMANTICO", "Expresion en dimension erronea",this.linea, this.col);
+            }
+            //Siempre entero - COMPI2
+
+            var nuevoValor = this.expresion.interpretar(arbol, tabla);
+            if(nuevoValor instanceof Errores){
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Valor a asignado a vector erroneo", this.linea, this.col));
+                return new Errores("SEMANTICO", "Valor a asignado a vector erroneo",this.linea, this.col);
+            }
+
+            var valorVector = (LinkedList<LinkedList<Object>>) vector.getValor();
+            valorVector.get((int) dime1).set((int) dime2, nuevoValor); //Validar la mutabilidad antes de todo
+
+            return null;
+        } else {
+            var dime1 = this.Dimension1.interpretar(arbol,tabla);
+            if(dime1 instanceof Errores){
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Expresion en dimension erronea", this.linea, this.col));
+                return new Errores("SEMANTICO", "Expresion en dimension erronea",this.linea, this.col);
+            }
+            //Siempre entero - COMPI2
+
+            var nuevoValor = this.expresion.interpretar(arbol, tabla);
+            if(nuevoValor instanceof Errores){
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Valor a asignado a vector erroneo", this.linea, this.col));
+                return new Errores("SEMANTICO", "Valor a asignado a vector erroneo",this.linea, this.col);
+            }
+
+            var valorVector = (LinkedList) vector.getValor();
+            valorVector.set((int) dime1, nuevoValor); //Validar la mutabilidad antes de todo
+
+            return null;
         }
-        //Siempre entero - COMPI2
         
-        var nuevoValor = this.expresion.interpretar(arbol, tabla);
-        if(nuevoValor instanceof Errores){
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Valor a asignado a vector erroneo", this.linea, this.col));
-            return new Errores("SEMANTICO", "Valor a asignado a vector erroneo",this.linea, this.col);
-        }
-        
-        var valorVector = (LinkedList) vector.getValor();
-        valorVector.set((int) dime1, nuevoValor); //Validar la mutabilidad antes de todo
-        
-        return null;
+
     }
 
     @Override

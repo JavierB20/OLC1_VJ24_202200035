@@ -42,30 +42,64 @@ public class AccesoVec extends Instruccion{
 
     @Override
     public Object interpretar(Arbol arbol, tablaSimbolos tabla) {
-        var vector = tabla.getVariable(id);
-        if (vector == null) {
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Vector no exitente", this.linea, this.col));
-            return new Errores("SEMANTICO", "Vector no exitente",this.linea, this.col);
-        }
         
-        var intDimension1 = this.dimension1.interpretar(arbol, tabla);
-        if (intDimension1 instanceof Error) {
-            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Dimension ingresada no valida", this.linea, this.col));
-            return new Errores("SEMANTICA", "Dimension ingresada no valida",this.linea, this.col);
-        }
-        
-        var valorVector = (LinkedList) vector.getValor();
-        this.tipo.setTipo(vector.getTipo().getTipo());
-        
-        int indiceAcceder1 = (int) intDimension1;
-        
-        if(!(indiceAcceder1 >= 0 && indiceAcceder1 < valorVector.size())) {
-                        Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Fuera de rango en el vector", this.linea, this.col));
-            return new Errores("SEMANTICA", "Fuera de rango en el vector",this.linea, this.col);
-        }
-        
-        return valorVector.get(indiceAcceder1);
+        if(this.dimension2 != null) {
+            var vector = tabla.getVariable(id);
+            if (vector == null) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Vector no exitente", this.linea, this.col));
+                return new Errores("SEMANTICO", "Vector no exitente",this.linea, this.col);
+            }
 
+            var intDimension1 = this.dimension1.interpretar(arbol, tabla);
+            if (intDimension1 instanceof Error) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Dimension ingresada no valida", this.linea, this.col));
+                return new Errores("SEMANTICA", "Dimension ingresada no valida",this.linea, this.col);
+            }
+            
+            var intDimension2 = this.dimension2.interpretar(arbol, tabla);
+            if (intDimension2 instanceof Error) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Dimension ingresada no valida", this.linea, this.col));
+                return new Errores("SEMANTICA", "Dimension ingresada no valida",this.linea, this.col);
+            }
+
+            var valorVector = (LinkedList<LinkedList<Object>>) vector.getValor();
+            this.tipo.setTipo(vector.getTipo().getTipo());
+
+            int indiceAcceder1 = (int) intDimension1;
+            int indiceAcceder2 = (int) intDimension2;
+
+            if(!((indiceAcceder1 >= 0 && indiceAcceder2 >= 0) && indiceAcceder1 < valorVector.size())) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Fuera de rango en el vector", this.linea, this.col));
+                return new Errores("SEMANTICA", "Fuera de rango en el vector",this.linea, this.col);
+            }
+
+            return valorVector.get(indiceAcceder1).get(indiceAcceder2);
+        
+        }else {
+            var vector = tabla.getVariable(id);
+            if (vector == null) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Vector no exitente", this.linea, this.col));
+                return new Errores("SEMANTICO", "Vector no exitente",this.linea, this.col);
+            }
+
+            var intDimension1 = this.dimension1.interpretar(arbol, tabla);
+            if (intDimension1 instanceof Error) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Dimension ingresada no valida", this.linea, this.col));
+                return new Errores("SEMANTICA", "Dimension ingresada no valida",this.linea, this.col);
+            }
+
+            var valorVector = (LinkedList) vector.getValor();
+            this.tipo.setTipo(vector.getTipo().getTipo());
+
+            int indiceAcceder1 = (int) intDimension1;
+
+            if(!(indiceAcceder1 >= 0 && indiceAcceder1 < valorVector.size())) {
+                            Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Fuera de rango en el vector", this.linea, this.col));
+                return new Errores("SEMANTICA", "Fuera de rango en el vector",this.linea, this.col);
+            }
+
+            return valorVector.get(indiceAcceder1);
+        }
     }
 
     @Override
