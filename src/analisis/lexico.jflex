@@ -57,6 +57,7 @@ GUIONBAJO = "_"
 COMA = ","
 CORCHETE1="["
 CORCHETE2="]"
+PUNTO="."
 
 //palabras reservadas
 PRINTLN = "println"
@@ -80,6 +81,11 @@ DO = "DO"
 VOID = "VOID"
 START_WITH = "START_WITH"
 RETURN = "RETURN"
+LIST = "LIST"
+NEW = "NEW"
+APPEND = "APPEND"
+REMOVE = "REMOVE"
+
 
 //Expresiones regulares
 ID=[a-zA-z][a-zA-Z0-9_]*
@@ -103,6 +109,7 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {COMA}          {return new Symbol(sym.COMA, yyline, yycolumn,yytext());}
 <YYINITIAL> {CORCHETE1}     {return new Symbol(sym.CORCHETE1, yyline, yycolumn,yytext());}
 <YYINITIAL> {CORCHETE2}     {return new Symbol(sym.CORCHETE2, yyline, yycolumn,yytext());}
+<YYINITIAL> {PUNTO}         {return new Symbol(sym.PUNTO, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {MAS}           {return new Symbol(sym.MAS, yyline, yycolumn,yytext());}
 <YYINITIAL> {MENOS}         {return new Symbol(sym.MENOS, yyline, yycolumn,yytext());}
@@ -146,6 +153,10 @@ COMENTARIOMULTI = [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 <YYINITIAL> {VOID}          {return new Symbol(sym.VOID, yyline, yycolumn,yytext());}
 <YYINITIAL> {START_WITH}    {return new Symbol(sym.START_WITH, yyline, yycolumn,yytext());}
 <YYINITIAL> {RETURN}        {return new Symbol(sym.RETURN, yyline, yycolumn,yytext());}
+<YYINITIAL> {LIST}          {return new Symbol(sym.LIST, yyline, yycolumn,yytext());}
+<YYINITIAL> {NEW}           {return new Symbol(sym.NEW, yyline, yycolumn,yytext());}
+<YYINITIAL> {APPEND}        {return new Symbol(sym.APPEND, yyline, yycolumn,yytext());}
+<YYINITIAL> {REMOVE}        {return new Symbol(sym.REMOVE, yyline, yycolumn,yytext());}
 
 
 <YYINITIAL> {ID}            {return new Symbol(sym.ID, yyline, yycolumn,yytext());}

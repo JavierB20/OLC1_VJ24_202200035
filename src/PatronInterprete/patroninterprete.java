@@ -11,9 +11,11 @@ import java.util.LinkedList;
 import Simbolos.Arbol;
 import Simbolos.tablaSimbolos;
 import Excepciones.Errores;
+import Instrucciones.AsignacionListaDinamica;
 import Instrucciones.AsignacionVar;
 import Instrucciones.AsignacionVec;
 import Instrucciones.Declaracion;
+import Instrucciones.DeclaracionListaDinamica;
 import Instrucciones.DeclaracionVec;
 import Instrucciones.Llamada;
 import Instrucciones.Metodo;
@@ -38,6 +40,7 @@ public class patroninterprete {
     public String Ejecutar(String args) {
         try {
             Variables.clearGlobalLstSimbolo();
+            Variables.clearGlobalLinkedList();
             scanner s = new scanner(new BufferedReader(new StringReader(args)));
             parser p = new parser(s);
             var resultado = p.parse();
@@ -68,7 +71,8 @@ public class patroninterprete {
                 }
 
                 //Añade declaraciones
-                if(a instanceof Declaracion || a instanceof AsignacionVar || a instanceof DeclaracionVec || a instanceof AsignacionVec){
+                if(a instanceof Declaracion || a instanceof AsignacionVar || a instanceof DeclaracionVec || a instanceof AsignacionVec
+                        || a instanceof DeclaracionListaDinamica || a instanceof AsignacionListaDinamica){
                     var res = a.interpretar(ast, tabla);
                     if (res instanceof Errores errores){
                         Variables.addToGlobalLinkedList(errores);

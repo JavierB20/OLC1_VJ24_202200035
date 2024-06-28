@@ -29,6 +29,9 @@ import Instrucciones.Llamada;
 import Instrucciones.Return;
 import Instrucciones.DeclaracionVec;
 import Instrucciones.AsignacionVec;
+import Instrucciones.AsignacionListaDinamica;
+import Instrucciones.DeclaracionListaDinamica;
+import Instrucciones.Append;
 
 
 //expresiones
@@ -42,6 +45,8 @@ import Expresiones.OperadoresLogicos;
 import Expresiones.Casteos;
 import Expresiones.AccesoVar;
 import Expresiones.AccesoVec;
+import Expresiones.AccesoListaDinamica;
+import Expresiones.Remove;
 
 
 // parser
@@ -85,6 +90,7 @@ terminal IF, ELSE, MATCH, WHILE, FOR, DO;
 terminal VOID;
 terminal String BREAK, CONTINUE;
 terminal START_WITH, RETURN;
+terminal LIST, NEW, REMOVE, APPEND, PUNTO;
 
 
 //no terminales
@@ -101,7 +107,7 @@ nonterminal LinkedList<HashMap> PARAMS;
 nonterminal Instruccion SSTART_WITH;
 nonterminal LinkedList<Instruccion> PARAMSCALL;
 nonterminal Instruccion LLAMADA, SRETURN;
-nonterminal Instruccion DECLARACIONVEC, ASIGNACIONVEC;
+nonterminal Instruccion DECLARACIONVEC, ASIGNACIONVEC, DECLARACIONLSTDIN, ASIGNACIONLSTDIN, SAPPEND, SREMOVE;
 nonterminal LinkedList<Instruccion> LSTVALORES;
 
 precedence left TKOR;
@@ -130,6 +136,8 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | DECLARACIONVEC:a    {:   RESULT=a;   :}
                 | ASIGNACIONVEC:a     {:   RESULT=a;   :}
+                | DECLARACIONLSTDIN:a {:   RESULT=a;   :}
+                | ASIGNACIONLSTDIN:a  {:   RESULT=a;   :}
 
                 | SIF:a               {:   RESULT=a;   :}
                 | SMATCH:a            {:   RESULT=a;   :}
@@ -147,6 +155,8 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | SSTART_WITH:a       {:   RESULT=a;   :}
                 | LLAMADA:a FINCADENA {:   RESULT=a;   :}
                 | SRETURN:a           {:   RESULT=a;   :}
+
+                | SAPPEND:a           {:   RESULT=a;   :}
 
                 | error FINCADENA
                 | error
@@ -232,6 +242,15 @@ LSTVALORES ::=    LSTVALORES:a COMA EXPRESION:b         {:      RESULT = a;
                                                         :}
 ;
 
+DECLARACIONLSTDIN ::= LIST MENOR TIPOS:a MAYOR ID:b IGUAL NEW LIST PAR1 PAR2 FINCADENA       {:     RESULT = new DeclaracionListaDinamica(b, a, aleft, aright);     :}
+;
+
+
+SAPPEND ::= ID:a PUNTO APPEND PAR1 EXPRESION:b PAR2 FINCADENA   {:    RESULT = new Append(a, b, aleft, aright);    :} 
+;
+
+SREMOVE ::= ID:a PUNTO REMOVE PAR1 EXPRESION:b PAR2   {:    RESULT = new Remove(a, b, aleft, aright);    :}
+;
 
 //INICIO METODOS Y FUNCIONES
 METODO ::= TIPOS:a ID:b PAR1 PARAMS:p PAR2 LLAVE1 INSTRUCCIONES:c LLAVE2 {:   RESULT=new Metodo(b, p, c, a, aleft, aright);   :}
@@ -299,7 +318,9 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | PAR1 TIPOS:a PAR2 EXPRESION:b             {:   RESULT = new Casteos(a, b, aleft, aright);   :}
         
             | PAR1 EXPRESION:a PAR2             {:   RESULT = a;   :}
-            | LLAMADA:a     {:   RESULT = a;   :}
+            | LLAMADA:a           {:   RESULT = a;   :}
+            | SREMOVE:a           {:   RESULT = a;   :}
+
             | ENTERO:a      {:   RESULT = new Nativo(Integer.parseInt(a), new Tipo(tipoDato.ENTERO), aleft, aright );   :}
             | DECIMAL:a     {:   RESULT = new Nativo(Double.parseDouble(a), new Tipo(tipoDato.DECIMAL), aleft, aright );   :}
             | CADENA:a      {:   RESULT = new Nativo(a, new Tipo(tipoDato.CADENA), aleft, aright );   :}

@@ -19,6 +19,7 @@ public class sym {
   public static final int TKAND = 36;
   public static final int IGUALACION = 28;
   public static final int TKNOT = 34;
+  public static final int REMOVE = 58;
   public static final int LLAVE2 = 12;
   public static final int LLAVE1 = 11;
   public static final int ENTERO = 3;
@@ -30,6 +31,7 @@ public class sym {
   public static final int MATCH = 47;
   public static final int FINCADENA = 8;
   public static final int MENORIGUAL = 30;
+  public static final int APPEND = 59;
   public static final int IGUAL = 7;
   public static final int CARACTER = 5;
   public static final int CORCHETE2 = 25;
@@ -43,6 +45,7 @@ public class sym {
   public static final int EOF = 0;
   public static final int DECIMAL = 4;
   public static final int RETURN = 55;
+  public static final int NEW = 57;
   public static final int error = 1;
   public static final int COMA = 23;
   public static final int CADENA = 2;
@@ -55,8 +58,10 @@ public class sym {
   public static final int MAYOR = 33;
   public static final int POTENCIA = 17;
   public static final int ELSE = 46;
+  public static final int PUNTO = 60;
   public static final int START_WITH = 54;
   public static final int WHILE = 48;
+  public static final int LIST = 56;
   public static final int FALSO = 27;
   public static final int TKCHAR = 40;
   public static final int VAR = 44;
@@ -120,7 +125,12 @@ public class sym {
   "BREAK",
   "CONTINUE",
   "START_WITH",
-  "RETURN"
+  "RETURN",
+  "LIST",
+  "NEW",
+  "REMOVE",
+  "APPEND",
+  "PUNTO"
   };
 }
 
