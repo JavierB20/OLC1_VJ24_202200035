@@ -68,7 +68,16 @@ public class tablaSimbolos {
                 return busqueda;
             }
         }
-        
         return null;
+    }
+    
+    public boolean getMutabilidad(String id) {
+        for (tablaSimbolos i = this; i != null; i = i.getTablaAnterior()) {
+            Simbolo busqueda = (Simbolo) i.tablaActual.get(id.toLowerCase());
+            if (busqueda != null) {
+                return busqueda.isMutabilidad();
+            }
+        }
+        return false;
     }
 }

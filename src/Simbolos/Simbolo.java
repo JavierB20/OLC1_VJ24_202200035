@@ -105,7 +105,27 @@ public class Simbolo {
         return valor;
     }
 
+    public boolean isMutabilidad() {
+        return mutabilidad;
+    }
+
+    public void setMutabilidad(boolean mutabilidad) {
+        this.mutabilidad = mutabilidad;
+    }
+
+    
+    
     public boolean setValor(Object valor) {
+        if (!mutabilidad) {
+            this.valor = valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean validarMutabilidadVec(String id) {
+        this.id = id;
         if (!mutabilidad) {
             this.valor = valor;
             return true;

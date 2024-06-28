@@ -28,7 +28,7 @@ import Instrucciones.StartWith;
 import Instrucciones.Llamada;
 import Instrucciones.Return;
 import Instrucciones.DeclaracionVec;
-
+import Instrucciones.AsignacionVec;
 
 
 //expresiones
@@ -41,8 +41,7 @@ import Expresiones.Logicos;
 import Expresiones.OperadoresLogicos;
 import Expresiones.Casteos;
 import Expresiones.AccesoVar;
-
-
+import Expresiones.AccesoVec;
 
 
 // parser
@@ -102,7 +101,7 @@ nonterminal LinkedList<HashMap> PARAMS;
 nonterminal Instruccion SSTART_WITH;
 nonterminal LinkedList<Instruccion> PARAMSCALL;
 nonterminal Instruccion LLAMADA, SRETURN;
-nonterminal Instruccion DECLARACIONVEC;
+nonterminal Instruccion DECLARACIONVEC, ASIGNACIONVEC;
 nonterminal LinkedList<Instruccion> LSTVALORES;
 
 precedence left TKOR;
@@ -130,6 +129,7 @@ INSTRUCCION ::= INSPRINTLN:a          {:   RESULT=a;   :}
                 | DECLARACION:a       {:   RESULT=a;   :}
                 | ASIGNACION:a        {:   RESULT=a;   :}
                 | DECLARACIONVEC:a    {:   RESULT=a;   :}
+                | ASIGNACIONVEC:a     {:   RESULT=a;   :}
 
                 | SIF:a               {:   RESULT=a;   :}
                 | SMATCH:a            {:   RESULT=a;   :}
@@ -217,13 +217,17 @@ DECLARACION ::=   MUTABILIDAD:d ID:b DOSPUNTOS TIPOS:a FINCADENA                
 ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
 ;
 
-DECLARACIONVEC ::= MUTABILIDAD:a ID:b DOSPUNTOS TIPOS:c CORCHETE1 CORCHETE2 IGUAL CORCHETE1 LSTVALORES:d CORCHETE2 FINCADENA {:   RESULT = new DeclaracionVec(a, b, 1, d, c, aleft, aright);    :}
+DECLARACIONVEC ::= MUTABILIDAD:a ID:b DOSPUNTOS TIPOS:c CORCHETE1 CORCHETE2 IGUAL CORCHETE1 LSTVALORES:d CORCHETE2 FINCADENA {:   RESULT = new DeclaracionVec(a, b, 1, d, c, aleft, aright);   System.out.println("PENE:" + d); :}
+;
+
+ASIGNACIONVEC ::= ID:a CORCHETE1 EXPRESION:b CORCHETE2 CORCHETE1 EXPRESION:c CORCHETE2 IGUAL EXPRESION:d FINCADENA {:  RESULT = new AsignacionVec(a, b, c, d, aleft, aright);  :}
+                | ID:a CORCHETE1 EXPRESION:b CORCHETE2 IGUAL EXPRESION:d FINCADENA                                 {:  RESULT = new AsignacionVec(a, b, d, aleft, aright);  :}
 ;
 
 LSTVALORES ::=    LSTVALORES:a COMA EXPRESION:b         {:      RESULT = a;
                                                                 RESULT.add(b);
                                                         :}
-                | EXPRESION:a                           {:      RESULT = new LinkedList<Instruccion>();
+                | EXPRESION:a                           {:      RESULT = new LinkedList<Instruccion>(); 
                                                                 RESULT.add(a);
                                                         :}
 ;
@@ -302,7 +306,10 @@ EXPRESION ::= MENOS EXPRESION:a                 {:   RESULT = new Aritmeticas(a,
             | CARACTER:a    {:   RESULT = new Nativo(a, new Tipo(tipoDato.CARACTER), aleft, aright );   :}
             | VERDAD:a      {:   RESULT = new Nativo(true, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
             | FALSO:a       {:   RESULT = new Nativo(false, new Tipo(tipoDato.BOOLEANO), aleft, aright );   :}
-            | ID:a          {:   RESULT = new AccesoVar(a, aleft, aright);   :}
+            
+            | ID:a CORCHETE1 EXPRESION:b CORCHETE2 CORCHETE1 EXPRESION:c CORCHETE2    {:   RESULT = new AccesoVec(a, b, c, aleft, aright);   :}
+            | ID:a CORCHETE1 EXPRESION:b CORCHETE2                                    {:   RESULT = new AccesoVec(a, b, aleft, aright);   :}
+            | ID:a                                                                    {:   RESULT = new AccesoVar(a, aleft, aright);   :}
 
 ;
 

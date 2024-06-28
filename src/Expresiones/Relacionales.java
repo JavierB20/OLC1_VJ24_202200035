@@ -220,7 +220,7 @@ public class Relacionales extends Instruccion {
             case tipoDato.CADENA -> {
                 switch (tipo2) {
                     case tipoDato.CADENA -> {
-                        return op1.toString().equals(op2.toString());
+                        return !(op1.toString().equals(op2.toString()));
                     }
                     default -> {
                         Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Diferencia erronea", this.linea, this.col));

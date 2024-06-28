@@ -12,6 +12,7 @@ import Simbolos.Arbol;
 import Simbolos.tablaSimbolos;
 import Excepciones.Errores;
 import Instrucciones.AsignacionVar;
+import Instrucciones.AsignacionVec;
 import Instrucciones.Declaracion;
 import Instrucciones.DeclaracionVec;
 import Instrucciones.Llamada;
@@ -67,7 +68,7 @@ public class patroninterprete {
                 }
 
                 //Añade declaraciones
-                if(a instanceof Declaracion || a instanceof AsignacionVar || a instanceof DeclaracionVec){
+                if(a instanceof Declaracion || a instanceof AsignacionVar || a instanceof DeclaracionVec || a instanceof AsignacionVec){
                     var res = a.interpretar(ast, tabla);
                     if (res instanceof Errores errores){
                         Variables.addToGlobalLinkedList(errores);
@@ -101,7 +102,7 @@ public class patroninterprete {
                             " Linea: " + i.getLinea() + 
                             " Columna: " + i.getColumna() + "\n");
                     
-                    Variables.addToGlobalLinkedList(i);
+                    //Variables.addToGlobalLinkedList(i);
                 }
             }
             
@@ -114,7 +115,7 @@ public class patroninterprete {
                             " Linea: " + i.getLinea() + 
                             " Columna: " + i.getColumna() + "\n");
                     
-                    Variables.addToGlobalLinkedList(i);
+                    //Variables.addToGlobalLinkedList(i);
                 }
             }
 
