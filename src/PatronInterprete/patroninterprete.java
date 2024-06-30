@@ -111,6 +111,24 @@ public class patroninterprete {
             }
             
 
+            //generar AST
+            String cadena = "digraph ast{\n";
+            cadena += "nINICIO[label=\"INICIO\"];\n";
+            cadena += "nINSTRUCCIONES[label=\"INSTRUCCIONES\"];\n";
+            cadena += "nINICIO -> nINSTRUCCIONES;\n";
+
+            for (var i : ast.getInstrucciones()) {
+                if (i == null) {
+                    continue;
+                }
+                String nodoAux = "n" + ast.getContador();
+                cadena += nodoAux + "[label=\"INSTRUCCION\"];\n";
+                cadena += "nINSTRUCCIONES -> " + nodoAux + ";\n";
+                cadena += i.generarast(ast, nodoAux);
+            }
+            
+            Variables.setStrAst(cadena);
+            
             //Impresion en consola nativa
             if(lista.size() > 0) {
                 for (var i : lista) {

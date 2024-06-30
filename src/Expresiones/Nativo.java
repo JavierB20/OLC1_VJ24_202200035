@@ -26,12 +26,16 @@ public class Nativo extends Instruccion{
 
     @Override
     public String generarast(Arbol arbol, String anterior) {
-        String nodoNativo = "n" + arbol.getContador();
-        String nodoValor = "n" + arbol.getContador();
-        String resultado = anterior + "->" + nodoNativo;
-        resultado = nodoNativo + "[label=\"NATIVO\"];\n" ;
-        resultado += nodoValor + "[label=\""+this.valor.toString()+"\"];\n";
-        resultado += nodoNativo + "->" + nodoValor;
+        String nodoNativo = "n" + arbol.getContador();//n1
+        String nodoValor = "n" + arbol.getContador();//n2
+
+        String resultado = anterior + " -> " + nodoNativo+";\n";
+
+        resultado += nodoNativo + "[label=\"NATIVO\"];\n";
+        resultado += nodoValor + "[label=\""
+                + this.valor.toString() + "\"];\n";
+
+        resultado += nodoNativo + " -> " + nodoValor+";\n";
         return resultado;
     }
 }

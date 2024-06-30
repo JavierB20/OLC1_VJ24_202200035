@@ -45,6 +45,7 @@ import Simbolos.Simbolo;
  */
 public class MainGUI extends javax.swing.JFrame {
     Variables vars = new Variables();
+    public String strAst;
 
     /**
      * Creates new form MainGUI
@@ -340,6 +341,13 @@ public class MainGUI extends javax.swing.JFrame {
         }
         else {
             JOptionPane.showMessageDialog(this, "No se ha analizado ningun archivo/ No se tienen simbolo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void generarAst() throws Exception{
+        String strAst = Variables.getStrAst();
+        if(strAst != null) {
+            JOptionPane.showMessageDialog(this, "Se ha generado el reporte AST", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     

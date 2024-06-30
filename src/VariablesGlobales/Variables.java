@@ -18,6 +18,15 @@ import Simbolos.tablaSimbolos;
 public class Variables {
     private static LinkedList<Errores> listaErrores = new LinkedList<>();
     private static LinkedList<Simbolo> listaSimbolo = new LinkedList<>();
+    private static String strAst;
+
+    public static String getStrAst() {
+        return strAst;
+    }
+
+    public static void setStrAst(String strAst) {
+        Variables.strAst = strAst;
+    }
 
     
     
